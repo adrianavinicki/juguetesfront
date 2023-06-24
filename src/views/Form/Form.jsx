@@ -6,7 +6,7 @@ const Form = ()=>{
         <>
         <VStack>
             <Flex justify="space-around" direction="column" align="center">
-                <Heading>Esta es la vista Form</Heading>
+                <Heading>Aca creas tu Juguete</Heading>
                 <hr />
                 <Link to={"/"}>
                     <Button colorScheme='teal' variant='solid'>Home</Button>
