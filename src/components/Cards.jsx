@@ -18,7 +18,7 @@ const Cards = (props) => {
                         {props.description}
                     </Text>
                     <Text color='blue.600' fontSize='2xl'>
-                        {props.price + "$"}
+                        {"$" + props.price}
                     </Text>
                     </Stack>
                 </CardBody>
