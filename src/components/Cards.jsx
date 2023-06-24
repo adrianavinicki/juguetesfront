@@ -28,7 +28,7 @@ const Cards = (props) => {
                     <Button variant='solid' colorScheme='blue'>
                         Add to Cart
                     </Button>
-                    <Link to={'/detail'}>
+                    <Link key={props.id} to={`/detail/${props.id}`}>
                     <Button variant='ghost' colorScheme='blue'>
                         Detail
                     </Button>

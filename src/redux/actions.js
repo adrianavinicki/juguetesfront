@@ -2,6 +2,9 @@ import axios from "axios";
 
 export const GET_PRODUCTS = "GET_PRODUCTS"
 export const GET_PRODUCT = "GET_PRODUCT"
+export const POST_PRODUCT = "POST_PRODUCT"
+export const FILTER_BY_AGE = "FILTER_BY_AGE"
+export const FILTER_BY_PRICE = "FILTER_BY_PRICE"
 
 
 export const getProducts = () => {
@@ -19,3 +22,24 @@ export const getProduct = (id) => {
         dispatch({ type: GET_PRODUCT, payload: product });
     };
 };
+
+export const postProduct = (payload) => {
+    return async function(dispatch){
+        const response = await axios.post("http://localhost:3010/products/create", payload);
+        return response;
+    };
+};
+
+export const filterByAge = (age) => {
+    return {
+        type: FILTER_BY_AGE,
+        payload: age,
+    }
+}
+
+export const filterByPrice = (price) => {
+    return {
+        type: FILTER_BY_PRICE,
+        payload: price,
+    }
+}
