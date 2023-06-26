@@ -1,4 +1,4 @@
-import {Button, Flex, Heading} from "@chakra-ui/react"
+import {Button, Flex, Heading, Image, Box, Center} from "@chakra-ui/react"
 import CardsContainer from "../../components/CardsContainer";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -15,20 +15,33 @@ const Home = ()=>{
     },[dispatch])
 
     return(
-        <>
-            <Flex justify="space-around">
-            <Link to={"/form"}>
-                <Button colorScheme='teal' variant='solid'>Create Toy</Button>
-            </Link>
-            </Flex>
+        <Box 
+        backgroundImage="url('/BG5.jpg')"
+        backgroundPosition="center"
+        backgroundRepeat="no-repeat"
+        backgroundSize="cover"
+        width="100vw"
+        //height="100vh"
+        >
+            <Box>
+                <Flex direction={"row"} align={'center'} justify={'space-evenly'}>
+                <Link to={"/form"}>
+                <Button  variant='solid'>Create Toy</Button>
+                </Link>
+                <Image src='LOGO PNG.png' boxSize={'200px'} alt='Wonder Toys' />
+                <Button  variant='solid'>Contact Us</Button>
+                </Flex>
+                <Box>
+                    <Flex direction={'column'}>
+                        <Image src='/BG4.png'  alt='School Bus' />
+                    </Flex>
+                </Box>
+            </Box>
+            <Box bg={'transparent'} w={'100vw'} h={'1000px'}>
+                <CardsContainer/>
+            </Box>
             
-            <hr />
-            <hr />
-            <Flex justify="space-around">
-            <Heading>Wonder Toys</Heading>
-            </Flex>
-            <CardsContainer/>
-        </>
+        </Box>
     )
 }
 
