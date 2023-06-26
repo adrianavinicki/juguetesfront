@@ -63,49 +63,60 @@ const CardsContainer = () => {
 
     return(
         <div>
-            <div>
-                {page > 1 && ( //lt = lower than
-                        <button  onClick={handleFirstPage} disabled={page === 1}>
-                            &lt;&lt; 1 
-                        </button>
-                    )}
-                <button onClick={handlePrevPage} disabled={page === 1}>
-                    Prev
-                </button>
-
-                {Array.from({ length: maxPage }, (_, index) => ( 
-                    <button key={index} onClick={() => goToPage(index + 1)} 
-                    className={page === index + 1 }>
-                        {index + 1}
-                    </button>
-                ))}
-
-                <button onClick={handleNextPage} disabled={page === maxPage}>
-                    Next
-                </button>
-                {page < maxPage && ( //gt = greater than
-                    <button onClick={handleLastPage} disabled={page === maxPage}>
-                        {maxPage} &gt;&gt;
-                    </button>
-                )}
-            </div>
-            
-            <FilterAndOrder setPage={setPage}/>
-
-            <div>
+            <Box marginTop={'100px'}>
                 <Flex>
-                    {displayedProducts.map(product=>{
-                        return <Cards
-                        key={product.id} 
-                        id={product.id}
-                        name={product.name}
-                        price={product.price}
-                        image={product.image}
-                        description={product.description}
-                />
-            })}
-                </Flex>
+                    <Box bg={'gray.400'} marginLeft={'30px'} rounded={'20px'} w={'200px'} h={'600px'}
+                    marginTop={'100px'}>
+                        <Flex direction={'column'} align={'center'} >
+                        <div>
+                            {page > 1 && ( //lt = lower than
+                                    <button  onClick={handleFirstPage} disabled={page === 1}>
+                                        &lt;&lt; 1 
+                                    </button>
+                                )}
+                            <button onClick={handlePrevPage} disabled={page === 1}>
+                                Prev
+                            </button>
+
+                            {Array.from({ length: maxPage }, (_, index) => ( 
+                                <button key={index} onClick={() => goToPage(index + 1)} 
+                                className={page === index + 1 }>
+                                    {index + 1}
+                                </button>
+                            ))}
+
+                            <button onClick={handleNextPage} disabled={page === maxPage}>
+                                Next
+                            </button>
+                            {page < maxPage && ( //gt = greater than
+                                <button onClick={handleLastPage} disabled={page === maxPage}>
+                                    {maxPage} &gt;&gt;
+                                </button>
+                            )}
+                        </div>
+                        <FilterAndOrder setPage={setPage}/>
+
+                        </Flex>
+                    </Box>
+            <div>
+                <Box bg={'red'} h={'600px'} w={'00px'} marginTop={'100px'}>
+                    <Flex>
+                        {displayedProducts.map(product=>{
+                            return <Cards
+                            key={product.id} 
+                            id={product.id}
+                            name={product.name}
+                            price={product.price}
+                            image={product.image}
+                            description={product.description}
+                    />
+                    })}
+                    </Flex>
+                </Box>
             </div>
+                </Flex>
+            </Box>
+           
             
         </div>
     )
