@@ -2,6 +2,7 @@ import { GET_PRODUCTS, GET_PRODUCT, POST_PRODUCT, FILTER_BY_AGE, FILTER_BY_PRICE
 
 const initialState = {
     products: [],
+    filteredByAge:[],
     filteredProducts: [],
     productDetail: [],
 };
@@ -22,8 +23,25 @@ const rootReducer = (state = initialState, action)=>{
             [...state.products].filter(a => a.minimun_age >= action.payload)
             return {
                 ...state,
-                filteredProducts
+                filteredProducts,
+                filteredByAge:filteredProducts
             }
+        case FILTER_BY_PRICE:
+      
+            const filtered = state.filteredByAge.length
+                ? state.filteredByAge.filter(el=>el.price <= action.payload)
+                : state.products.filter(el=>el.price <= action.payload)
+            
+            if(!filtered.length) {
+                alert('No hay productos con ese precio maximo');
+                return {...state}
+            } else {
+                return {
+                    ...state,
+                    filteredProducts:filtered
+                }                   
+            }
+            
         default:
             return { ...state };
     }
