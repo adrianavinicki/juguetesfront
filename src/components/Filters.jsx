@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts, filterByAge } from "../redux/actions";
+import { getProducts, filterByAge, filterByPrice } from "../redux/actions";
 
 const FilterAndOrder = ({ setPage }) => {
     const dispatch = useDispatch();
@@ -33,6 +33,17 @@ const FilterAndOrder = ({ setPage }) => {
         '12',
     ]
 
+    const [input, setInput] = useState('');
+
+    const inputHandler = (e) => {
+        const value = e.target.value;
+        setInput(value)
+    }
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        dispatch(filterByPrice(input));
+    };
 
     return (
         <div>
@@ -49,6 +60,11 @@ const FilterAndOrder = ({ setPage }) => {
                 dispatch(filterByAge('all'))
                 resetInput()
             }}>Reset</button>
+            <div>
+                <label>Max Price: </label>
+                <input type='number' name='input' value={`${input}`} onChange = {inputHandler}></input>
+                <button onClick={submitHandler}>go!</button>
+            </div>
         </div>
     )
 
