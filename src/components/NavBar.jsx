@@ -9,12 +9,11 @@ const NavBar = () => {
                 <Link to="/">
                     <Button colorScheme='facebook' variant='solid'>Home</Button>
                 </Link>
-                <Image src='LOGO PNG.png' boxSize={'200px'} alt='Wonder Toys' />
+                <Image src='/LOGO PNG.png' boxSize={'200px'} alt='Wonder Toys' />
                 <Link to="/form">
                     <Button colorScheme='facebook' variant='solid'>Create Toy</Button>
                 </Link>
             </Flex>
-            
         </div>
     )
 }
