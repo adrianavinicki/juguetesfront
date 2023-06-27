@@ -3,6 +3,7 @@ import { Flex, Box } from "@chakra-ui/react"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import FilterAndOrder from "./Filters"
+import SearchBar from "./SearchBar"
 
 
 const CardsContainer = () => {
@@ -95,6 +96,7 @@ const CardsContainer = () => {
                             )}
                         </div>
                         <FilterAndOrder setPage={setPage}/>
+                        <SearchBar />
 
                         </Flex>
                     </Box>

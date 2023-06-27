@@ -1,4 +1,4 @@
-import { GET_PRODUCTS, GET_PRODUCT, POST_PRODUCT, FILTER_BY_AGE, FILTER_BY_PRICE } from "./actions";
+import { GET_PRODUCTS, GET_PRODUCT, POST_PRODUCT, FILTER_BY_AGE, FILTER_BY_PRICE, GET_PRODUCTS_NAME } from "./actions";
 
 const initialState = {
     products: [],
@@ -17,6 +17,8 @@ const rootReducer = (state = initialState, action)=>{
             return{
                 ...state,
             }
+        case GET_PRODUCTS_NAME:
+            return { ...state, filteredProducts: action.payload };
         case FILTER_BY_AGE:
             const filteredProducts = action.payload === "all" ?
             [...state.products] : 
