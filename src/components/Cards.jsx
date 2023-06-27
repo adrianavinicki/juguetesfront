@@ -25,11 +25,11 @@ const Cards = (props) => {
             <Divider />
                 <CardFooter>
                     <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='blue'>
+                    <Button variant='solid' colorScheme='facebook'>
                         Add to Cart
                     </Button>
                     <Link key={props.id} to={`/detail/${props.id}`}>
-                    <Button variant='ghost' colorScheme='blue'>
+                    <Button variant='ghost' colorScheme='facebook'>
                         Detail
                     </Button>
                     </Link>

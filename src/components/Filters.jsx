@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getProducts, filterByAge, filterByPrice } from "../redux/actions";
+import { Box } from '@chakra-ui/react'
 
 const FilterAndOrder = ({ setPage }) => {
     const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const FilterAndOrder = ({ setPage }) => {
         '5',
         '6',
         '7',
-        8,
+        '8',
         '9',
         '10',
         '11',
@@ -47,6 +48,9 @@ const FilterAndOrder = ({ setPage }) => {
 
     return (
         <div>
+            <Box>
+                
+            </Box>
             <select onChange={handleAgeFilter}>
                 {ages.map((e) => (
                     <option key={e} value={e}>

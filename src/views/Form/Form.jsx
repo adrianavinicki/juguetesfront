@@ -17,6 +17,12 @@ import {
     RadioGroup,
     HStack,
     Radio,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
+
   } from '@chakra-ui/react'
 
 const Form = ()=>{
@@ -26,22 +32,35 @@ const Form = ()=>{
 
     const [form, setForm] = useState({ //creo un estado del form.
         name:"",
-        image:"",
-        brands:"",
+        brand:"",
         category:"",
-        minimumage:"",
+        minimun_age:"",
         description:"",
         quantity:"",
         price:"",
+        product_status: true,
     })
 
-    function handleChange (e) {
-        console.log('entre al handlechange' + e) //hago una funcion para cuando cambian los valores
-        setForm({
-            ...form,
-            [e.target.name] : e.target.value //agrega el value al estado del form
-        })
-    }
+    const [image, setImage] = useState(null);
+
+
+    // function handleChange (e) {
+    //     setForm({
+    //         ...form,
+    //         [e.target.name] : e.target.value //agrega el value al estado del form
+    //     })
+    // }
+    const handleChange = (event) => {
+        const {name, value} = event.target;
+        setForm(prevState => ({...prevState, [name]: value}));
+    };
+
+    const handleImageChange = event => {
+        const file = event.target.files[0];
+        setImage(file);
+    };
+
+
 
     function handleSelect (e) { //hago una funcion para cuando cambia el select
         setForm({
@@ -50,98 +69,167 @@ const Form = ()=>{
         })
     }
 
+    const handleNumbersChange = (value, name) => {
+        setForm(prevState => ({...prevState, [name]: value}));
+    };
+
+
 
 //con esta funcion le digo que si estan todos los datos, me haga el dispatch, pero sino no.
-    function handleSubmit(e) {
-        console.log('handlesubmit ok')
+    // function handleSubmit(e) {
+    //     console.log('handlesubmit ok')
+    //     try {
+    //         axios.post("http://localhost:3010/products/create", form);
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+        
+    // }
+    const categoriesData = [
+        "Peluches",
+        "Bloques de construcción",
+        "Muñecas",
+        "Vehículos",
+        "Puzzles",
+        "Ciencia",
+        "Imitación",
+        "Juegos de exterior",
+        "Juegos de mesa",
+        "Robótica",
+        "Juegos de imitación",
+        "Pistola",
+        "Arte y manualidades",
+        "Construction toys",
+        "Electronic toys",
+        "Vehicle Toys",
+        "Playsets",
+        "Kitchen Playsets",
+        "Deportes",
+        "Pista de carreras",
+        "Art and Craft Toys"
+      ];
+      
+    const brandsData = [
+        "Juguetelandia",
+        "LEGO",
+        'Mattel',
+        "ToyRUs",
+        "SportsWorld",
+        "Toyland",
+        "ScienceKids",
+        "Playtime"
+    ]
+    
+
+    const handleSubmit = event => {
+
+        event.preventDefault();
+
         try {
-            axios.post("http://localhost:3010/products/create", form);
+            if(!image) {
+                alert("por favor inserte una imagen");
+                return;
+            }
+            const postData = new FormData();
+            postData.append('name', form.name);
+            postData.append('brand', form.brand);
+            postData.append('category', form.category);
+            postData.append('minimun_age', form.minimun_age);
+            postData.append('description', form.description);
+            postData.append('quantity', form.quantity);
+            postData.append('price', form.price);
+            postData.append('product_status', form.product_status);
+            postData.append('image', image);
+           
+            
+            dispatch(postProduct(postData));
+            alert("toy created");
+
+            setImage(null);
+            setForm({    
+            name:"",
+            brand:"",
+            category:"",
+            minimun_age:"",
+            description:"",
+            quantity:"",
+            price:"",
+            product_status: true,})
+            
         } catch (error) {
             console.log(error)
         }
-        
-        
-        // if(form.name && form.image && form.brands && form.category && form.minimumage && form.description && form.quantity && form.price){
-        // dispatch(postProduct(form))
-        // alert("Toy Created")
-        // setForm({
-        //     name:"",
-        //     image:"",
-        //     brands:"",
-        //     category:"",
-        //     minimumage:"",
-        //     description:"",
-        //     quantity:"",
-        //     price:"",
-        // })
-    }
-    // useEffect(() => {
-    //     dispatch(getTypes());
-    // },[]);
+    };
 
     return(
         <Box
-        backgroundImage="url('/BG2.jpg')"
-        backgroundPosition="center"
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
-        width="100vw"
-        height="100vh"
-        >
+            backgroundImage="url('/BG2.jpg')"
+            backgroundPosition="center"
+            backgroundRepeat="no-repeat"
+            backgroundSize="cover"
+            width="100vw"
+            height="100vh"
+            >
         <VStack>
             <Flex direction="column" align={'center'}>
                 <NavBar />
-                <form onSubmit={(e)=>handleSubmit(e)}>
-                        <FormControl>
-                            <Flex direction={'column'} align={'center'} >
-                                <FormLabel color={'white'}>Name</FormLabel>
-                                    <Input type='text' value={form.name} name="name" bg={'white'} onChange={handleChange} />
-                                <FormHelperText color={'white'}>We'll never share your name.</FormHelperText>
-                                <FormLabel color={'white'}>Brands</FormLabel>
-                                    <Select bg={'white'} placeholder='Select Brand'>
-                                        <option>Juguetelandia</option>
-                                        <option>LEGO</option>
-                                        <option>Mattel</option>
-                                        <option>ToysRUs</option>
-                                        <option>SportsWorld</option>
-                                    </Select>
-                                <FormLabel color={'white'}>Category</FormLabel>
-                                    <Select bg={'white'} placeholder='Select Category'>
-                                        <option>Vehículos</option>
-                                        <option>Muñecas</option>
-                                        <option>Bloques de construcción</option>
-                                        <option>Peluches</option>
-                                        <option>Deportes</option>
-                                    </Select>
-                                <FormLabel color={'white'}>Minimum Age</FormLabel>
-                                    <RadioGroup color={'white'} defaultValue='Itachi'>
-                                        <HStack spacing='24px'>
-                                        <Radio value='+2'>+2</Radio>
-                                        <Radio value='+4'>+4</Radio>
-                                        <Radio value='+6'>+6</Radio>
-                                        <Radio value='+8'>+8</Radio>
-                                        <Radio value='+10'>+10</Radio>
-                                        <Radio value='+12'>+12</Radio>
-                                        </HStack>
-                                    </RadioGroup>
-                                <FormLabel color={'white'}>Description</FormLabel>
-                                    <Input type='text' value={form.description} name="description" bg={'white'} onChange={(e)=>handleChange(e)} />
-                                <FormLabel color={'white'}>Quantity</FormLabel>
-                                    <Input type='text' value={form.quantity} name="quantity" bg={'white'} onChange={(e)=>handleChange(e)} />
-                                <FormLabel color={'white'}>Price</FormLabel>
-                                    <Input type='text' value={form.price} name="price" bg={'white'} onChange={(e)=>handleChange(e)} />
-                                <FormLabel color={'white'}>Image</FormLabel>
-                                <Input type='file' border={'black'} />
-                                <Button type="submit" >Create Toy</Button>
-                            </Flex>
-                        </FormControl>
+                <form onSubmit={handleSubmit}>
+                <FormControl>
+                    <Flex direction={'column'} align={'center'}>
+                    <FormLabel  color={'white'}>Name</FormLabel>
+                    <Input type='text' name="name" value={form.name} bg={'white'} onChange={handleChange}/>
+                <FormLabel color={'white'}>Brands</FormLabel>
+                <Select placeholder='Select Brand' name="brand" value={form.brand} bg={'white'} onChange={handleChange}>
+                    {brandsData.map((b) => (
+                            <option value={b}>{b}</option>
+                        ))}
+                </Select>
+                <FormLabel color={'white'}>Category</FormLabel>
+                <Select placeholder='Select Category' name="category" value={form.category} bg={'white'} onChange={handleChange}>
+                    {categoriesData.map((c) => (
+                        <option value={c}>{c}</option>
+                    ))}
+                </Select>
+                <FormLabel color={'white'}>Minimum Age</FormLabel>
+                <NumberInput max={15} min={0} name="minimun_age" value={form.minimun_age} bg={'white'} w={'350px'} onChange={value => handleNumbersChange(value, "minimun_age")}>
+                    <NumberInputField />
+                    <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                    </NumberInputStepper>
+                </NumberInput>
+                <FormLabel color={'white'}>Description</FormLabel>
+                    <Input type='text' name="description" value={form.description} bg={'white'} onChange={handleChange}/>
+                <FormLabel color={'white'}>Quantity</FormLabel>
+                <NumberInput max={10000} min={0} name="quantity" value={form.quantity} bg={'white'} w={'350px'} onChange={value => handleNumbersChange(value, "quantity")}>
+                    <NumberInputField />
+                    <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                    </NumberInputStepper>
+                </NumberInput>
+                <FormLabel color={'white'}>Price</FormLabel>
+                <NumberInput max={10000} min={0} name="price" value={form.price} bg={'white'} w={'350px'} onChange={value => handleNumbersChange(value, "price")}>
+                    <NumberInputField />
+                    <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                    </NumberInputStepper>
+                </NumberInput>
+                <FormLabel color={'white'}>Image</FormLabel>
+                    <Input type="file" id="imagen" name="imagen" w={'350px'} onChange={handleImageChange}/>
+                    {/* {image && <img src={URL.createObjectURL(image)} alt="alt"/>} */}
+                    <br />
+                    <Button type="submit" >Create Toy</Button>
+
+                    </Flex>
+                </FormControl>
                 </form>
             </Flex>
         </VStack>
-        
-            
         </Box>
     )
+
 }
 
 
