@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProduct } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import NavBar from "../../components/NavBar";
+
 
 const Detail = ()=>{
 
@@ -28,19 +30,44 @@ const Detail = ()=>{
         height="100vh"
         >
             <Flex justify="space-around" direction="column" align="center">
-                <Image src='BG4.png' alt='Wonder Toys Detail' />
-                <Link to={"/"}>
-                    <Button colorScheme='teal' variant='solid'>Home</Button>
-                </Link>
+                <NavBar />
                 <div>
                     {productDetail ? (
                         <div>
-                            <Card
-                direction={{ base: 'column', sm: 'row' }}
-                overflow='hidden'
-                variant='outline'
-                bg={"transparent"}
-                w={'800px'}
+                            <Box  w={'1000px'} h={'600px'}>
+                                <Flex>
+                                    <Box>
+                                        <Flex direction={'column'}>
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <Heading color={'white'} fontSize={'50px'} size='md'>{productDetail.name}</Heading>
+                                            <Text color={'white'} fontSize={'35px'} py='5' fontWeight={'600'}>Price: ${productDetail.price}</Text>
+                                            <Text color={'white'} fontSize={'25px'} py='2' fontWeight={'600'}>{productDetail.description}</Text>
+                                            <Text color={'white'} fontSize={'25px'} py='2' fontWeight={'600'}>Category: {productDetail.category}</Text>
+                                            <Text color={'white'} fontSize={'25px'} py='2' fontWeight={'600'}>Minimum Age: {productDetail.minimun_age}</Text>
+                                            <Text color={'white'} fontSize={'25px'} py='2' fontWeight={'600'}>Brand: {productDetail.brand}</Text>
+                                            <Text color={'white'} fontSize={'25px'} py='2' fontWeight={'600'}>Quantity: {productDetail.quantity}</Text>
+                                            <Button variant='solid' colorScheme='facebook' w={'500px'}>
+                                                Add To Cart: {productDetail.name}
+                                            </Button>
+                                        </Flex>
+                                    </Box>
+                                    <Box>   
+                                    <Image
+                                        boxSize='500px'
+                                        objectFit={'contain'}
+                                        src={productDetail.image} 
+                                        alt={productDetail.name}
+                                    />
+                                    </Box>
+                                </Flex>
+                            </Box>
+                            {/* <Card
+                            direction={{ base: 'column', sm: 'row-reverse' }}
+                            overflow='hidden'
+                            bg={"transparent"}
+                            w={'900px'}
                 >
                 <Image
                     objectFit='cover'
@@ -49,17 +76,17 @@ const Detail = ()=>{
                     alt={productDetail.name}
                 />
 
-                <Stack>
+                <Stack >
                     <CardBody>
                     <Heading color={'white'} size='md'>{productDetail.name}</Heading>
 
-                    <Text color={'white'} py='2'>
-                        {productDetail.description}
-                        <h2>{productDetail.brand}</h2>
-                        <h2>{productDetail.category}</h2>
-                        <h2>{productDetail.minimun_age}</h2>
-                        <h2>{productDetail.quantity}</h2>
-                        <h2>{productDetail.price}</h2>
+                    <Text color={'white'} fontSize={'15px'} py='2'>
+                        <h1>Description: {productDetail.description}</h1>
+                        <p>Brand: {productDetail.brand}</p>
+                        <h2>Category: {productDetail.category}</h2>
+                        <h2>Minimum Age: {productDetail.minimun_age}</h2>
+                        <h2>Quantity: {productDetail.quantity}</h2>
+                        <h2>Price: ${productDetail.price}</h2>
                     </Text>
                     </CardBody>
                     <CardFooter>
@@ -68,7 +95,7 @@ const Detail = ()=>{
                     </Button>
                     </CardFooter>
                 </Stack>
-            </Card>
+            </Card> */}
                         </div>
                     ):('')}
                 </div>

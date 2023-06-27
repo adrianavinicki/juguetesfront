@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getProducts } from "../../redux/actions";
+import NavBar from "../../components/NavBar";
 
 
 const Home = ()=>{
@@ -25,11 +26,7 @@ const Home = ()=>{
         >
             <Box>
                 <Flex direction={"row"} align={'center'} justify={'space-evenly'}>
-                <Link to={"/form"}>
-                <Button  variant='solid'>Create Toy</Button>
-                </Link>
-                <Image src='LOGO PNG.png' boxSize={'200px'} alt='Wonder Toys' />
-                <Button  variant='solid'>Contact Us</Button>
+                <NavBar />
                 </Flex>
                 <Box>
                     <Flex direction={'column'}>

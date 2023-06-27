@@ -1,6 +1,7 @@
 import Home from "./views/Home/Home";
 import Detail from "./views/Detail/Detail"
 import Form from "./views/Form/Form";
+import NavBar from "./components/NavBar";
 import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-dom";
 
 
