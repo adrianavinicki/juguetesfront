@@ -1,4 +1,4 @@
-import { Input, InputGroup, InputLeftElement, Flex } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement, Flex, Button } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { useDispatch } from 'react-redux';
 import { getProductsName } from '../redux/actions';
@@ -21,8 +21,8 @@ const SearchBar = () => {
   return (
     <InputGroup>
       <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.300" />} />
-      <Input type="text" placeholder="Buscar..." value={searchNames} onChange={handleInputChange} />
-      <button onClick={handleSearch}>Search</button>
+      <Input type="text" placeholder="Search..." value={searchNames} bg={'white'} onChange={handleInputChange} />
+      <Button onClick={handleSearch}>Search</Button>
     </InputGroup>
   );
 };

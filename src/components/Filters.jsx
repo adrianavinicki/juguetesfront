@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getProducts, filterByAge, filterByPrice } from "../redux/actions";
-import { Box } from '@chakra-ui/react'
+import { Box, Flex, Button, FormLabel, Select, Input } from '@chakra-ui/react'
+import SearchBar from "./SearchBar";
 
 const FilterAndOrder = ({ setPage }) => {
     const dispatch = useDispatch();
@@ -19,19 +20,17 @@ const FilterAndOrder = ({ setPage }) => {
 
     const ages = [
         'all',
-        '0',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12',
+        '+2',
+        '+3',
+        '+4',
+        '+5',
+        '+6',
+        '+7',
+        '+8',
+        '+9',
+        '+10',
+        '+11',
+        '+12',
     ]
 
     const [input, setInput] = useState('');
@@ -49,26 +48,32 @@ const FilterAndOrder = ({ setPage }) => {
     return (
         <div>
             <Box>
-                
-            </Box>
-            <select onChange={handleAgeFilter}>
+                <br />
+                <Flex direction={'column'}>
+                <Button onClick={()=>{
+                    setPage(1)
+                    dispatch(getProducts())
+                    dispatch(filterByAge('all'))
+                    resetInput()
+                }}>Reset All</Button>
+                <br />
+                <SearchBar />
+                <br />
+                <FormLabel>Filter Age</FormLabel>
+                <Select  onChange={handleAgeFilter} bg='white'>
                 {ages.map((e) => (
                     <option key={e} value={e}>
                         {e}
                     </option>
                 ))}
-            </select>
-            <button onClick={()=>{
-                setPage(1)
-                dispatch(getProducts())
-                dispatch(filterByAge('all'))
-                resetInput()
-            }}>Reset</button>
-            <div>
-                <label>Max Price: </label>
-                <input type='number' name='input' value={`${input}`} onChange = {inputHandler}></input>
-                <button onClick={submitHandler}>go!</button>
-            </div>
+                 </Select>
+                <div>
+                    <FormLabel>Max Price: </FormLabel>
+                    <Input type='number' name='input' value={`${input}`} onChange = {inputHandler} w={'110px'} bg='white'></Input>
+                    <Button onClick={submitHandler}>Search</Button>
+                </div>
+                </Flex>
+            </Box>
         </div>
     )
 
