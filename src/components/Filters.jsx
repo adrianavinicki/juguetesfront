@@ -31,7 +31,42 @@ const FilterAndOrder = ({ setPage }) => {
         '+10',
         '+11',
         '+12',
-    ]
+    ];
+    const categoriesData = [
+        "All",
+        "Peluches",
+        "Bloques de construcción",
+        "Muñecas",
+        "Vehículos",
+        "Puzzles",
+        "Ciencia",
+        "Imitación",
+        "Juegos de exterior",
+        "Juegos de mesa",
+        "Robótica",
+        "Juegos de imitación",
+        "Pistola",
+        "Arte y manualidades",
+        "Construction toys",
+        "Electronic toys",
+        "Vehicle Toys",
+        "Playsets",
+        "Kitchen Playsets",
+        "Deportes",
+        "Pista de carreras",
+        "Art and Craft Toys"
+    ];
+    const brandsData = [
+        "All",
+        "Juguetelandia",
+        "LEGO",
+        'Mattel',
+        "ToyRUs",
+        "SportsWorld",
+        "Toyland",
+        "ScienceKids",
+        "Playtime"
+    ];
 
     const [input, setInput] = useState('');
 
@@ -62,6 +97,24 @@ const FilterAndOrder = ({ setPage }) => {
                 <FormLabel>Filter Age</FormLabel>
                 <Select  onChange={handleAgeFilter} bg='white'>
                 {ages.map((e) => (
+                    <option key={e} value={e}>
+                        {e}
+                    </option>
+                ))}
+                 </Select>
+
+                 <FormLabel>Filter Categories</FormLabel>
+                <Select  onChange={handleAgeFilter} bg='white'>
+                {categoriesData.map((e) => (
+                    <option key={e} value={e}>
+                        {e}
+                    </option>
+                ))}
+                 </Select>
+
+                 <FormLabel>Filter Brands</FormLabel>
+                <Select  onChange={handleAgeFilter} bg='white'>
+                {brandsData.map((e) => (
                     <option key={e} value={e}>
                         {e}
                     </option>
