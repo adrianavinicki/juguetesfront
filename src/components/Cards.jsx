@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 const Cards = (props) => {
     return(
         <div>
-            <Card maxW='sm'>
+            <Card maxW='sm' h={'520px'} margin={'8px'}>
                 <CardBody>
                     <Image
                     src={props.image}
