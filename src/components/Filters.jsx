@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts, filterByAge, filterByPrice } from "../redux/actions";
+import { getProducts, filterByAge, filterByPrice, filterByCategory, filterByBrand, orderByPrice } from "../redux/actions";
 import { Box, Flex, Button, FormLabel, Select, Input } from '@chakra-ui/react'
 import SearchBar from "./SearchBar";
 
@@ -13,13 +13,30 @@ const FilterAndOrder = ({ setPage }) => {
         setPage(1);
     };
 
+    const handleCategoryFilter = (e) => {
+        const category = e.target.value;
+        dispatch(filterByCategory(category));
+        setPage(1);
+    };
+
+    const handleBrandFilter = (e) => {
+        const brand = e.target.value;
+        dispatch(filterByBrand(brand));
+        setPage(1);
+    };
+
+    const clickHandlerPrice = (e) => {
+        const method = e.target.value
+        dispatch(orderByPrice(method))
+    };
+
     const resetInput = () => {
         const selects = document.querySelectorAll(".resetSelect");
             selects.forEach((select) => (select.selectedIndex = 0));
     }
 
     const ages = [
-        'all',
+        'All',
         '+2',
         '+3',
         '+4',
@@ -60,12 +77,24 @@ const FilterAndOrder = ({ setPage }) => {
         "All",
         "Juguetelandia",
         "LEGO",
-        'Mattel',
-        "ToyRUs",
+        "Mattel",
+        "ToysRUs",
         "SportsWorld",
         "Toyland",
         "ScienceKids",
-        "Playtime"
+        "Playtime",
+        "Berjuan",
+        "Nerf",
+        "Hasbro",
+        "Makeblock",
+        "Barbie",
+        "Meccano",
+        "ToyZone",
+        "Puzzlemaster",
+        "Juguetitos",
+        "VTech",
+        "Melissa & Doug",
+        "Hot Wheels",
     ];
 
     const [input, setInput] = useState('');
@@ -104,7 +133,7 @@ const FilterAndOrder = ({ setPage }) => {
                  </Select>
 
                  <FormLabel>Filter Categories</FormLabel>
-                <Select  onChange={handleAgeFilter} bg='white'>
+                <Select  onChange={handleCategoryFilter} bg='white'>
                 {categoriesData.map((e) => (
                     <option key={e} value={e}>
                         {e}
@@ -113,7 +142,7 @@ const FilterAndOrder = ({ setPage }) => {
                  </Select>
 
                  <FormLabel>Filter Brands</FormLabel>
-                <Select  onChange={handleAgeFilter} bg='white'>
+                <Select  onChange={handleBrandFilter} bg='white'>
                 {brandsData.map((e) => (
                     <option key={e} value={e}>
                         {e}
@@ -125,6 +154,8 @@ const FilterAndOrder = ({ setPage }) => {
                     <Input type='number' name='input' value={`${input}`} onChange = {inputHandler} w={'110px'} bg='white'></Input>
                     <Button onClick={submitHandler}>Search</Button>
                 </div>
+                    <Button value='Asc' onClick={clickHandlerPrice}>Higher</Button>
+                    <Button value='Desc' onClick={clickHandlerPrice}>Lower</Button>
                 </Flex>
             </Box>
         </div>

@@ -6,6 +6,9 @@ export const POST_PRODUCT = "POST_PRODUCT"
 export const FILTER_BY_AGE = "FILTER_BY_AGE"
 export const FILTER_BY_PRICE = "FILTER_BY_PRICE"
 export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME"
+export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
+export const FILTER_BY_BRAND = "FILTER_BY_BRAND"
+export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
 
 
 export const getProducts = () => {
@@ -52,3 +55,25 @@ export const filterByPrice = (price) => {
         payload: price,
     }
 }
+
+export const filterByCategory = (category) => {
+    return {
+        type: FILTER_BY_CATEGORY,
+        payload: category
+    };
+};
+
+export const filterByBrand = (brand) => {
+    return {
+        type: FILTER_BY_BRAND,
+        payload: brand
+    };
+};
+
+export const orderByPrice = (method) => {
+    return {
+        type: ORDER_BY_PRICE,
+        payload: method
+    };
+};
+
