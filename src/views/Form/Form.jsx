@@ -110,15 +110,27 @@ const Form = ()=>{
       ];
       
     const brandsData = [
-        "Juguetelandia",
-        "LEGO",
-        'Mattel',
-        "ToyRUs",
-        "SportsWorld",
-        "Toyland",
-        "ScienceKids",
-        "Playtime"
-    ]
+      "Juguetelandia",
+      "LEGO",
+      "Mattel",
+      "ToysRUs",
+      "SportsWorld",
+      "Toyland",
+      "ScienceKids",
+      "Playtime",
+      "Berjuan",
+      "Nerf",
+      "Hasbro",
+      "Makeblock",
+      "Barbie",
+      "Meccano",
+      "ToyZone",
+      "Puzzlemaster",
+      "Juguetitos",
+      "VTech",
+      "Melissa & Doug",
+      "Hot Wheels",
+    ];
     
 
     const handleSubmit = event => {
