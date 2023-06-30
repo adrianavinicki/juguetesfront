@@ -9,7 +9,7 @@ export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME"
 export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
 export const FILTER_BY_BRAND = "FILTER_BY_BRAND"
 export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
-
+export const ADD_TO_CART = "ADD_TO_CART"
 
 export const getProducts = () => {
     return async function(dispatch){
@@ -76,4 +76,11 @@ export const orderByPrice = (method) => {
         payload: method
     };
 };
+
+export const addProductToCart = (cart) => {
+    return {
+        type: ADD_TO_CART,
+        payload: cart
+    }
+}
 

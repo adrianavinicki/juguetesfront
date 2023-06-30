@@ -7,7 +7,8 @@ import {
   GET_PRODUCTS_NAME,
   FILTER_BY_CATEGORY,
   FILTER_BY_BRAND,
-  ORDER_BY_PRICE
+  ORDER_BY_PRICE,
+  ADD_TO_CART
 } from "./actions";
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
   //filteredByAge: [],
   filteredProducts: [],
   productDetail: [],
+  cartItems: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -101,7 +103,29 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 filteredProducts: orderPrice
             }
-        }
+        };
+
+    case ADD_TO_CART:
+
+      const existingItemIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItemIndex !== -1) {
+        // If the item already exists in the cart, update its quantity, revisar lo de abajo
+        const updatedCartItems = [...state.cartItems];
+        updatedCartItems[existingItemIndex].quantity++;
+        
+        return {
+          ...state,
+          cartItems: updatedCartItems,
+        };
+      }else {
+        // If the item doesn't exist in the cart, add it with a quantity of 1
+        return {
+          ...state,
+          cartItems: [...state.cartItems, { ...action.payload, quantity: 1 }],
+        };
+      }
     default:
       return { ...state };
   }
