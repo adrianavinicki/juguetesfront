@@ -1,29 +1,40 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts, filterByAge, filterByPrice, filterByCategory, filterByBrand, orderByPrice } from "../redux/actions";
+import { getProducts, filterByAge, filterByPrice, filterByCategory, filterByBrand, orderByPrice, getProductsFiltered } from "../redux/actions";
 import { Box, Flex, Button, FormLabel, Select, Input } from '@chakra-ui/react'
 import SearchBar from "./SearchBar";
 
 const FilterAndOrder = ({ setPage }) => {
     const dispatch = useDispatch();
 
-    const handleAgeFilter = (e) => {
-        const selectedAge = e.target.value;
-        dispatch(filterByAge(selectedAge));
-        setPage(1);
-    };
+    // const [filteredObject, setFilteredObject] = useState({});
 
-    const handleCategoryFilter = (e) => {
-        const category = e.target.value;
-        dispatch(filterByCategory(category));
-        setPage(1);
-    };
+    // const filtersHandler = (e) => {
+    //     const name = e.target.name;
+    //     const value = e.target.value;
+    //     setFilteredObject({...filteredObject, [name]:value})
 
-    const handleBrandFilter = (e) => {
-        const brand = e.target.value;
-        dispatch(filterByBrand(brand));
-        setPage(1);
-    };
+    //     const prueba = {...filteredObject, [name]:value}
+    //     dispatch(combinedFilters(prueba))
+    // }
+
+    // const handleAgeFilter = (e) => {
+    //     const selectedAge = e.target.value;
+    //     dispatch(filterByAge(selectedAge));
+    //     setPage(1);
+    // };
+
+    // const handleCategoryFilter = (e) => {
+    //     const category = e.target.value;
+    //     dispatch(filterByCategory(category));
+    //     setPage(1);
+    // };
+
+    // const handleBrandFilter = (e) => {
+    //     const brand = e.target.value;
+    //     dispatch(filterByBrand(brand));
+    //     setPage(1);
+    // };
 
     const clickHandlerPrice = (e) => {
         const method = e.target.value
@@ -31,23 +42,31 @@ const FilterAndOrder = ({ setPage }) => {
     };
 
     const resetInput = () => {
-        const selects = document.querySelectorAll(".resetSelect");
-            selects.forEach((select) => (select.selectedIndex = 0));
+        //  const selects = document.querySelectorAll(".resetSelect");
+        //      selects.forEach((select) => (select.selectedIndex = 0 ));
+        var dropDown = document.getElementById("ageSelect");
+        var dropDown2 = document.getElementById("brandSelect");
+        var dropDown3 = document.getElementById("categorySelect");
+        dropDown.selectedIndex = "All";
+        dropDown2.selectedIndex = "All";
+        dropDown3.selectedIndex = "All";
+
     }
+
 
     const ages = [
         'All',
-        '+2',
-        '+3',
-        '+4',
-        '+5',
-        '+6',
-        '+7',
-        '+8',
-        '+9',
-        '+10',
-        '+11',
-        '+12',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '10',
+        '11',
+        '12',
     ];
     const categoriesData = [
         "All",
@@ -99,15 +118,19 @@ const FilterAndOrder = ({ setPage }) => {
 
     const [input, setInput] = useState('');
 
+
     const inputHandler = (e) => {
         const value = e.target.value;
         setInput(value)
     }
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-        dispatch(filterByPrice(input));
-    };
+
+    const handleFilters = (e) => {
+            const name = e.target.name
+            const value = e.target.value
+            dispatch(getProductsFiltered(name, value));
+            setInput('')
+        };
 
     return (
         <div>
@@ -124,7 +147,7 @@ const FilterAndOrder = ({ setPage }) => {
                 <SearchBar />
                 <br />
                 <FormLabel>Filter Age</FormLabel>
-                <Select  onChange={handleAgeFilter} bg='white'>
+                <Select id="ageSelect" onChange={handleFilters} bg='white' name="minimun_age">
                 {ages.map((e) => (
                     <option key={e} value={e}>
                         {e}
@@ -133,7 +156,7 @@ const FilterAndOrder = ({ setPage }) => {
                  </Select>
 
                  <FormLabel>Filter Categories</FormLabel>
-                <Select  onChange={handleCategoryFilter} bg='white'>
+                <Select id="categorySelect" onChange={handleFilters} bg='white' name="category">
                 {categoriesData.map((e) => (
                     <option key={e} value={e}>
                         {e}
@@ -142,7 +165,7 @@ const FilterAndOrder = ({ setPage }) => {
                  </Select>
 
                  <FormLabel>Filter Brands</FormLabel>
-                <Select  onChange={handleBrandFilter} bg='white'>
+                <Select id="brandSelect" onChange={handleFilters} bg='white' name="brand" >
                 {brandsData.map((e) => (
                     <option key={e} value={e}>
                         {e}
@@ -151,8 +174,8 @@ const FilterAndOrder = ({ setPage }) => {
                  </Select>
                 <div>
                     <FormLabel>Max Price: </FormLabel>
-                    <Input type='number' name='input' value={`${input}`} onChange = {inputHandler} w={'110px'} bg='white'></Input>
-                    <Button onClick={submitHandler}>Search</Button>
+                    <Input type='number' name='price' value={`${input}`} onChange = {inputHandler} w={'110px'} bg='white'></Input>
+                    <Button onClick={handleFilters} value={`${input}`} name='price'>Search</Button>
                 </div>
                     <Button value='Asc' onClick={clickHandlerPrice}>Higher</Button>
                     <Button value='Desc' onClick={clickHandlerPrice}>Lower</Button>

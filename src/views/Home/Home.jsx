@@ -7,6 +7,7 @@ import { getProducts } from "../../redux/actions";
 import NavBar from "../../components/NavBar";
 
 
+
 const Home = ()=>{
 
     const dispatch = useDispatch();

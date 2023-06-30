@@ -9,6 +9,8 @@ export const GET_PRODUCTS_NAME = "GET_PRODUCTS_NAME"
 export const FILTER_BY_CATEGORY = "FILTER_BY_CATEGORY"
 export const FILTER_BY_BRAND = "FILTER_BY_BRAND"
 export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
+export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED"
+export const COMBINED_FILTERS = "COMBINED_FILTERS"
 
 
 export const getProducts = () => {
@@ -33,7 +35,16 @@ export const getProductsName = (names) => {
       const filteredProducts = dbData.data;
       dispatch({ type: GET_PRODUCTS_NAME, payload: filteredProducts });
     };
-  };
+};
+
+// export const combinedFilters = (payload) => {
+//     console.log(payload);
+//     return async function (dispatch) {
+//         const dbData = await axios.get(`http://localhost:3010/products/?${payload}`);
+//         const response = dbData.data;
+//         dispatch({ type: COMBINED_FILTERS, payload: response });
+//     }
+// }
 
 export const postProduct = (payload) => {
     return async function(dispatch){
@@ -41,6 +52,14 @@ export const postProduct = (payload) => {
         return response;
     };
 };
+
+export const getProductsFiltered = (name, value) => {
+    return async function(dispatch){
+        const response = await axios.get(`http://localhost:3010/products/?${name}=${value}`);
+        const responseData = response.data;
+        dispatch({ type: GET_PRODUCTS_FILTERED, payload : responseData})
+    }
+}
 
 export const filterByAge = (age) => {
     return {
