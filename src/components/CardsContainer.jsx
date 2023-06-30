@@ -1,5 +1,5 @@
 import Cards from "./Cards"
-import { Flex, Box, Button } from "@chakra-ui/react"
+import { Flex, Box, Button, Image } from "@chakra-ui/react"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import FilterAndOrder from "./Filters"
@@ -62,69 +62,103 @@ const CardsContainer = () => {
         setPage(pageNumber);
     };
 
-    return(
+    return (
+      <div>
+
         <div>
-            <Box marginTop={'100px'}>
-                <Flex direction={'column'}>
-                    <Box >
-                        <Flex direction={'row'} justify={'center'}> 
-                        {page > 1 && ( //lt = lower than
-                                    <Button  onClick={handleFirstPage} disabled={page === 1} boxSize={'40px'} colorScheme='facebook'>
-                                        &lt;&lt; 1 
-                                    </Button>
-                                )}
-                            <Button onClick={handlePrevPage} disabled={page === 1} boxSize={'40px'} colorScheme='facebook'>
-                                Prev
-                            </Button>
-
-                            {Array.from({ length: maxPage }, (_, index) => ( 
-                                <Button key={index} onClick={() => goToPage(index + 1)} 
-                                className={page === index + 1 } boxSize={'40px'} colorScheme='facebook'>
-                                    {index + 1}
-                                </Button>
-                            ))}
-
-                            <Button onClick={handleNextPage} disabled={page === maxPage} boxSize={'40px'} colorScheme='facebook'>
-                                Next
-                            </Button>
-                            {page < maxPage && ( //gt = greater than
-                                <Button onClick={handleLastPage} disabled={page === maxPage} boxSize={'40px'} colorScheme='facebook'>
-                                    {maxPage} &gt;&gt;
-                                </Button>
-                            )}
-                        </Flex>
-                    </Box>
-                    <Box marginTop={'30px'}>
-                        <Flex>
-                        <Box bg={'gray.400'} marginLeft={'60px'} rounded={'20px'} w={'200px'} h={'530px'}>
-                        <Flex direction={'column'} align={'center'} >
-                        <FilterAndOrder setPage={setPage}/>
-                        </Flex>
-                    </Box>
-                    <div>
-                        <Box h={'600px'} w={'00px'} marginLeft={'60px'}>
-                            <Flex>
-                                {displayedProducts.map(product=>{
-                                    return <Cards
-                                    key={product.id} 
-                                    id={product.id}
-                                    name={product.name}
-                                    price={product.price}
-                                    image={product.image}
-                                    description={product.description}
-                            />
-                            })}
-                            </Flex>
-                        </Box>
-                    </div>
-                        </Flex>
-                    </Box>
-                </Flex>
-            </Box>
-           
+        <Box marginTop={"100px"}>
+          <Flex direction={"column"}>
             
+            <Box>
+              <Flex direction={"row"} justify={"center"}>
+                {page > 1 && ( //lt = lower than
+                  <Button
+                    onClick={handleFirstPage}
+                    disabled={page === 1}
+                    boxSize={"40px"}
+                    colorScheme="facebook"
+                  >
+                    &lt;&lt; 1
+                  </Button>
+                )}
+                <Button
+                  onClick={handlePrevPage}
+                  disabled={page === 1}
+                  boxSize={"40px"}
+                  colorScheme="facebook"
+                >
+                  Prev
+                </Button>
+                {Array.from({ length: maxPage }, (_, index) => (
+                  <Button
+                    key={index}
+                    onClick={() => goToPage(index + 1)}
+                    className={page === index + 1}
+                    boxSize={"40px"}
+                    colorScheme="facebook"
+                  >
+                    {index + 1}
+                  </Button>
+                ))}
+
+                <Button
+                  onClick={handleNextPage}
+                  disabled={page === maxPage}
+                  boxSize={"40px"}
+                  colorScheme="facebook"
+                >
+                  Next
+                </Button>
+                {page < maxPage && ( //gt = greater than
+                  <Button
+                    onClick={handleLastPage}
+                    disabled={page === maxPage}
+                    boxSize={"40px"}
+                    colorScheme="facebook"
+                  >
+                    {maxPage} &gt;&gt;
+                  </Button>
+                )}
+              </Flex>
+            </Box>
+            <Box marginTop={"30px"}>
+              <Flex>
+                <Box
+                  bg={"gray.400"}
+                  marginLeft={"60px"}
+                  rounded={"20px"}
+                  w={"200px"}
+                  h={"530px"}
+                >
+                  <Flex direction={"column"} align={"center"}>
+                    <FilterAndOrder setPage={setPage} />
+                  </Flex>
+                </Box>
+                <div>
+                  <Box h={"600px"} w={"00px"} marginLeft={"60px"}>
+                    <Flex>
+                      {displayedProducts.map((product) => {
+                        return (
+                          <Cards
+                            key={product.id}
+                            id={product.id}
+                            name={product.name}
+                            price={product.price}
+                            image={product.image}
+                            description={product.description}
+                          />
+                        );
+                      })}
+                    </Flex>
+                  </Box>
+                </div>
+              </Flex>
+            </Box>
+          </Flex>
+        </Box>
         </div>
-    )
+      </div>
+    );
 }
 
 export default CardsContainer
