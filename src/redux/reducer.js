@@ -11,6 +11,9 @@ import {
   ADD_TO_CART,
   GET_PRODUCTS_FILTERED,
   COMBINED_FILTERS,
+  REMOVE_PRODUCT_FROM_CART,
+  DECREASE_PRODUCT_QUANTITY,
+  INCREASE_PRODUCT_QUANTITY,
 } from "./actions";
 
 const initialState = {
@@ -91,6 +94,56 @@ const rootReducer = (state = initialState, action) => {
         filteredProducts: action.payload,
       };
       
+    case REMOVE_PRODUCT_FROM_CART:
+      const updatedCartItems = state.cartItems.filter((item) => item.id !== action.payload);
+      return {
+        ...state, 
+        cartItems: updatedCartItems
+      };
+
+    case DECREASE_PRODUCT_QUANTITY:
+      const updatedItems = state.cartItems.map((item) => {
+        if (item.id === action.payload) {
+
+          const updatedQuantity = item.quantity - 1;
+
+          if (updatedQuantity <= 0) {
+            // Remove the item from the cart if quantity becomes 0 or less
+            return null;
+          }
+          return {
+            ...item,
+            quantity: updatedQuantity,
+          };
+        }
+        return item;
+      });
+
+      const filterCartItems = updatedItems.filter(Boolean); // Remove null items
+
+      return {
+        ...state,
+        cartItems: filterCartItems,
+      };
+
+    
+    case INCREASE_PRODUCT_QUANTITY:
+      const IncreasedItems = state.cartItems.map((item) => {
+        if(item.id === action.payload){
+          return {
+            ...item,
+            quantity: item.quantity+1,
+          };
+        };
+
+        return item;
+      });
+
+      return {
+        ...state,
+        cartItems: IncreasedItems,
+      };
+
     default:
       return { ...state };
   }

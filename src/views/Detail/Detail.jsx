@@ -5,20 +5,24 @@ import { useEffect, useState } from "react";
 import { getProduct } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../../components/NavBar";
-
+import { addProductToCart } from "../../redux/actions"
 
 const Detail = ()=>{
 
     const params = useParams()
     
     const productDetail = useSelector((state)=>state.productDetail)
-
+    
     const dispatch = useDispatch();
 
     useEffect(()=>{
         dispatch(getProduct(params.id))   
     },[dispatch, params.id])
 
+
+    const addProductCarrito = (product) => {
+        dispatch(addProductToCart(product));
+    };
 
     return(
         <Box
@@ -37,6 +41,7 @@ const Detail = ()=>{
                             <Box  w={'1000px'} h={'600px'}>
                                 <Flex>
                                     <Box>
+                                        
                                         <Flex direction={'column'}>
                                             <br />
                                             <br />
@@ -48,7 +53,7 @@ const Detail = ()=>{
                                             <Text color={'white'} fontSize={'25px'} py='2' fontWeight={'600'}>Minimum Age: {productDetail.minimun_age}</Text>
                                             <Text color={'white'} fontSize={'25px'} py='2' fontWeight={'600'}>Brand: {productDetail.brand}</Text>
                                             <Text color={'white'} fontSize={'25px'} py='2' fontWeight={'600'}>Quantity: {productDetail.quantity}</Text>
-                                            <Button variant='solid' colorScheme='facebook' w={'500px'}>
+                                            <Button variant='solid' colorScheme='facebook' w={'500px'} onClick={() => addProductCarrito(productDetail)}>
                                                 Add To Cart: {productDetail.name}
                                             </Button>
                                         </Flex>

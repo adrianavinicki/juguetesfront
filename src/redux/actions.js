@@ -12,7 +12,9 @@ export const ORDER_BY_PRICE = "ORDER_BY_PRICE"
 export const ADD_TO_CART = "ADD_TO_CART"
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED"
 export const COMBINED_FILTERS = "COMBINED_FILTERS"
-
+export const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART"
+export const DECREASE_PRODUCT_QUANTITY = "DECREASE_PRODUCT_QUANTITY"
+export const INCREASE_PRODUCT_QUANTITY = "INCREASE_PRODUCT_QUANTITY"
 
 export const getProducts = () => {
     return async function(dispatch){
@@ -101,6 +103,26 @@ export const addProductToCart = (cart) => {
     return {
         type: ADD_TO_CART,
         payload: cart
-    }
-}
+    };
+};
 
+export const removeProductFromCart = (productID) => {
+    return {
+        type: REMOVE_PRODUCT_FROM_CART,
+        payload: productID,
+    };
+};
+
+export const decreaseProductQuantity = (productID) => {
+    return {
+        type: DECREASE_PRODUCT_QUANTITY,
+        payload: productID,
+    };
+};
+
+export const increaseProductQuantity = (productID) => {
+    return {
+        type: INCREASE_PRODUCT_QUANTITY,
+        payload: productID,
+    };
+};

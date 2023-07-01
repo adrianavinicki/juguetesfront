@@ -146,6 +146,7 @@ const CardsContainer = () => {
                             price={product.price}
                             image={product.image}
                             description={product.description}
+                            productoCarrito={product}
                           />
                         );
                       })}
