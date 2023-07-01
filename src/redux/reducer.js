@@ -8,7 +8,9 @@ import {
   FILTER_BY_CATEGORY,
   FILTER_BY_BRAND,
   ORDER_BY_PRICE,
-  ADD_TO_CART
+  ADD_TO_CART,
+  GET_PRODUCTS_FILTERED,
+  COMBINED_FILTERS,
 } from "./actions";
 
 const initialState = {
@@ -17,6 +19,9 @@ const initialState = {
   filteredProducts: [],
   productDetail: [],
   cartItems: []
+  // brandFilter: [],
+  // categoryFilter: [],
+  // ageFilter: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -35,56 +40,9 @@ const rootReducer = (state = initialState, action) => {
       };
     case GET_PRODUCTS_NAME:
       return { ...state, filteredProducts: action.payload };
-    case FILTER_BY_AGE:
-      const filteredProducts =
-        action.payload === "All"
-          ? [...state.products]
-          : !state.filteredProducts.length
-          ? [...state.products].filter((a) => a.minimun_age >= action.payload)
-          : [...state.filteredProducts].filter((a) => a.minimun_age >= action.payload);
-      return {
-        ...state,
-        filteredProducts: filteredProducts,
-        //filteredByAge: filteredProducts,
-      };
-    //case FILTER_BY_PRICE:
-    //   const filtered = state.filteredByAge.length
-    //     ? state.filteredByAge.filter((el) => el.price <= action.payload)
-    //     : state.products.filter((el) => el.price <= action.payload);
-
-    //   if (!filtered.length) {
-    //     alert("No hay productos con ese precio maximo");
-    //     return { ...state };
-    //   } else {
-    //     return {
-    //       ...state,
-    //       filteredProducts: filtered,
-    //     };
-    //   };
-
-    case FILTER_BY_CATEGORY:
-        const categoryFiltered = action.payload === 'All'
-        ? [...state.products]
-        : !state.filteredProducts.length
-        ? [...state.products].filter((c) => c.category === action.payload)
-        : [...state.filteredProducts].filter((c) => c.category === action.payload);
-        return {
-            ...state,
-            filteredProducts: categoryFiltered
-        }  
-
-    case FILTER_BY_BRAND:
-        const brandFiltered = action.payload === 'All'
-        ? [...state.products]
-        : !state.filteredProducts.length
-        ? [...state.products].filter((b) => b.brand === action.payload)
-        : [...state.filteredProducts].filter((b) => b.brand === action.payload);
-        return {
-            ...state,
-            filteredProducts: brandFiltered
-        }
+    // case COMBINED_FILTERS:
+    //   return {...state, filteredProducts: action.payload}
     case ORDER_BY_PRICE:
-        
         if(!state.filteredProducts.length) {
             const orderPrice = 
             action.payload === 'Asc'
@@ -126,9 +84,18 @@ const rootReducer = (state = initialState, action) => {
           cartItems: [...state.cartItems, { ...action.payload, quantity: 1 }],
         };
       }
+
+    case GET_PRODUCTS_FILTERED:
+      return {
+        ...state,
+        filteredProducts: action.payload,
+      };
+      
     default:
       return { ...state };
   }
+    
 };
+
 
 export default rootReducer;
