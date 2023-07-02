@@ -22,7 +22,7 @@ export default function Cart() {
     };
 
     return (
-        <Box backgroundImage="url('/BG2.jpg')"
+        <Box backgroundImage="url('/BG3.jpg')"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
@@ -53,11 +53,11 @@ export default function Cart() {
                      <strong>cantidad: </strong>{item.quantity}
                      </Text>
                      <Button variant="outline" colorScheme="red" size="sm" onClick={() => handleDecreaseQuantity(item. id)} mt={2}>
-                        Disminuir Cantidad
+                        -
                       </Button>
 
                       <Button variant="outline" colorScheme="red" size="sm" onClick={() => handleIncreaseQuantity(item.id)} mt={2}>
-                        Aumentar Cantidad
+                        +
                       </Button>
 
                      <Button variant="outline" colorScheme="red" size="sm" onClick={() => handleRemoveProduct(item.id)} mt={2}>

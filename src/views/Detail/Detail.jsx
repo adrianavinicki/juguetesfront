@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProduct } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import NavBar from "../../components/NavBar";
+import NavBar2 from "../../components/NavBar2";
 import { addProductToCart } from "../../redux/actions"
 
 const Detail = ()=>{
@@ -26,7 +26,7 @@ const Detail = ()=>{
 
     return(
         <Box
-        backgroundImage="url('/BG2.jpg')"
+        backgroundImage="url('/BG3.jpg')"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
@@ -34,7 +34,7 @@ const Detail = ()=>{
         height="100vh"
         >
             <Flex justify="space-around" direction="column" align="center">
-                <NavBar />
+                <NavBar2 />
                 <div>
                     {productDetail ? (
                         <div>

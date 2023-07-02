@@ -1,165 +1,140 @@
-import Cards from "./Cards"
-import { Flex, Box, Button, Image } from "@chakra-ui/react"
-import { useSelector } from "react-redux"
-import { useEffect, useState } from "react"
-import FilterAndOrder from "./Filters"
-import SearchBar from "./SearchBar"
+import Cards from "./Cards";
+import Cards2 from "./Cards2";
+import {
+  Flex,
+  Box,
+  Button,
+  Image,
+  Grid,
+  GridItem,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import FilterAndOrder from "./Filters";
+import SearchBar from "./SearchBar";
+import axios from "axios";
 
+const CardsContainer = (props) => {
+  const [data, setData] = useState([]);
+  const [totalElements, setTotalElements] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
+  const productsData = useSelector(state=>state.filteredProducts)
 
-const CardsContainer = () => {
-
-    
-    const products = useSelector(state=>state.filteredProducts)
-
-    const [page, setPage] = useState(getSavedPage() || 1); //creo un estado para el paginado.
-
-    const CARDS_PER_PAGE = 5; //le digo cuantos productos por pagina quiero
-
-    const maxPage = Math.ceil(products.length / CARDS_PER_PAGE);//divido la cantidad de products por los que me quiero en pagina, 12
-
-    const indexOfLastCard = page * CARDS_PER_PAGE;
-    const indexOfFirstCard = indexOfLastCard - CARDS_PER_PAGE;
-    const displayedProducts = products.slice( //estos son los products que se muestran.
-        indexOfFirstCard,
-        indexOfLastCard
-    );
-
-    const handlePrevPage = () => {//pagina actual menos 1
-        if (page > 1) {
-            setPage(page - 1);
-        }
+  useEffect(() => {
+    // Función para obtener los datos paginados desde el backend
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3010/products?pageNumber=${currentPage}&pageSize=${pageSize}`
+        );
+        console.log(response);
+        const { data, totalElements, totalPages } = response.data;
+        setData(data);
+        setTotalElements(totalElements);
+        setTotalPages(totalPages);
+      } catch (error) {
+        console.error("Error al obtener los datos paginados:", error);
+      }
     };
 
-    const handleNextPage = () => {//pagina actual mas 1
-        if (page < maxPage) {
-            setPage(page + 1);
-        }
-    };
+    fetchData();
+  }, [currentPage]);
 
-    const handleFirstPage = () => {//seteo la pagina en 1
-        setPage(1);
-    };
+  // Función para cambiar de página
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
-    const handleLastPage = () => {//seteo la pagina en el maximo que me de acorde a la cantidad de productos
-        setPage(maxPage);
-    };
-
-    useEffect(() => {
-        // Guarda la página actual en localStorage
-        savePage(page);
-    }, [page]);
-
-    function savePage(page) {
-        localStorage.setItem('currentPage', page.toString()); //le guardo en el local storage la current page
-    }
-
-    function getSavedPage() {
-        const savedPage = localStorage.getItem('currentPage'); //le pido la current page
-        return savedPage ? parseInt(savedPage, 10) : null;
-    }
-
-    const goToPage = (pageNumber) => { //voy a la pagina que le diga
-        setPage(pageNumber);
-    };
-
-    return (
+  console.log(data);
+  return (
+    <div>
       <div>
+        <Box bg={""} w={"1663px"}>
+          <Flex direction={"column"} paddingTop={"60px"} align={"center"}>
+            <div>
+              <Button
+                w={"100px"}
+                _hover={""}
+                color={"white"}
+                bg={"#0E1A40"}
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(currentPage - 1)}
+              >
+                Anterior
+              </Button>
+              <span>
+                Página {currentPage} de {totalPages}
+              </span>
+              <Button
+                w={"100px"}
+                _hover={""}
+                color={"white"}
+                bg={"#0E1A40"}
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+              >
+                Siguiente
+              </Button>
+            </div>
 
-        <div>
-        <Box marginTop={"100px"}>
-          <Flex direction={"column"}>
-            
             <Box>
-              <Flex direction={"row"} justify={"center"}>
-                {page > 1 && ( //lt = lower than
-                  <Button
-                    onClick={handleFirstPage}
-                    disabled={page === 1}
-                    boxSize={"40px"}
-                    colorScheme="facebook"
-                  >
-                    &lt;&lt; 1
-                  </Button>
-                )}
-                <Button
-                  onClick={handlePrevPage}
-                  disabled={page === 1}
-                  boxSize={"40px"}
-                  colorScheme="facebook"
-                >
-                  Prev
-                </Button>
-                {Array.from({ length: maxPage }, (_, index) => (
-                  <Button
-                    key={index}
-                    onClick={() => goToPage(index + 1)}
-                    className={page === index + 1}
-                    boxSize={"40px"}
-                    colorScheme="facebook"
-                  >
-                    {index + 1}
-                  </Button>
-                ))}
-
-                <Button
-                  onClick={handleNextPage}
-                  disabled={page === maxPage}
-                  boxSize={"40px"}
-                  colorScheme="facebook"
-                >
-                  Next
-                </Button>
-                {page < maxPage && ( //gt = greater than
-                  <Button
-                    onClick={handleLastPage}
-                    disabled={page === maxPage}
-                    boxSize={"40px"}
-                    colorScheme="facebook"
-                  >
-                    {maxPage} &gt;&gt;
-                  </Button>
-                )}
-              </Flex>
-            </Box>
-            <Box marginTop={"30px"}>
               <Flex>
                 <Box
                   bg={"gray.400"}
-                  marginLeft={"60px"}
+                  marginLeft={""}
                   rounded={"20px"}
-                  w={"200px"}
+                  w={"250px"}
                   h={"530px"}
                 >
                   <Flex direction={"column"} align={"center"}>
-                    <FilterAndOrder setPage={setPage} />
+                    <FilterAndOrder />
                   </Flex>
                 </Box>
                 <div>
-                  <Box h={"600px"} w={"00px"} marginLeft={"60px"}>
-                    <Flex>
-                      {displayedProducts.map((product) => {
-                        return (
-                          <Cards
-                            key={product.id}
-                            id={product.id}
-                            name={product.name}
-                            price={product.price}
-                            image={product.image}
-                            description={product.description}
-                            productoCarrito={product}
-                          />
-                        );
-                      })}
-                    </Flex>
-                  </Box>
+                  <SimpleGrid columns={5} bg={''} w={'1300px'} h={'750px'}>
+                  {data.map((product) => {
+                          return (
+                                  <Cards2
+                                    key={product.id}
+                                    id={product.id}
+                                    name={product.name}
+                                    price={product.price}
+                                    image={product.image}
+                                    description={product.description}
+                                    productoCarrito={product}
+                                  />
+                          );
+                        })}
+                    {/* <Box h={"750px"} w={"1440px"} bg={"green"}>
+                      <Flex direction={"row"}> */}
+                        
+                        {/* {data.map((product) => {
+                          return (
+                                  <Cards2
+                                    key={product.id}
+                                    id={product.id}
+                                    name={product.name}
+                                    price={product.price}
+                                    image={product.image}
+                                    description={product.description}
+                                  />
+                          );
+                        })} */}
+                      {/* </Flex> */}
+                    {/* </Box> */}
+                  </SimpleGrid>
                 </div>
               </Flex>
             </Box>
           </Flex>
         </Box>
-        </div>
       </div>
-    );
-}
+    </div>
+  );
+};
 
-export default CardsContainer
+export default CardsContainer;

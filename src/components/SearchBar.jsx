@@ -20,9 +20,8 @@ const SearchBar = () => {
 
   return (
     <InputGroup>
-      <InputLeftElement pointerEvents="none" children={<SearchIcon color="gray.300" />} />
-      <Input type="text" placeholder="Search..." value={searchNames} bg={'white'} onChange={handleInputChange} />
-      <Button onClick={handleSearch}>Search</Button>
+      <Input w={'100px'} type="text" placeholder="Search..." value={searchNames} bg={'gwhite'} onChange={handleInputChange} />
+      <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'#0E1A40'} color={'white'} onClick={handleSearch}>{<SearchIcon color="white" />}</Button>
     </InputGroup>
   );
 };

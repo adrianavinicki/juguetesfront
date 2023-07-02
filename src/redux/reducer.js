@@ -16,6 +16,14 @@ import {
   INCREASE_PRODUCT_QUANTITY,
 } from "./actions";
 
+import { persistReducer } from "redux-persist";
+import storageSession from "redux-persist/lib/storage/session";
+
+const persistConfig = {
+  key:"root",
+  storage: storageSession
+}
+
 const initialState = {
   products: [],
   //filteredByAge: [],
@@ -150,5 +158,6 @@ const rootReducer = (state = initialState, action) => {
     
 };
 
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default rootReducer;
+export default persistedReducer;
