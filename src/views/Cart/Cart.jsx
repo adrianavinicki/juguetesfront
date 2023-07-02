@@ -65,7 +65,7 @@ export default function Cart() {
                      </Button>
 
                     <br />
-                     
+                     {console.log(productsToBuy)}
                     </Box>
                 </Card>
             </ListItem>
