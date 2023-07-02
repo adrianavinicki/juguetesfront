@@ -10,14 +10,17 @@ import {
     chakra,
     Tooltip,
     VStack,
-    Link,
+   // Link,
     Button,
     Grid,
     GridItem,
+    Collapse,
   } from '@chakra-ui/react';
-  import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
+  import { BsLinkedin, BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
   import { FiShoppingCart } from 'react-icons/fi';
-  
+  import { useDispatch, useSelector } from "react-redux";
+  import { Link } from 'react-router-dom';
+  import { addProductToCart } from '../redux/actions';
   const data = {
     isNew: true,
     imageURL:
@@ -28,12 +31,12 @@ import {
     numReviews: 34,
   };
   
-  interface RatingProps {
-    rating: number;
-    numReviews: number;
-  }
+  //interface RatingProps {
+  //  rating: number;
+  //  numReviews: number;
+  //}
   
-  function Rating({ rating, numReviews }: RatingProps) {
+  function Rating({ rating, numReviews }/*: RatingProps*/) {
     return (
       <Box >
         <Flex align={'center'}>
@@ -61,11 +64,25 @@ import {
   }
   
   function ProductAddToCart(props) {
+    const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cartItems);
+    
+    const addProductCarrito = (product) => {
+        dispatch(addProductToCart(product));
+    };
+
+    const getProductQuantityInCart = () => {
+        const item = cartItems.find((item) => item.id === props.id);
+        return item ? item.quantity : 0;
+      };
+
+    const cartIconVisible = getProductQuantityInCart() > 0;
+
     return (
         <Box
           bg={useColorModeValue('white', 'gray.800')}
           w={'250px'}
-          h={'300px'}
+          h={'340px'}
           borderWidth="3px"
           rounded="lg"
           shadow="lg"
@@ -76,7 +93,7 @@ import {
             <VStack>
               <Box h={'220px'}>
                 <Flex>
-                <Link key={props.id} href={`/detail/${props.id}`}>
+                <Link key={props.id} to={`/detail/${props.id}`}>
                   <Image
                       src={props.image}
                       alt={`Picture of ${props.name}`}
@@ -100,18 +117,37 @@ import {
                         w={'200px'}>
                         {props.name}
                       </Box>
+
+                      
+                    </Flex>
+          
+                    <Flex>
+                      <Button colorScheme='facebook' size="sm" onClick={() => addProductCarrito(props.productoCarrito)}>
+                        <Icon as={FiShoppingCart}/>
+                        Add to Cart
+                      </Button>
+
+                      <Collapse in={cartIconVisible}>
                       <Tooltip
-                        label="Add to cart"
+                        label="Go to cart"
                         bg="white"
                         placement={'top'}
                         color={'gray.800'}
                         fontSize={'1.2em'}>
-                        <chakra.a href={'#'} display={'flex'}>
+
+                        <Flex>
+                        <Link to={'/cart'}>
                           <Icon as={FiShoppingCart} h={7} w={7} alignSelf={'center'} />
-                        </chakra.a>
+                          {<Badge ml={1} colorScheme="red"  position="absolute" borderRadius="full">{getProductQuantityInCart()}</Badge>}
+                        </Link>  
+                        </Flex>
+                        
+
+
                       </Tooltip>
+                      </Collapse>
+                      
                     </Flex>
-          
                     <Flex justifyContent="space-between" alignContent="center">
                       <Rating rating={data.rating} numReviews={data.numReviews} />
                       <Box fontSize="2xl" color={useColorModeValue('gray.800', 'white')}>

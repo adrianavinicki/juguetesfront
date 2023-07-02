@@ -105,6 +105,7 @@ const CardsContainer = (props) => {
                                     price={product.price}
                                     image={product.image}
                                     description={product.description}
+                                    productoCarrito={product}
                                   />
                           );
                         })}

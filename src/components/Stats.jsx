@@ -14,12 +14,12 @@ import {
   import { FiServer } from 'react-icons/fi';
   import { GoLocation } from 'react-icons/go';
   
-  interface StatsCardProps {
-    title: string;
-    stat: string;
-    icon: ReactNode;
-  }
-  function StatsCard(props: StatsCardProps) {
+  //interface StatsCardProps {
+  //  title: string;
+  //  stat: string;
+  //  icon: ReactNode;
+  //}
+  function StatsCard(props /*StatsCardProps*/) {
     const { title, stat, icon } = props;
     return (
       <Stat
