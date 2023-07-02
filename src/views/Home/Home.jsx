@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getProducts } from "../../redux/actions";
-import NavBar from "../../components/NavBar";
+import NavBar2 from "../../components/NavBar2";
+import CaptionCarousel from "../../components/Carousel"
+import SmallWithLogoLeft from "../../components/Footer"
 
 
 
@@ -18,26 +20,24 @@ const Home = ()=>{
 
     return(
         <Box 
-        backgroundImage="url('/BG5.jpg')"
+        backgroundImage="url('/BG5.jpg.png')"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
-        width="100vw"
+        width="100%"
         //height="100vh"
         >
             <Box>
                 <Flex direction={"row"} align={'center'} justify={'space-evenly'}>
-                <NavBar />
+                <NavBar2 />
                 </Flex>
-                <Box>
-                    <Flex direction={'column'}>
-                        <Image src='/BG4.png'  alt='School Bus' />
-                    </Flex>
+                <CaptionCarousel></CaptionCarousel>
+                <Box w={'100vw'}>
+                    <CardsContainer/>
                 </Box>
+                <SmallWithLogoLeft />
             </Box>
-            <Box bg={'transparent'} w={'100vw'} h={'1000px'}>
-                <CardsContainer/>
-            </Box>
+            {/* <SmallWithLogoLeft /> */}
             
         </Box>
     )

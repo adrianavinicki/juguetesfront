@@ -134,20 +134,22 @@ const FilterAndOrder = ({ setPage }) => {
 
     return (
         <div>
-            <Box>
+            <Box w={'200px'} h={'550px'}>
                 <br />
-                <Flex direction={'column'}>
-                <Button onClick={()=>{
+                <Flex direction={'column'} align={'center'}>
+                <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} w={'100px'} onClick={()=>{
                     setPage(1)
                     dispatch(getProducts())
                     dispatch(filterByAge('all'))
                     resetInput()
                 }}>Reset All</Button>
                 <br />
-                <SearchBar />
+                <Box>
+                    <SearchBar />
+                </Box>
                 <br />
                 <FormLabel>Filter Age</FormLabel>
-                <Select id="ageSelect" onChange={handleFilters} bg='white' name="minimun_age">
+                <Select w={'130px'} id="ageSelect" onChange={handleFilters} bg={'gray.200'} color={'black'} name="minimun_age">
                 {ages.map((e) => (
                     <option key={e} value={e}>
                         {e}
@@ -156,7 +158,7 @@ const FilterAndOrder = ({ setPage }) => {
                  </Select>
 
                  <FormLabel>Filter Categories</FormLabel>
-                <Select id="categorySelect" onChange={handleFilters} bg='white' name="category">
+                <Select w={'130px'} id="categorySelect" onChange={handleFilters} bg={'gray.200'} color={'black'} name="category">
                 {categoriesData.map((e) => (
                     <option key={e} value={e}>
                         {e}
@@ -165,20 +167,24 @@ const FilterAndOrder = ({ setPage }) => {
                  </Select>
 
                  <FormLabel>Filter Brands</FormLabel>
-                <Select id="brandSelect" onChange={handleFilters} bg='white' name="brand" >
+                <Select w={'130px'} id="brandSelect" onChange={handleFilters} bg={'gray.200'} color={'black'} name="brand" >
                 {brandsData.map((e) => (
                     <option key={e} value={e}>
                         {e}
                     </option>
                 ))}
                  </Select>
+                 <br />
                 <div>
                     <FormLabel>Max Price: </FormLabel>
-                    <Input type='number' name='price' value={`${input}`} onChange = {inputHandler} w={'110px'} bg='white'></Input>
-                    <Button onClick={handleFilters} value={`${input}`} name='price'>Search</Button>
+                    <Input type='number' name='price' value={`${input}`} onChange = {inputHandler} w={'110px'} bg={'blue.900'} color={'white'}></Input>
+                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} onClick={handleFilters} value={`${input}`} name='price'>Search</Button>
                 </div>
-                    <Button value='Asc' onClick={clickHandlerPrice}>Higher</Button>
-                    <Button value='Desc' onClick={clickHandlerPrice}>Lower</Button>
+                <br />
+                <Box>
+                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'green.500'} color={'white'} value='Asc' onClick={clickHandlerPrice}>Higher</Button>
+                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'red.500'} color={'white'} value='Desc' onClick={clickHandlerPrice}>Lower</Button>
+                </Box>
                 </Flex>
             </Box>
         </div>
