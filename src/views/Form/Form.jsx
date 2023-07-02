@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import {useDispatch} from "react-redux";
 import { postProduct } from "../../redux/actions"
-import NavBar from "../../components/NavBar";
+import NavBar2 from "../../components/NavBar2";
 import {
     Button,
     Flex,
@@ -174,17 +174,19 @@ const Form = ()=>{
     };
 
     return(
+        <Box>
+            <NavBar2></NavBar2>
         <Box
-            backgroundImage="url('/BG2.jpg')"
+            backgroundImage="url('/BG3.jpg')"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
             width="100vw"
-            height="100vh"
+            height="92vh"
+            paddingTop={'90px'}
             >
         <VStack>
             <Flex direction="column" align={'center'}>
-                <NavBar />
                 <form onSubmit={handleSubmit}>
                 <FormControl>
                     <Flex direction={'column'} align={'center'}>
@@ -239,6 +241,7 @@ const Form = ()=>{
                 </form>
             </Flex>
         </VStack>
+        </Box>
         </Box>
     )
 
