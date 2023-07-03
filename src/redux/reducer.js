@@ -14,25 +14,47 @@ import {
   REMOVE_PRODUCT_FROM_CART,
   DECREASE_PRODUCT_QUANTITY,
   INCREASE_PRODUCT_QUANTITY,
+  GET_ALL_ORDERS,
+  POST_ORDER,
+  PUT_ORDER,
+  GET_ORDER_BY_ID,
+  GET_ALL_DETAIL_ORDERS,
+  GET_DETAIL_ORDER_BY_ID,
+  POST_DETAIL_ORDER,
+  // PUT_DETAIL_ORDER,
 } from "./actions";
+import {
+  GET_ALL_ORDERS,
+  POST_ORDER,
+  PUT_ORDER,
+  GET_ORDER_BY_ID,
+  GET_ALL_DETAIL_ORDERS,
+  GET_DETAIL_ORDER_BY_ID,
+  POST_DETAIL_ORDER,
+  // PUT_DETAIL_ORDER,
+} from "./actionsOrders.js";
 
 import { persistReducer } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
 
 const persistConfig = {
-  key:"root",
-  storage: storageSession
-}
+  key: "root",
+  storage: storageSession,
+};
 
 const initialState = {
   products: [],
   //filteredByAge: [],
   filteredProducts: [],
   productDetail: [],
-  cartItems: []
+  cartItems: [],
   // brandFilter: [],
   // categoryFilter: [],
   // ageFilter: [],
+  orders: [],
+  selectedOrder: null,
+  detailOrders: [],
+  selectedDetailOrder: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -54,28 +76,35 @@ const rootReducer = (state = initialState, action) => {
     // case COMBINED_FILTERS:
     //   return {...state, filteredProducts: action.payload}
     case ORDER_BY_PRICE:
-        if(!state.filteredProducts.length) {
-            const orderPrice = 
-            action.payload === 'Asc'
-            ?  state.products.slice().sort((a,b) => {return b.price-a.price})
-            :  state.products.slice().sort((a,b) => {return a.price-b.price}) 
-            return {
-                ...state,
-                filteredProducts: orderPrice
-            }
-        } else {
-            const orderPrice = 
-            action.payload === 'Asc'
-            ?  state.filteredProducts.slice().sort((a,b) => {return b.price-a.price})
-            :  state.filteredProducts.slice().sort((a,b) => {return a.price-b.price})
-            return {
-                ...state,
-                filteredProducts: orderPrice
-            }
+      if (!state.filteredProducts.length) {
+        const orderPrice =
+          action.payload === "Asc"
+            ? state.products.slice().sort((a, b) => {
+                return b.price - a.price;
+              })
+            : state.products.slice().sort((a, b) => {
+                return a.price - b.price;
+              });
+        return {
+          ...state,
+          filteredProducts: orderPrice,
         };
+      } else {
+        const orderPrice =
+          action.payload === "Asc"
+            ? state.filteredProducts.slice().sort((a, b) => {
+                return b.price - a.price;
+              })
+            : state.filteredProducts.slice().sort((a, b) => {
+                return a.price - b.price;
+              });
+        return {
+          ...state,
+          filteredProducts: orderPrice,
+        };
+      }
 
     case ADD_TO_CART:
-
       const existingItemIndex = state.cartItems.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -83,12 +112,12 @@ const rootReducer = (state = initialState, action) => {
         // If the item already exists in the cart, update its quantity, revisar lo de abajo
         const updatedCartItems = [...state.cartItems];
         updatedCartItems[existingItemIndex].quantity++;
-        
+
         return {
           ...state,
           cartItems: updatedCartItems,
         };
-      }else {
+      } else {
         // If the item doesn't exist in the cart, add it with a quantity of 1
         return {
           ...state,
@@ -101,18 +130,19 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         filteredProducts: action.payload,
       };
-      
+
     case REMOVE_PRODUCT_FROM_CART:
-      const updatedCartItems = state.cartItems.filter((item) => item.id !== action.payload);
+      const updatedCartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload
+      );
       return {
-        ...state, 
-        cartItems: updatedCartItems
+        ...state,
+        cartItems: updatedCartItems,
       };
 
     case DECREASE_PRODUCT_QUANTITY:
       const updatedItems = state.cartItems.map((item) => {
         if (item.id === action.payload) {
-
           const updatedQuantity = item.quantity - 1;
 
           if (updatedQuantity <= 0) {
@@ -134,15 +164,14 @@ const rootReducer = (state = initialState, action) => {
         cartItems: filterCartItems,
       };
 
-    
     case INCREASE_PRODUCT_QUANTITY:
       const IncreasedItems = state.cartItems.map((item) => {
-        if(item.id === action.payload){
+        if (item.id === action.payload) {
           return {
             ...item,
-            quantity: item.quantity+1,
+            quantity: item.quantity + 1,
           };
-        };
+        }
 
         return item;
       });
@@ -151,11 +180,30 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cartItems: IncreasedItems,
       };
+    case GET_ALL_ORDERS:
+      return {
+        ...state,
+        orders: action.payload,
+      };
+    case GET_ORDER_BY_ID:
+      return { ...state, selectedOrder: action.payload };
+    case POST_ORDER:
+      return {
+        ...state,
+      };
+    case PUT_ORDER:
+      let { id, orderData } = action.payload;
+      let updatedOrder = state.orders.map((order) => {
+        if (order.id === id) {
+          return { ...order, ...orderData };
+        }
+        return order;
+      });
+      return { ...state, orders: updatedOrder };
 
     default:
       return { ...state };
   }
-    
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
