@@ -15,24 +15,10 @@ import {
   DECREASE_PRODUCT_QUANTITY,
   INCREASE_PRODUCT_QUANTITY,
   GET_ALL_ORDERS,
-  POST_ORDER,
-  PUT_ORDER,
   GET_ORDER_BY_ID,
   GET_ALL_DETAIL_ORDERS,
   GET_DETAIL_ORDER_BY_ID,
-  POST_DETAIL_ORDER,
-  // PUT_DETAIL_ORDER,
 } from "./actions";
-import {
-  GET_ALL_ORDERS,
-  POST_ORDER,
-  PUT_ORDER,
-  GET_ORDER_BY_ID,
-  GET_ALL_DETAIL_ORDERS,
-  GET_DETAIL_ORDER_BY_ID,
-  POST_DETAIL_ORDER,
-  // PUT_DETAIL_ORDER,
-} from "./actionsOrders.js";
 
 import { persistReducer } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
@@ -187,19 +173,6 @@ const rootReducer = (state = initialState, action) => {
       };
     case GET_ORDER_BY_ID:
       return { ...state, selectedOrder: action.payload };
-    case POST_ORDER:
-      return {
-        ...state,
-      };
-    case PUT_ORDER:
-      let { id, orderData } = action.payload;
-      let updatedOrder = state.orders.map((order) => {
-        if (order.id === id) {
-          return { ...order, ...orderData };
-        }
-        return order;
-      });
-      return { ...state, orders: updatedOrder };
 
     default:
       return { ...state };

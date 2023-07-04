@@ -13,6 +13,7 @@ import {
   import { BsPerson } from 'react-icons/bs';
   import { FiServer } from 'react-icons/fi';
   import { GoLocation } from 'react-icons/go';
+import { Link } from 'react-router-dom';
   
   //interface StatsCardProps {
   //  title: string;
@@ -70,11 +71,14 @@ import {
             stat={'5,000'}
             icon={<BsPerson size={'3em'} />}
           />
-          <StatsCard
+          <Link to= "/admin/orders">
+            <StatsCard
             title={'Sales'}
             stat={'1,000'}
             icon={<FiServer size={'3em'} />}
-          />
+            />
+          </Link>
+          
           <StatsCard
             title={'Datacenters'}
             stat={'7'}
