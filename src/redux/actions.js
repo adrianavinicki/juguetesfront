@@ -71,12 +71,6 @@ export const putProduct = (payload) => {
     };
 };
 
-export const putProduct = (payload) => {
-    return async function(dispatch){
-        const response = await axios.post("http://localhost:3010/products/update/:id", payload);
-        return response;
-    };
-};
 
 export const getProductsFiltered = (name, value) => {
   return async function (dispatch) {
@@ -98,15 +92,6 @@ export const getProductsFilteredPage = (params) => {
     }
 }
 
-
-
-export const getProductsFilteredPage = (params) => {
-    return async function(dispatch){
-        const response2 = await axios.get("http://localhost:3010/products",{params:params});
-        const responseData = response2.data;
-        dispatch({ type: GET_PRODUCTS_FILTERED_PAGE, payload : responseData})
-    }
-}
 
 export const filterByAge = (age) => {
   return {
