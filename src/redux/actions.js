@@ -11,6 +11,7 @@ export const FILTER_BY_BRAND = "FILTER_BY_BRAND";
 export const ORDER_BY_PRICE = "ORDER_BY_PRICE";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
+export const GET_PRODUCTS_FILTERED_PAGE = "GET_PRODUCTS_FILTERED_PAGE"
 export const COMBINED_FILTERS = "COMBINED_FILTERS";
 export const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART";
 export const DECREASE_PRODUCT_QUANTITY = "DECREASE_PRODUCT_QUANTITY";
@@ -20,6 +21,7 @@ export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
 //export const POST_ORDER = "POST_ORDER";
 //export const PUT_ORDER = "PUT_ORDER";
 export const GET_ORDER_BY_ID = "GET_ORDER_BY_ID";
+export const PRODUCTS_FILTER = "PRODUCTS_FILTER"
 
 export const GET_ALL_DETAIL_ORDERS = "GET_ALL_DETAIL_ORDERS";
 export const GET_DETAIL_ORDER_BY_ID = "GET_DETAIL_ORDER_BY_ID";
@@ -52,15 +54,6 @@ export const getProductsName = (names) => {
   };
 };
 
-// export const combinedFilters = (payload) => {
-//     console.log(payload);
-//     return async function (dispatch) {
-//         const dbData = await axios.get(`http://localhost:3010/products/?${payload}`);
-//         const response = dbData.data;
-//         dispatch({ type: COMBINED_FILTERS, payload: response });
-//     }
-// }
-
 export const postProduct = (payload) => {
   return async function (dispatch) {
     const response = await axios.post(
@@ -69,6 +62,20 @@ export const postProduct = (payload) => {
     );
     return response;
   };
+};
+
+export const putProduct = (payload) => {
+    return async function(dispatch){
+        const response = await axios.post("http://localhost:3010/products/update/:id", payload);
+        return response;
+    };
+};
+
+export const putProduct = (payload) => {
+    return async function(dispatch){
+        const response = await axios.post("http://localhost:3010/products/update/:id", payload);
+        return response;
+    };
 };
 
 export const getProductsFiltered = (name, value) => {
@@ -80,6 +87,26 @@ export const getProductsFiltered = (name, value) => {
     dispatch({ type: GET_PRODUCTS_FILTERED, payload: responseData });
   };
 };
+
+
+
+export const getProductsFilteredPage = (params) => {
+    return async function(dispatch){
+        const response2 = await axios.get("http://localhost:3010/products",{params:params});
+        const responseData = response2.data;
+        dispatch({ type: GET_PRODUCTS_FILTERED_PAGE, payload : responseData})
+    }
+}
+
+
+
+export const getProductsFilteredPage = (params) => {
+    return async function(dispatch){
+        const response2 = await axios.get("http://localhost:3010/products",{params:params});
+        const responseData = response2.data;
+        dispatch({ type: GET_PRODUCTS_FILTERED_PAGE, payload : responseData})
+    }
+}
 
 export const filterByAge = (age) => {
   return {
@@ -201,6 +228,13 @@ export const getDetailOrderById = (id) => {
     dispatch({ type: GET_DETAIL_ORDER_BY_ID, payload: detail });
   };
 };
+
+export const productsFilter = (params) => {
+    return {
+        type: PRODUCTS_FILTER,
+        payload: params
+    };
+}
 
 export const createDetailOrder = (payload) => {
   return async function () {

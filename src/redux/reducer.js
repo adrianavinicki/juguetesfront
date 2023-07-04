@@ -18,6 +18,8 @@ import {
   GET_ORDER_BY_ID,
   GET_ALL_DETAIL_ORDERS,
   GET_DETAIL_ORDER_BY_ID,
+  GET_PRODUCTS_FILTERED_PAGE,
+  PRODUCTS_FILTER
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
@@ -58,7 +60,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
       };
     case GET_PRODUCTS_NAME:
-      return { ...state, filteredProducts: action.payload };
+      return { ...state, filteredProducts: {data:action.payload} };
     // case COMBINED_FILTERS:
     //   return {...state, filteredProducts: action.payload}
     case ORDER_BY_PRICE:
@@ -174,6 +176,16 @@ const rootReducer = (state = initialState, action) => {
     case GET_ORDER_BY_ID:
       return { ...state, selectedOrder: action.payload };
 
+    case GET_PRODUCTS_FILTERED_PAGE:
+      return {
+        ...state,
+        filteredProducts: action.payload,
+      }
+    case PRODUCTS_FILTER:
+      return {
+        ...state,
+        filteredProducts: action.payload
+      }
     default:
       return { ...state };
   }
