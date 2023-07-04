@@ -1,45 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useDispatch } from "react-redux";
-import { getProducts, filterByAge, filterByPrice, filterByCategory, filterByBrand, orderByPrice, getProductsFiltered } from "../redux/actions";
+import { getProducts, filterByAge, filterByPrice, filterByCategory, filterByBrand, orderByPrice, getProductsFiltered, getProductsFilteredPage, productsFilter } from "../redux/actions";
 import { Box, Flex, Button, FormLabel, Select, Input } from '@chakra-ui/react'
 import SearchBar from "./SearchBar";
 
-const FilterAndOrder = ({ setPage }) => {
-    const dispatch = useDispatch();
+const FilterAndOrder = () => {
 
-    // const [filteredObject, setFilteredObject] = useState({});
+    const dispatch = useDispatch()
 
-    // const filtersHandler = (e) => {
-    //     const name = e.target.name;
-    //     const value = e.target.value;
-    //     setFilteredObject({...filteredObject, [name]:value})
+    const [filters, setFilters] = useState({
+        price:0,
+        brand: "",
+        category: "",
+        minimun_age: 0,
+        name: "",
+    })
 
-    //     const prueba = {...filteredObject, [name]:value}
-    //     dispatch(combinedFilters(prueba))
-    // }
+    const handleFilters = (e) => {
+        setFilters({...filters, [e.target.name]: e.target.value})
+    }
 
-    // const handleAgeFilter = (e) => {
-    //     const selectedAge = e.target.value;
-    //     dispatch(filterByAge(selectedAge));
-    //     setPage(1);
-    // };
-
-    // const handleCategoryFilter = (e) => {
-    //     const category = e.target.value;
-    //     dispatch(filterByCategory(category));
-    //     setPage(1);
-    // };
-
-    // const handleBrandFilter = (e) => {
-    //     const brand = e.target.value;
-    //     dispatch(filterByBrand(brand));
-    //     setPage(1);
-    // };
-
-    const clickHandlerPrice = (e) => {
-        const method = e.target.value
-        dispatch(orderByPrice(method))
-    };
+    useEffect(()=> {
+        const params = {}
+        for(const key in filters){
+        if(filters[key]){
+            params[key] = filters[key]
+        }
+        }
+       axios.get("http://localhost:3010/products",{params})
+       .then(res => {dispatch(productsFilter(res.data))})
+    },[filters])
 
     const resetInput = () => {
         //  const selects = document.querySelectorAll(".resetSelect");
@@ -116,32 +107,22 @@ const FilterAndOrder = ({ setPage }) => {
         "Hot Wheels",
     ];
 
-    const [input, setInput] = useState('');
 
-
-    const inputHandler = (e) => {
-        const value = e.target.value;
-        setInput(value)
-    }
-
-
-    const handleFilters = (e) => {
-            const name = e.target.name
-            const value = e.target.value
-            dispatch(getProductsFiltered(name, value));
-            setInput('')
-        };
-
+    
     return (
         <div>
             <Box w={'200px'} h={'550px'}>
                 <br />
                 <Flex direction={'column'} align={'center'}>
                 <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} w={'100px'} onClick={()=>{
-                    setPage(1)
-                    dispatch(getProducts())
-                    dispatch(filterByAge('all'))
                     resetInput()
+                    setFilters({
+                        price:0,
+                        brand: "",
+                        category: "",
+                        minimun_age: 0,
+                        name: "",
+                    })
                 }}>Reset All</Button>
                 <br />
                 <Box>
@@ -177,13 +158,13 @@ const FilterAndOrder = ({ setPage }) => {
                  <br />
                 <div>
                     <FormLabel>Max Price: </FormLabel>
-                    <Input type='number' name='price' value={`${input}`} onChange = {inputHandler} w={'110px'} bg={'blue.900'} color={'white'}></Input>
-                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} onClick={handleFilters} value={`${input}`} name='price'>Search</Button>
+                    <Input type='number' name='price' value={filters.price} onChange = {handleFilters} w={'110px'} bg={'blue.900'} color={'white'}></Input>
+                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} onClick={handleFilters} value={filters.price} name='price'>Search</Button>
                 </div>
                 <br />
                 <Box>
-                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'green.500'} color={'white'} value='Asc' onClick={clickHandlerPrice}>Higher</Button>
-                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'red.500'} color={'white'} value='Desc' onClick={clickHandlerPrice}>Lower</Button>
+                    {/* <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'green.500'} color={'white'} value='Asc' onClick={clickHandlerPrice}>Higher</Button>
+                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'red.500'} color={'white'} value='Desc' onClick={clickHandlerPrice}>Lower</Button> */}
                 </Box>
                 </Flex>
             </Box>
