@@ -15,41 +15,50 @@ import { useEffect, useState } from "react";
 import FilterAndOrder from "./Filters";
 import SearchBar from "./SearchBar";
 import axios from "axios";
+import { getProductsFiltered, getProductsFilteredPage } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 const CardsContainer = (props) => {
+
+  const dispatch = useDispatch()
   const [data, setData] = useState([]);
   const [totalElements, setTotalElements] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10;
   const productsData = useSelector(state=>state.filteredProducts)
+  let currentPageData = Number(productsData.currentPage)
+  const prueba = productsData.data
+  // console.log(data)
 
-  useEffect(() => {
-    // Función para obtener los datos paginados desde el backend
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3010/products?pageNumber=${currentPage}&pageSize=${pageSize}`
-        );
-        console.log(response);
-        const { data, totalElements, totalPages } = response.data;
-        setData(data);
-        setTotalElements(totalElements);
-        setTotalPages(totalPages);
-      } catch (error) {
-        console.error("Error al obtener los datos paginados:", error);
-      }
-    };
+  // useEffect(() => {
+  //   // Función para obtener los datos paginados desde el backend
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:3010/products?pageNumber=${currentPage}&pageSize=${pageSize}`
+  //       );
+  //       const { data, totalElements, totalPages } = response.data;
+  //       setData(data);
+  //       setTotalElements(totalElements);
+  //       setTotalPages(totalPages);
+  //     } catch (error) {
+  //       console.error("Error al obtener los datos paginados:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, [currentPage]);
+  //   fetchData();
+  // }, [currentPage]);
 
   // Función para cambiar de página
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  console.log(data);
+  const handlePageState = (pageNumber) => {
+    dispatch(getProductsFilteredPage({pageNumber:pageNumber}))
+    // currentPageData = pageNumber
+  }
+
   return (
     <div>
       <div>
@@ -61,21 +70,21 @@ const CardsContainer = (props) => {
                 _hover={""}
                 color={"white"}
                 bg={"#0E1A40"}
-                disabled={currentPage === 1}
-                onClick={() => handlePageChange(currentPage - 1)}
+                // disabled={currentPage === 1}
+                onClick={() => handlePageState(currentPageData - 1)}
               >
                 Anterior
               </Button>
-              <span>
+              {/* <span>
                 Página {currentPage} de {totalPages}
-              </span>
+              </span> */}
               <Button
                 w={"100px"}
                 _hover={""}
                 color={"white"}
                 bg={"#0E1A40"}
-                disabled={currentPage === totalPages}
-                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPageData === totalPages}
+                onClick={() => handlePageState(currentPageData + 1)}
               >
                 Siguiente
               </Button>
@@ -96,35 +105,18 @@ const CardsContainer = (props) => {
                 </Box>
                 <div>
                   <SimpleGrid columns={5} bg={''} w={'1300px'} h={'750px'}>
-                  {data.map((product) => {
+                    {productsData.payload?.map((product) => {
                           return (
-                                  <Cards2
-                                    key={product.id}
-                                    id={product.id}
-                                    name={product.name}
-                                    price={product.price}
-                                    image={product.image}
-                                    description={product.description}
-                                  />
+                            <Cards2
+                              key={product.id}
+                              id={product.id}
+                              name={product.name}
+                              price={product.price}
+                              image={product.image}
+                              description={product.description}
+                            />
                           );
                         })}
-                    {/* <Box h={"750px"} w={"1440px"} bg={"green"}>
-                      <Flex direction={"row"}> */}
-                        
-                        {/* {data.map((product) => {
-                          return (
-                                  <Cards2
-                                    key={product.id}
-                                    id={product.id}
-                                    name={product.name}
-                                    price={product.price}
-                                    image={product.image}
-                                    description={product.description}
-                                  />
-                          );
-                        })} */}
-                      {/* </Flex> */}
-                    {/* </Box> */}
                   </SimpleGrid>
                 </div>
               </Flex>

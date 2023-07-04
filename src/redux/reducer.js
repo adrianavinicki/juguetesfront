@@ -10,6 +10,8 @@ import {
   ORDER_BY_PRICE,
   GET_PRODUCTS_FILTERED,
   COMBINED_FILTERS,
+  GET_PRODUCTS_FILTERED_PAGE,
+  PRODUCTS_FILTER,
 } from "./actions";
 
 const initialState = {
@@ -37,7 +39,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
       };
     case GET_PRODUCTS_NAME:
-      return { ...state, filteredProducts: action.payload };
+      return { ...state, filteredProducts: {data:action.payload} };
     // case COMBINED_FILTERS:
     //   return {...state, filteredProducts: action.payload}
     case ORDER_BY_PRICE:
@@ -65,6 +67,16 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         filteredProducts: action.payload,
       };
+    case GET_PRODUCTS_FILTERED_PAGE:
+      return {
+        ...state,
+        filteredProducts: action.payload,
+      }
+    case PRODUCTS_FILTER:
+      return {
+        ...state,
+        filteredProducts: action.payload
+      }
     default:
       return { ...state };
   }
