@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getProduct } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
-
+import { addProductToCart } from "../../redux/actions"
   
   export default function socialProfileWithImageHorizontal() {
 
@@ -31,6 +31,9 @@ import NavBar2 from "../../components/NavBar2";
         dispatch(getProduct(params.id))   
     },[dispatch, params.id])
 
+    const addProductCarrito = (product) => {
+      dispatch(addProductToCart(product));
+  };
     return (
     <Box
     backgroundImage="url('/BG3.jpg')"
@@ -124,7 +127,8 @@ import NavBar2 from "../../components/NavBar2";
                 }}
                 _focus={{
                   bg: 'blue.500',
-                }}>
+                }}
+                onClick={addProductCarrito(productDetail)}>
                 Add to Cart
               </Button>
             </Stack>

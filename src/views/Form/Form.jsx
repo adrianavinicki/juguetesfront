@@ -43,6 +43,26 @@ const Form = ()=>{
 
     const [image, setImage] = useState(null);
 
+    const [errors, setErrors] = useState({});
+
+    const validateForm = (form, image) => {
+
+       let errors = {};
+       if(!form.name.trim()) errors.name = 'Name is required';
+       if(!form.brand) errors.brand = 'Brand is required';
+       if(!form.category) errors.category = 'Category is required';
+       if(form.minimun_age === '0' || !form.minimun_age) errors.minimun_age = 'Minimun Age is required';
+       if(!form.description) errors.description = 'Description is required';
+       if(!image) errors.image = "Product image is required";
+
+       return errors; 
+    };
+
+    const handleOnBlur = (e) => {
+        handleChange(e);
+        setErrors(validateForm(form, image));       
+    };
+
 
     // function handleChange (e) {
     //     setForm({
@@ -191,29 +211,34 @@ const Form = ()=>{
                 <FormControl>
                     <Flex direction={'column'} align={'center'}>
                     <FormLabel  color={'white'}>Name</FormLabel>
-                    <Input type='text' name="name" value={form.name} bg={'white'} onChange={handleChange}/>
+                    <Input type='text' name="name" value={form.name} bg={'white'} onChange={handleChange} onBlur={handleOnBlur}/>
+                    {errors.name && <p>{errors.name}</p>}
                 <FormLabel color={'white'}>Brands</FormLabel>
-                <Select placeholder='Select Brand' name="brand" value={form.brand} bg={'white'} onChange={handleChange}>
+                <Select placeholder='Select Brand' name="brand" value={form.brand} bg={'white'} onChange={handleChange} onBlur={handleOnBlur}>
                     {brandsData.map((b) => (
                             <option value={b}>{b}</option>
                         ))}
                 </Select>
+                {errors.brand && <p>{errors.brand}</p>}
                 <FormLabel color={'white'}>Category</FormLabel>
-                <Select placeholder='Select Category' name="category" value={form.category} bg={'white'} onChange={handleChange}>
+                <Select placeholder='Select Category' name="category" value={form.category} bg={'white'} onChange={handleChange} onBlur={handleOnBlur}>
                     {categoriesData.map((c) => (
                         <option value={c}>{c}</option>
                     ))}
                 </Select>
+                {errors.category && <p>{errors.category}</p>}        
                 <FormLabel color={'white'}>Minimum Age</FormLabel>
-                <NumberInput max={15} min={0} name="minimun_age" value={form.minimun_age} bg={'white'} w={'350px'} onChange={value => handleNumbersChange(value, "minimun_age")}>
+                <NumberInput max={15} min={0} name="minimun_age" value={form.minimun_age} bg={'white'} w={'350px'} onChange={value => handleNumbersChange(value, "minimun_age")} onBlur={handleOnBlur}>
                     <NumberInputField />
                     <NumberInputStepper>
                     <NumberIncrementStepper />
                     <NumberDecrementStepper />
                     </NumberInputStepper>
                 </NumberInput>
+                {errors.minimun_age && <p>{errors.minimun_age}</p>}
                 <FormLabel color={'white'}>Description</FormLabel>
-                    <Input type='text' name="description" value={form.description} bg={'white'} onChange={handleChange}/>
+                    <Input type='text' name="description" value={form.description} bg={'white'} onChange={handleChange} onBlur={handleOnBlur}/>
+                    {errors.description && <p>{errors.description}</p>}
                 <FormLabel color={'white'}>Quantity</FormLabel>
                 <NumberInput max={10000} min={0} name="quantity" value={form.quantity} bg={'white'} w={'350px'} onChange={value => handleNumbersChange(value, "quantity")}>
                     <NumberInputField />
@@ -231,10 +256,11 @@ const Form = ()=>{
                     </NumberInputStepper>
                 </NumberInput>
                 <FormLabel color={'white'}>Image</FormLabel>
-                    <Input type="file" id="imagen" name="imagen" w={'350px'} onChange={handleImageChange}/>
+                    <Input type="file" id="imagen" name="imagen" w={'350px'} onChange={handleImageChange} onBlur={handleOnBlur}/>
                     {/* {image && <img src={URL.createObjectURL(image)} alt="alt"/>} */}
+                    {errors.image && <p>{errors.image}</p>}
                     <br />
-                    <Button type="submit" >Create Toy</Button>
+                    <Button type="submit" isDisabled={Object.keys(errors).length || form.name=== '' || form.brand === ''}>Create Toy</Button>
 
                     </Flex>
                 </FormControl>

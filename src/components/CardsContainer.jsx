@@ -79,14 +79,15 @@ const CardsContainer = (props) => {
                   <SimpleGrid columns={5} bg={''} w={'1300px'} h={'730px'}>
                     {productsData.payload?.map((product) => {
                           return (
-                            <Cards2
-                              key={product.id}
-                              id={product.id}
-                              name={product.name}
-                              price={product.price}
-                              image={product.image}
-                              description={product.description}
-                            />
+                                  <Cards2
+                                    key={product.id}
+                                    id={product.id}
+                                    name={product.name}
+                                    price={product.price}
+                                    image={product.image}
+                                    description={product.description}
+                                    productoCarrito={product}
+                                  />
                           );
                         })}
                   </SimpleGrid>

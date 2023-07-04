@@ -23,7 +23,7 @@ import {
   import { getProduct } from "../redux/actions";
 
   
-  export default function ProductProfileEdit(features): JSX.Element {
+  export default function ProductProfileEdit(features)/*: JSX.Element*/ {
 
     const [update, setUpdate] = useState({ //creo un estado del form.
       name:"",

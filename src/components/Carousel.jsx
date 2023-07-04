@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import {
   Box,
   IconButton,
@@ -15,6 +15,8 @@ import {
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 // And react-slick as our Carousel Lib
 import Slider from 'react-slick';
+import { addProductToCart } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Settings for the slider
 const settings = {
@@ -32,8 +34,13 @@ const settings = {
 export default function CaptionCarousel(props) {
   // As we have used custom buttons, we need a reference variable to
   // change the state
-  const [slider, setSlider] = React.useState<typeof Slider | null>(null);
-
+  const [slider, setSlider] = React.useState/*<typeof Slider | null>*/(null);
+  const dispatch = useDispatch();
+    const cartItems = useSelector((state) => state.cartItems);
+    
+    const addProductCarrito = (product) => {
+      dispatch(addProductToCart(product));
+  };
   // These are the breakpoints which changes the position of the
   // buttons as the screen size changes
   const top = useBreakpointValue({ base: '90%', md: '50%' });
