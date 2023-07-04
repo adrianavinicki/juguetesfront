@@ -187,6 +187,10 @@ import {
     // console.log(productsData)
     console.log(data)
 
+    const deleteproduct = () => {
+      //aqui borrar el producto del back, del array local aqui, y en el array en la store de redux, medio largo la function
+    }
+
     return (
       
       <Box p={10}>
