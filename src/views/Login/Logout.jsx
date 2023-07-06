@@ -9,9 +9,10 @@ export const LogoutButton = () => {
 
   const navigate = useNavigate();
     
-  const handleContinue = () => {
-      navigate('/home');
-    };
+  // const handleContinue = () => {
+  //     // returnTo: window.location.origin 
+  //     navigate('/home');
+  //   };
 
   return (
     <Button
@@ -19,8 +20,8 @@ export const LogoutButton = () => {
       variant="solid"
       onClick={() => logout({ returnTo: window.location.origin })}
     >
-    {/* <Button onClick={handleContinue}>Continuar</Button> */}
-      {/* <button onClick={() => logout({ returnTo: window.location.origin })}></button> */}
+    {/* // <Button onClick={handleContinue}>Continuar</Button> */}
+      {/* <button onClick={() => logout({ returnTo: "http://localhost:3001/home" })}> Logout</button> */}
       Logout
     </Button>
   );
