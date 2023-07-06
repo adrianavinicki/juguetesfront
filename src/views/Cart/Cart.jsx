@@ -52,6 +52,9 @@ export default function Cart() {
                      <Text>
                      <strong>cantidad: </strong>{item.quantity}
                      </Text>
+                     <Text>
+                      <strong>precio: </strong> ${item.price}
+                     </Text>
                      <Button variant="outline" colorScheme="red" size="sm" onClick={() => handleDecreaseQuantity(item. id)} mt={2}>
                         -
                       </Button>
