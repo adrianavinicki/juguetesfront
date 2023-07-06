@@ -4,6 +4,7 @@ import { LoginAuth } from "../views/Login/LoginAuth";
 import { LogoutButton } from "../views/Login/Logout";
 import { Profile } from "../views/Login/Profile";
 import MenuUser from "./MenuUser";
+import CartIcon from './icons/cartIcon';
 import {
     Box,
     Flex,
@@ -68,10 +69,14 @@ import {
           </div>
   
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+              
               <DesktopNav />
+            
             </Flex>
+            
           </Flex>
 
+          
           <Flex ml="auto" paddingRight={'200px'}>
           {isAuthenticated ? (
             <>
@@ -135,11 +140,12 @@ import {
             </Popover>
           </Box>
         ))}
+        
       </Stack>
     );
   };
   
-  const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+  const DesktopSubNav = ({ label, href, subLabel }/*: NavItem*/) => {
     return (
       <Link
         href={href}
@@ -186,7 +192,7 @@ import {
     );
   };
   
-  const MobileNavItem = ({ label, children, href }: NavItem) => {
+  const MobileNavItem = ({ label, children, href }/*: NavItem*/) => {
     const { isOpen, onToggle } = useDisclosure();
   
     return (
@@ -236,14 +242,14 @@ import {
     );
   };
   
-  interface NavItem {
-    label: string;
-    subLabel?: string;
-    children?: Array<NavItem>;
-    href?: string;
-  }
+  //interface NavItem {
+  //  label: string;
+  //  subLabel?: string;
+  //  children?: Array<NavItem>;
+  //  href?: string;
+  //}
   
-  const NAV_ITEMS: Array<NavItem> = [
+  const NAV_ITEMS/*: Array<NavItem>*/ = [
     {
       label: 'My Orders',
       children: [
@@ -282,4 +288,8 @@ import {
       label: 'Create Toy',
       href: '/form',
     },
+    {
+      label: "Cart",
+      href: "/cart",
+    }
   ];

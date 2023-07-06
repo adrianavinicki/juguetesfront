@@ -6,6 +6,8 @@ import Admin from "./views/Admin/Admin";
 import Edit from "./views/Edit/Edit"
 import Update from "./views/Update/Update"
 import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-dom";
+import Cart from "./views/Cart/Cart";
+import OrdersData from "./components/Orders";
 
 
 const router = createBrowserRouter([
@@ -22,9 +24,17 @@ const router = createBrowserRouter([
         element: <Form />,
     },
     {
-        path:"/admin",
+        path:"/cart",
+        element: <Cart/>,
+    }, 
+
+    {   path:"/admin",
         element: <Admin />,
     },
+    {   path:"/admin/orders",
+        element: <OrdersData/>,
+    },
+    
     {
         path:"/edit",
         element: <Edit />,

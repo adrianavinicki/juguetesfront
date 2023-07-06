@@ -23,7 +23,18 @@ import {
   import { getProduct } from "../redux/actions";
 
   
-  export default function ProductProfileEdit(features): JSX.Element {
+  export default function ProductProfileEdit(features)/*: JSX.Element*/ {
+
+    const [update, setUpdate] = useState({ //creo un estado del form.
+      name:"",
+      brand:"",
+      category:"",
+      minimun_age:"",
+      description:"",
+      quantity:"",
+      price:"",
+      product_status: true,
+  })
 
     const params = useParams()
     
@@ -34,6 +45,16 @@ import {
     useEffect(()=>{
         dispatch(getProduct(params.id))   
     },[dispatch, params.id])
+
+    const handleSubmit = (e) => {
+
+      e.preventDefault();
+
+    dispatch(putProduct());
+    alert("toy created");
+
+      const value = e.target.value
+    }
 
     return (
       <Box>

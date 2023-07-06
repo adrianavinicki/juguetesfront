@@ -5,6 +5,7 @@ import { LoginAuth } from "../views/Login/LoginAuth";
 import { LogoutButton } from "../views/Login/Logout";
 import { Profile } from "../views/Login/Profile";
 import MenuUser from "./MenuUser";
+import CartIcon from "./icons/cartIcon";
 
 const NavBar = () => {
   const { isAuthenticated } = useAuth0();
@@ -39,6 +40,13 @@ const NavBar = () => {
             <LoginAuth />
           )}
         </Flex>
+
+        <Flex justifyContent="center">
+          <Link to="/cart">
+            <CartIcon/>
+          </Link>
+        </Flex>
+
       </Flex>
 
       <div>
