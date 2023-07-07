@@ -1,5 +1,5 @@
 import Home from "./views/Home/Home";
-import Detail from "./views/Detail/Detail"
+import Simple from "./views/Detail/Detail"
 import Detail2 from "./views/Detail/Detail2"
 import Form from "./views/Form/Form";
 import Admin from "./views/Admin/Admin";
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     },
     {
         path:"/detail/:id",
-        element: <Detail2 />,
+        element: <Simple />,
     },
     {
         path:"/form",

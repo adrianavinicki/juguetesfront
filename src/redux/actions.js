@@ -64,9 +64,9 @@ export const postProduct = (payload) => {
   };
 };
 
-export const putProduct = (payload) => {
+export const putProduct = (id, payload) => {
     return async function(dispatch){
-        const response = await axios.post("http://localhost:3010/products/update/:id", payload);
+        const response = await axios.put(`http://localhost:3010/products/update/${id}`, payload);
         return response;
     };
 };

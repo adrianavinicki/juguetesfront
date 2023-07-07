@@ -13,7 +13,8 @@ import {
   import { BsPerson } from 'react-icons/bs';
   import { FiServer } from 'react-icons/fi';
   import { GoLocation } from 'react-icons/go';
-import { Link } from 'react-router-dom';
+  import { Link } from 'react-router-dom';
+  import StatsGridWithImage from "./StatsGrid"
   
   //interface StatsCardProps {
   //  title: string;
@@ -25,7 +26,7 @@ import { Link } from 'react-router-dom';
     return (
       <Stat
         px={{ base: 2, md: 4 }}
-        py={'5'}
+        py={'8'}
         shadow={'xl'}
         border={'1px solid'}
         borderColor={useColorModeValue('white', 'gray.500')}
@@ -52,17 +53,15 @@ import { Link } from 'react-router-dom';
   
   export default function BasicStatistics() {
     return (
-      <Box maxW="7xl"  mx={'auto'} pt={50} px={{ base: 2, sm: 12, md: 17 }}>
+      <Box maxW="7xl"  mx={'auto'} pt={30} px={{ base: 2, sm: 12, md: 17 }}>
         <chakra.h1
           textAlign={'center'}
           fontSize={'4xl'}
-          py={10}
+          py={1}
           fontWeight={'bold'}
           color={'white'}>
           Wonder Toys Statistics
         </chakra.h1>
-        <br />
-        <br />
         <br />
         <br />
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
@@ -85,6 +84,7 @@ import { Link } from 'react-router-dom';
             icon={<GoLocation size={'3em'} />}
           />
         </SimpleGrid>
+        <StatsGridWithImage />
       </Box>
     );
   }

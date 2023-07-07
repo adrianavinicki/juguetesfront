@@ -21,9 +21,13 @@ import {
   import { useDispatch, useSelector } from "react-redux";
   import { useEffect, useState } from "react";
   import { getProduct } from "../redux/actions";
+  import { putProduct } from "../redux/actions"
 
   
   export default function ProductProfileEdit(features)/*: JSX.Element*/ {
+
+    const dispatch = useDispatch();
+    
 
     const [update, setUpdate] = useState({ //creo un estado del form.
       name:"",
@@ -40,21 +44,39 @@ import {
     
     const productDetail = useSelector((state)=>state.productDetail)
 
-    const dispatch = useDispatch();
+
+    const handleChange = (event) => {
+      const {name, value} = event.target;
+      setUpdate(prevState => ({...prevState, [name]: value}));
+  };
+
+    const handleSubmit = event => {
+      console.log("hola")
+      console.log(update)
+
+      try {
+       
+          dispatch(putProduct(params.id, update));
+          alert("toy updated");
+
+          setUpdate({    
+          name:"",
+          brand:"",
+          category:"",
+          minimun_age:"",
+          description:"",
+          quantity:"",
+          price:"",
+          product_status: true,})
+          
+      } catch (error) {
+          console.log(error)
+      }
+  };
 
     useEffect(()=>{
-        dispatch(getProduct(params.id))   
-    },[dispatch, params.id])
-
-    const handleSubmit = (e) => {
-
-      e.preventDefault();
-
-    dispatch(putProduct());
-    alert("toy created");
-
-      const value = e.target.value
-    }
+      dispatch(getProduct(params.id))   
+  },[dispatch, params.id])
 
     return (
       <Box>
@@ -76,6 +98,7 @@ import {
           Update: {productDetail.name}
           </Heading>
           <br />
+          <form onSubmit={handleSubmit}>
           <FormControl id="productName">
             <Stack direction={['column', 'row']} spacing={6}>
               <Center>
@@ -96,60 +119,81 @@ import {
               </Center>
             </Stack>
           </FormControl>
-          <FormControl id="productName" isRequired>
+          <FormControl id="productName" >
             <FormLabel>Current Name: {productDetail.name}</FormLabel>
             <Input
               placeholder="New Name"
               _placeholder={{ color: 'gray.500' }}
               type="text"
+              name="name"
+              value={update.name}
+              onChange={handleChange}
             />
           </FormControl>
-          <FormControl id="productBrand" isRequired>
+          <FormControl id="productBrand" >
             <FormLabel>Current Brand: {productDetail.brand}</FormLabel>
             <Input
               placeholder="New Brand"
               _placeholder={{ color: 'gray.500' }}
-              type="email"
+              type="text"
+              name="brand"
+              value={update.brand}
+              onChange={handleChange}
             />
           </FormControl>
-          <FormControl id="productCategory" isRequired>
+          <FormControl id="productCategory" >
             <FormLabel>Current Category: {productDetail.category}</FormLabel>
             <Input
               placeholder="New Category"
               _placeholder={{ color: 'gray.500' }}
               type="text"
+              name="category"
+              value={update.category}
+              onChange={handleChange}
             />
           </FormControl>
-          <FormControl id="productPrice" isRequired>
+          <FormControl id="productPrice" >
             <FormLabel>Current Price: ${productDetail.price}</FormLabel>
             <Input
               placeholder="New Price"
               _placeholder={{ color: 'gray.500' }}
               type="number"
+              name="price"
+              value={update.price}
+              onChange={handleChange}
             />
           </FormControl>
-          <FormControl id="productCategory" isRequired>
+          <FormControl id="productCategory" >
             <FormLabel>Description</FormLabel>
             <Input
               placeholder="New Description"
               _placeholder={{ color: 'gray.500' }}
               type="text"
+              name="description"
+              value={update.description}
+              onChange={handleChange}
             />
           </FormControl>
-          <FormControl id="productCategory" isRequired>
+          <FormControl id="productCategory" >
             <FormLabel>Current Quantity: {productDetail.quantity}</FormLabel>
             <Input
               placeholder="New Quantity"
               _placeholder={{ color: 'gray.500' }}
               type="text"
+              name="quantity"
+              value={update.quantity}
+              onChange={handleChange}
             />
           </FormControl>
-          <FormControl id="productCategory" isRequired>
+          <FormControl id="productCategory" >
             <FormLabel>Current Minimum Age: {productDetail.minimun_age}</FormLabel>
             <Input
               placeholder="New Minimum Age"
               _placeholder={{ color: 'gray.500' }}
               type="text"
+              name="minimun_age"
+              value={update.minimun_age}
+              onChange={handleChange}
             />
           </FormControl>
           <Stack spacing={6} direction={['column', 'row']}>
@@ -165,15 +209,18 @@ import {
               </Button>
             </Link>
             <Button
+             type='submit'
               bg={'blue.400'}
               color={'white'}
               w="full"
               _hover={{
                 bg: 'blue.900',
-              }}>
+              }}
+              onSubmit={handleSubmit}>
               Submit Update
             </Button>
           </Stack>
+          </form>
         </Stack>
       </Flex>
       </Box>
