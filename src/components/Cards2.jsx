@@ -14,7 +14,9 @@ import {
     Button,
     Grid,
     GridItem,
-    Collapse,
+    Collapse, 
+    Heading, 
+    Text
   } from '@chakra-ui/react';
   import { BsLinkedin, BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
   import { FiShoppingCart } from 'react-icons/fi';
@@ -31,12 +33,9 @@ import {
     numReviews: 34,
   };
   
-  //interface RatingProps {
-  //  rating: number;
-  //  numReviews: number;
-  //}
   
-  function Rating({ rating, numReviews }/*: RatingProps*/) {
+  
+  function Rating({ rating, numReviews }) {
     return (
       <Box >
         <Flex align={'center'}>
@@ -61,7 +60,7 @@ import {
         </Flex>
       </Box>
     );
-  }
+  } 
   
   function ProductAddToCart(props) {
     const dispatch = useDispatch();

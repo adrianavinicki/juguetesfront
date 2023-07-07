@@ -16,6 +16,8 @@ export const COMBINED_FILTERS = "COMBINED_FILTERS";
 export const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART";
 export const DECREASE_PRODUCT_QUANTITY = "DECREASE_PRODUCT_QUANTITY";
 export const INCREASE_PRODUCT_QUANTITY = "INCREASE_PRODUCT_QUANTITY";
+export const CREATE_REVIEW = "CREATE_REVIEW"
+export const FETCH_REVIEWS = "FETCH_REVIEWS"
 
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
 //export const POST_ORDER = "POST_ORDER";
@@ -228,6 +230,31 @@ export const createDetailOrder = (payload) => {
       alert("Detail Order Created");
     } catch (error) {
       alert(error.message);
+    }
+  };
+};
+
+
+export const createReview = (reviewData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post('http://localhost:3010/rating/create', reviewData);
+      const review = response.data.review;
+      dispatch({ type: 'CREATE_REVIEW', payload: review });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fetchReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3010/rating');
+      const reviews = response.data;
+      dispatch({ type: 'FETCH_REVIEWS', payload: reviews });
+    } catch (error) {
+      console.log(error);
     }
   };
 };
