@@ -51,6 +51,7 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
   // Manejador para el clic en una estrella de calificación
   const handleRatingClick = (value) => {
     setRatingValue(value);
+    setIsOpen(false); // Cerrar el popover después de hacer clic en una estrella
   };
 
   // Manejador para el cambio de comentario

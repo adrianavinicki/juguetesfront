@@ -1,34 +1,82 @@
-import React from "react";
+// import React from "react";
+// import { Box, Flex } from "@chakra-ui/react";
+// import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
+
+// const Rating = ({ ratingValue, handleRatingClick }) => {
+//   const renderStars = (ratingValue) => {
+//     const roundedRating = Math.round(ratingValue * 2) / 2;
+//     return Array(5)
+//       .fill("")
+//       .map((_, i) => {
+//         if (roundedRating - i >= 1) {
+//           return (
+//             <Box key={i} ml={1}>
+//               <BsStarFill
+//                 style={{ marginLeft: "1" }}
+//                 color={i < ratingValue ? "black" : "gray.300"}
+//                 onClick={() => handleRatingClick(i + 1)}
+//               />
+//             </Box>
+//           );
+//         }
+//         if (roundedRating - i === 0.5) {
+//           return (
+//             <Box key={i} ml={1}>
+//               <BsStarHalf style={{ marginLeft: "1" }} />
+//             </Box>
+//           );
+//         }
+//         return (
+//           <Box key={i} ml={1}>
+//             <BsStar style={{ marginLeft: "1" }} />
+//           </Box>
+//         );
+//       });
+//   };
+
+//   return (
+//     <Flex alignItems="center">
+//       {renderStars(ratingValue)}
+//     </Flex>
+//   );
+// };
+
+// export default Rating;
+
+
+import React, { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 
 const Rating = ({ ratingValue, handleRatingClick }) => {
+  const [hoverRating, setHoverRating] = useState(0);
+
   const renderStars = (ratingValue) => {
     const roundedRating = Math.round(ratingValue * 2) / 2;
     return Array(5)
       .fill("")
       .map((_, i) => {
-        if (roundedRating - i >= 1) {
-          return (
-            <Box key={i} ml={1}>
-              <BsStarFill
-                style={{ marginLeft: "1" }}
-                color={i < ratingValue ? "black" : "gray.300"}
-                onClick={() => handleRatingClick(i + 1)}
-              />
-            </Box>
-          );
-        }
-        if (roundedRating - i === 0.5) {
-          return (
-            <Box key={i} ml={1}>
-              <BsStarHalf style={{ marginLeft: "1" }} />
-            </Box>
-          );
+        let starColor = "gray.300";
+        if (hoverRating >= i + 1) {
+          starColor = "black";
+        } else if (roundedRating >= i + 1) {
+          starColor = "black";
         }
         return (
-          <Box key={i} ml={1}>
-            <BsStar style={{ marginLeft: "1" }} />
+          <Box
+            key={i}
+            ml={1}
+            onMouseEnter={() => setHoverRating(i + 1)}
+            onMouseLeave={() => setHoverRating(0)}
+            onClick={() => handleRatingClick(i + 1)}
+          >
+            {roundedRating - i >= 1 ? (
+              <BsStarFill style={{ marginLeft: "1" }} color={starColor} />
+            ) : roundedRating - i === 0.5 ? (
+              <BsStarHalf style={{ marginLeft: "1" }} color={starColor} />
+            ) : (
+              <BsStar style={{ marginLeft: "1" }} color={starColor} />
+            )}
           </Box>
         );
       });
