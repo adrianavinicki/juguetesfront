@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { getProducts, filterByAge, filterByPrice, filterByCategory, filterByBrand, orderByPrice, getProductsFiltered, getProductsFilteredPage, productsFilter } from "../redux/actions";
+import { getProducts, filterByAge, filterByPrice, filterByCategory, filterByBrand, orderByPrice, getProductsFiltered, getProductsFilteredPage, productsFilter, actualizarFiltroPaginado } from "../redux/actions";
 import { Box, Flex, Button, FormLabel, Select, Input } from '@chakra-ui/react'
 import SearchBar from "./SearchBar";
 
@@ -17,9 +17,16 @@ const FilterAndOrder = () => {
         name: "",
     })
 
+    const [priceInput, setPriceInput] = useState('')
+
     const handleFilters = (e) => {
         setFilters({...filters, [e.target.name]: e.target.value})
     }
+
+    const handlePriceInput = (e) => {
+        const {value} = e.target
+        setPriceInput(value);
+    };
 
     useEffect(()=> {
         const params = {}
@@ -28,6 +35,9 @@ const FilterAndOrder = () => {
             params[key] = filters[key]
         }
         }
+
+        dispatch(actualizarFiltroPaginado(params));
+
        axios.get("http://localhost:3010/products",{params})
        .then(res => {dispatch(productsFilter(res.data))})
     },[filters])
@@ -126,7 +136,9 @@ const FilterAndOrder = () => {
                 }}>Reset All</Button>
                 <br />
                 <Box>
-                    <SearchBar />
+                    <SearchBar 
+                        handleFilters={handleFilters}
+                    />
                 </Box>
                 <br />
                 <FormLabel>Filter Age</FormLabel>
@@ -158,8 +170,8 @@ const FilterAndOrder = () => {
                  <br />
                 <div>
                     <FormLabel>Max Price: </FormLabel>
-                    <Input type='number' name='price' value={filters.price} onChange = {handleFilters} w={'110px'} bg={'blue.900'} color={'white'}></Input>
-                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} onClick={handleFilters} value={filters.price} name='price'>Search</Button>
+                    <Input type='number' name='price' value={priceInput} onChange = {handlePriceInput} w={'110px'} bg={'blue.900'} color={'white'}></Input>
+                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} onClick={handleFilters} value={priceInput} name='price'>Search</Button>
                 </div>
                 <br />
                 <Box>
