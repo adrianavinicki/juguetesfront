@@ -1,30 +1,52 @@
 import React, { useState } from 'react';
-import { Box, Text, Button } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
+import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs';
+import { useDispatch } from 'react-redux';
+import { createReview } from '../redux/actions';
 
-const Review = ({ productId, userId, onRatingSubmit }) => {
-  const [rating, setRating] = useState(0);
+function Review({ rating, numReviews }) {
+  const [hoverRating, setHoverRating] = useState(0);
+  const dispatch = useDispatch();
 
   const handleRatingChange = (value) => {
-    setRating(value);
-  };
-
-  const handleRatingSubmit = () => {
-    onRatingSubmit(productId, userId, rating);
+    dispatch(createReview({ rating: value }));
   };
 
   return (
-    <Box mt={4} p={4} borderWidth="1px" borderRadius="md">
-      <Text fontSize="lg" fontWeight="bold">Calificar producto</Text>
-      <Box>
-        <Button size="sm" onClick={() => handleRatingChange(1)}>1</Button>
-        <Button size="sm" onClick={() => handleRatingChange(2)}>2</Button>
-        <Button size="sm" onClick={() => handleRatingChange(3)}>3</Button>
-        <Button size="sm" onClick={() => handleRatingChange(4)}>4</Button>
-        <Button size="sm" onClick={() => handleRatingChange(5)}>5</Button>
-      </Box>
-      <Button mt={2} onClick={handleRatingSubmit}>Enviar calificación</Button>
+    <Box>
+      <Flex align={'center'}>
+        {[1, 2, 3, 4, 5].map((i) => {
+          const filledStars = Math.floor(rating);
+          const hasHalfStar = rating - filledStars >= 0.5;
+          const isFilled = i <= filledStars;
+          const isHalfFilled = i === filledStars + 1 && hasHalfStar;
+
+          let starColor = 'gray.300';
+          if (isFilled || isHalfFilled) {
+            starColor = 'yellow.400';
+          }
+
+          return (
+            <Box
+              key={i}
+              as="button"
+              onClick={() => handleRatingChange(i)}
+              onMouseEnter={() => setHoverRating(i)}
+              onMouseLeave={() => setHoverRating(0)}
+            >
+              {isFilled ? (
+                <BsStarFill style={{ marginLeft: '1' }} color={starColor} />
+              ) : isHalfFilled ? (
+                <BsStarHalf style={{ marginLeft: '1' }} color={starColor} />
+              ) : (
+                <BsStar style={{ marginLeft: '1' }} color={starColor} />
+              )}
+            </Box>
+          );
+        })}
+      </Flex>
     </Box>
   );
-};
+}
 
 export default Review;
