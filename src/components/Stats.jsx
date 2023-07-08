@@ -9,12 +9,14 @@ import {
     StatNumber,
     useColorModeValue,
   } from '@chakra-ui/react';
-  import { ReactNode } from 'react';
+  import { ReactNode, useEffect } from 'react';
   import { BsPerson } from 'react-icons/bs';
   import { FiServer } from 'react-icons/fi';
   import { GoLocation } from 'react-icons/go';
   import { Link } from 'react-router-dom';
   import StatsGridWithImage from "./StatsGrid"
+  import { useSelector, useDispatch } from 'react-redux';
+  import { getAllUsers, getAllOrders, getAllDetailOrders } from '../redux/actions';
   
   //interface StatsCardProps {
   //  title: string;
@@ -23,6 +25,7 @@ import {
   //}
   function StatsCard(props /*StatsCardProps*/) {
     const { title, stat, icon } = props;
+
     return (
       <Stat
         px={{ base: 2, md: 4 }}
@@ -52,6 +55,16 @@ import {
   }
   
   export default function BasicStatistics() {
+
+    const dispatch = useDispatch();
+    const users = useSelector((state) => state.users);
+    const detailOrders = useSelector((state) => state.detailOrders);
+
+    useEffect(() => {
+      dispatch(getAllUsers());
+      dispatch(getAllDetailOrders());
+    }, []);
+
     return (
       <Box maxW="7xl"  mx={'auto'} pt={30} px={{ base: 2, sm: 12, md: 17 }}>
         <chakra.h1
@@ -67,7 +80,7 @@ import {
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
           <StatsCard
             title={'Users'}
-            stat={'5,000'}
+            stat={users.length}
             icon={<BsPerson size={'3em'} />}
           />
           <Link to= "/admin/orders">
@@ -79,8 +92,8 @@ import {
           </Link>
           
           <StatsCard
-            title={'Datacenters'}
-            stat={'7'}
+            title={'Income'}
+            stat={'$76.467'}
             icon={<GoLocation size={'3em'} />}
           />
         </SimpleGrid>

@@ -21,6 +21,7 @@ export const CREATE_REVIEW = "CREATE_REVIEW"
 export const FETCH_REVIEWS = "FETCH_REVIEWS"
 
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
+export const GET_ALL_USERS = "GET_ALL_USERS";
 //export const POST_ORDER = "POST_ORDER";
 //export const PUT_ORDER = "PUT_ORDER";
 export const GET_ORDER_BY_ID = "GET_ORDER_BY_ID";
@@ -164,6 +165,14 @@ export const getAllOrders = () => {
     const dbData = await axios.get("http://localhost:3010/orders");
     const orders = dbData.data;
     dispatch({ type: GET_ALL_ORDERS, payload: orders });
+  };
+};
+
+export const getAllUsers = () => {
+  return async function (dispatch) {
+    const dbData = await axios.get("http://localhost:3010/users");
+    const users = dbData.data;
+    dispatch({ type: GET_ALL_USERS, payload: users });
   };
 };
 
