@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as randomId } from "uuid";
+import NavBar2 from "./NavBar2"
 import {
   Table,
   Thead,
@@ -67,7 +68,8 @@ function OrdersData() {
 
   return (
     <TableContainer>
-      <Table variant="striped" colorScheme="teal">
+      <NavBar2></NavBar2>
+      <Table variant="striped" colorScheme="blue.900">
         <TableCaption>Stats Sales</TableCaption>
         <Thead>
           <Tr>

@@ -17,6 +17,8 @@ export const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART";
 export const DECREASE_PRODUCT_QUANTITY = "DECREASE_PRODUCT_QUANTITY";
 export const INCREASE_PRODUCT_QUANTITY = "INCREASE_PRODUCT_QUANTITY";
 export const ACTUALIZAR_FILTRO_PARA_PAGINADO = "ACTUALIZAR_FILTRO_PARA_PAGINADO";
+export const CREATE_REVIEW = "CREATE_REVIEW"
+export const FETCH_REVIEWS = "FETCH_REVIEWS"
 
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
 //export const POST_ORDER = "POST_ORDER";
@@ -65,9 +67,9 @@ export const postProduct = (payload) => {
   };
 };
 
-export const putProduct = (payload) => {
+export const putProduct = (id, payload) => {
     return async function(dispatch){
-        const response = await axios.post("http://localhost:3010/products/update/:id", payload);
+        const response = await axios.put(`http://localhost:3010/products/update/${id}`, payload);
         return response;
     };
 };
@@ -238,4 +240,29 @@ export const actualizarFiltroPaginado = (filterConfig) => {
     type: "ACTUALIZAR_FILTRO_PARA_PAGINADO",
     payload: filterConfig 
   }
+};
+
+
+export const createReview = (reviewData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post('http://localhost:3010/rating/create', reviewData);
+      const review = response.data.review;
+      dispatch({ type: 'CREATE_REVIEW', payload: review });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const fetchReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get('http://localhost:3010/rating');
+      const reviews = response.data;
+      dispatch({ type: 'FETCH_REVIEWS', payload: reviews });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };

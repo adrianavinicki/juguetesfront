@@ -20,7 +20,9 @@ import {
   GET_DETAIL_ORDER_BY_ID,
   GET_PRODUCTS_FILTERED_PAGE,
   PRODUCTS_FILTER,
-  ACTUALIZAR_FILTRO_PARA_PAGINADO
+  ACTUALIZAR_FILTRO_PARA_PAGINADO,
+  CREATE_REVIEW,
+  FETCH_REVIEWS
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
@@ -41,6 +43,7 @@ const initialState = {
   // brandFilter: [],
   // categoryFilter: [],
   // ageFilter: [],
+  reviews: [],
   orders: [],
   selectedOrder: null,
   detailOrders: [],
@@ -195,6 +198,18 @@ const rootReducer = (state = initialState, action) => {
         filtroParaPaginado: action.payload
       }  
       
+      
+    case CREATE_REVIEW:
+            return {
+              ...state,
+              reviews: [...state.reviews, action.payload],
+            };
+    case FETCH_REVIEWS:
+            return {
+              ...state,
+              reviews: action.payload,
+            };
+         
     default:
       return { ...state };
   }

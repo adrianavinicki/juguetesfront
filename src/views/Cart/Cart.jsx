@@ -2,6 +2,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Heading, Text, UnorderedList, ListItem, Image, Button, Card } from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 import { removeProductFromCart, decreaseProductQuantity, increaseProductQuantity } from "../../redux/actions";
+import NavBar2 from "../../components/NavBar2"
+
+
 export default function Cart() {
 
     const dispatch = useDispatch();
@@ -28,7 +31,9 @@ export default function Cart() {
         backgroundSize="cover"
         width="100vw"
         height="100vh"
-        p={12}>
+        >
+            <NavBar2></NavBar2>
+            <Box p={'20'}>
             <Heading as="h2" size="lg" mb={4}>
                 Carrito
             </Heading>
@@ -51,6 +56,9 @@ export default function Cart() {
                     </Text>
                      <Text>
                      <strong>cantidad: </strong>{item.quantity}
+                     </Text>
+                     <Text>
+                      <strong>precio: </strong> ${item.price}
                      </Text>
                      <Button variant="outline" colorScheme="red" size="sm" onClick={() => handleDecreaseQuantity(item. id)} mt={2}>
                         -
@@ -80,6 +88,7 @@ export default function Cart() {
         </Text>
 
         <Link to="/"> <Button variant='solid' colorScheme='facebook'>volver</Button></Link>
+            </Box>
         </Box>
     )
 }

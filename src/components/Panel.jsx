@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
-import { GET_PRODUCTS_FILTERED_PAGE, getProducts, getProductsFilteredPage } from "../redux/actions";
+import { GET_PRODUCTS_FILTERED_PAGE, getProducts, getProductsFilteredPage, getProduct } from "../redux/actions";
 import CardsContainer from "./CardsContainer";
 import {
     Box,
@@ -24,8 +24,7 @@ import {
 
   
   export default function GridListWithHeading(props) {
-
-    
+     
 
     const dispatch = useDispatch()
     const productsData = useSelector(state=>state.filteredProducts)
@@ -39,12 +38,27 @@ import {
   },[dispatch])
   
   
+    const handleDelete = async (id) => {
+      const confirmed = window.confirm('¿Estás seguro de que deseas eliminar este producto?');
+      if(confirmed) {
+        try {
+          await axios.delete(`http://localhost:3010/products/delete/${id}`);
+        } catch (error) {
+          console.error(error);
+        } 
+      }
+    }
+
 
     const handlePageState = (pageNumber) => {
       dispatch(getProductsFilteredPage({pageNumber:pageNumber}))
       // currentPageData = pageNumber
     }
 
+
+    const deleteproduct = () => {
+      //aqui borrar el producto del back, del array local aqui, y en el array en la store de redux, medio largo la function
+    }
 
     return (
       
@@ -91,7 +105,7 @@ import {
                 <HStack  key={feature.id} align={'center'} w={'300px'} h={'73px'} bg={'gray.300'}>
                     <Box color={'red.500'} px={3}>
                       <Link>
-                      <Icon as={DeleteIcon} />
+                      <Icon onClick={() => handleDelete(feature.id)} as={DeleteIcon} />
                       </Link>
                     </Box>
                     <Box color={'blue.500'} px={3}>
