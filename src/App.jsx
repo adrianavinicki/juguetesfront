@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-d
 import Cart from "./views/Cart/Cart";
 import Cart2 from "./views/Cart/Cart2";
 import OrdersData from "./components/Orders";
+import Payment from "./views/Pago/Pago"
 
 
 const router = createBrowserRouter([
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
     },
     {
         path:"/cart",
-        element: <Cart/>,
+        element: <Cart2/>,
     }, 
 
     {   path:"/admin",
@@ -35,7 +36,6 @@ const router = createBrowserRouter([
     {   path:"/admin/orders",
         element: <OrdersData/>,
     },
-    
     {
         path:"/edit",
         element: <Edit />,
@@ -43,6 +43,10 @@ const router = createBrowserRouter([
     {
         path:"/edit/:id",
         element: <Update />,
+    },
+    {
+        path:"/payment",
+        element: <Payment />,
     },
 ]);
 

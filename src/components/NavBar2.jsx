@@ -250,24 +250,41 @@ import {
   //}
   
   const NAV_ITEMS/*: Array<NavItem>*/ = [
+    // {
+    //   label: 'My Orders',
+    //   children: [
+    //     {
+    //       label: 'Closed Orders',
+    //       subLabel: 'Trending Design to inspire you',
+    //       href: '#',
+    //     },
+    //     {
+    //       label: 'Pending Orders',
+    //       subLabel: 'Up-and-coming Designers',
+    //       href: '#',
+    //     },
+    //   ],
+    // },
+    {
+      label: 'Home',
+      href: '/',
+    },
+    {
+      label: "Cart",
+      href: "/cart",
+    },
     {
       label: 'My Orders',
-      children: [
-        {
-          label: 'Closed Orders',
-          subLabel: 'Trending Design to inspire you',
-          href: '#',
-        },
-        {
-          label: 'Pending Orders',
-          subLabel: 'Up-and-coming Designers',
-          href: '#',
-        },
-      ],
+      href: '#',
     },
     {
       label: 'Admin',
       children: [
+        {
+          label: 'Create Toy',
+          subLabel: 'Create a New Toy',
+          href: '/form',
+        },
         {
           label: 'Stats',
           subLabel: 'Sales, Orders, Users',
@@ -280,16 +297,4 @@ import {
         },
       ],
     },
-    {
-      label: 'Home',
-      href: '/',
-    },
-    {
-      label: 'Create Toy',
-      href: '/form',
-    },
-    {
-      label: "Cart",
-      href: "/cart",
-    }
   ];
