@@ -15,23 +15,48 @@ import { useEffect, useState } from "react";
 import FilterAndOrder from "./Filters";
 import SearchBar from "./SearchBar";
 import axios from "axios";
-import { getProductsFiltered, getProductsFilteredPage } from "../redux/actions";
+import { getProductsFiltered, getProductsFilteredPage, productsFilter } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
 const CardsContainer = (props) => {
 
   const dispatch = useDispatch()
   const productsData = useSelector(state=>state.filteredProducts)
-  let currentPageData = Number(productsData.currentPage)
-  const prueba = productsData.data
+  const configuracionFiltros = useSelector(state => state.filtroParaPaginado);
+  //let currentPageData = Number(productsData.currentPage)
+  const [currentPageData, setCurrentPageData] = useState(
+    Number(productsData.currentPage)
+  );
   const pages = Number(productsData.totalPages)
 
+  useEffect(()=> {
+    setCurrentPageData(Number(productsData.currentPage));
+  },[productsData]);
 
 
-  const handlePageState = (pageNumber) => {
-    dispatch(getProductsFilteredPage({pageNumber:pageNumber}))
-    // currentPageData = pageNumber
-  }
+
+  // const handlePageState = (pageNumber) => {
+  //   dispatch(getProductsFilteredPage({pageNumber:pageNumber}))
+  //   // currentPageData = pageNumber
+  // }
+
+  const handlePageState = (e) => {
+    console.log(e.target.name);
+    //const nextPage = currentPageData + 1;
+    const nextPage = e.target.name === 'siguiente'? currentPageData + 1 : currentPageData - 1
+    setCurrentPageData(nextPage);
+    const filters = configuracionFiltros;
+    const params = { ...configuracionFiltros, pageNumber: nextPage }; // Agrega la propiedad 'page' al objeto de parámetros
+
+    axios
+      .get("http://localhost:3010/products", { params })
+      .then((res) => {
+        dispatch(productsFilter(res.data));
+      })
+      .catch((error) => {
+        console.error("Error al obtener los productos: ", error);
+      });
+  };
 
   return (
     <div>
@@ -41,10 +66,12 @@ const CardsContainer = (props) => {
             <div>
               <Button
                 w={"100px"}
+                name='anterior'
+                isDisabled={currentPageData ===1}
                 _hover={""}
                 color={"white"}
                 bg={"#0E1A40"}
-                onClick={() => handlePageState(currentPageData - 1)}
+                onClick={handlePageState}
               >
                 Anterior
               </Button>
@@ -53,10 +80,12 @@ const CardsContainer = (props) => {
               </span>
               <Button
                 w={"100px"}
+                name='siguiente'
+                isDisabled={currentPageData === productsData.totalPages}
                 _hover={""}
                 color={"white"}
                 bg={"#0E1A40"}
-                onClick={() => handlePageState(currentPageData + 1)}
+                onClick={handlePageState}
               >
                 Siguiente
               </Button>
@@ -77,7 +106,7 @@ const CardsContainer = (props) => {
                 </Box>
                 <div>
                   <SimpleGrid columns={5} bg={''} w={'1300px'} h={'730px'}>
-                    {productsData.payload?.map((product) => {
+                    {productsData.data?.map((product) => {
                           return (
                                   <Cards2
                                     key={product.id}
