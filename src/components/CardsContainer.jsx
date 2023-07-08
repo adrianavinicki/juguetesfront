@@ -29,6 +29,10 @@ const CardsContainer = (props) => {
   );
   const pages = Number(productsData.totalPages)
 
+  useEffect(()=> {
+    setCurrentPageData(Number(productsData.currentPage));
+  },[productsData]);
+
 
 
   // const handlePageState = (pageNumber) => {
@@ -36,8 +40,10 @@ const CardsContainer = (props) => {
   //   // currentPageData = pageNumber
   // }
 
-  const handlePageState = () => {
-    const nextPage = currentPageData + 1;
+  const handlePageState = (e) => {
+    console.log(e.target.name);
+    //const nextPage = currentPageData + 1;
+    const nextPage = e.target.name === 'siguiente'? currentPageData + 1 : currentPageData - 1
     setCurrentPageData(nextPage);
     const filters = configuracionFiltros;
     const params = { ...configuracionFiltros, pageNumber: nextPage }; // Agrega la propiedad 'page' al objeto de parámetros
@@ -60,10 +66,12 @@ const CardsContainer = (props) => {
             <div>
               <Button
                 w={"100px"}
+                name='anterior'
+                isDisabled={currentPageData ===1}
                 _hover={""}
                 color={"white"}
                 bg={"#0E1A40"}
-                onClick={() => handlePageState(currentPageData - 1)}
+                onClick={handlePageState}
               >
                 Anterior
               </Button>
@@ -72,10 +80,12 @@ const CardsContainer = (props) => {
               </span>
               <Button
                 w={"100px"}
+                name='siguiente'
+                isDisabled={currentPageData === productsData.totalPages}
                 _hover={""}
                 color={"white"}
                 bg={"#0E1A40"}
-                onClick={() => handlePageState(currentPageData + 1)}
+                onClick={handlePageState}
               >
                 Siguiente
               </Button>

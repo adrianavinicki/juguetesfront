@@ -15,6 +15,7 @@ const FilterAndOrder = () => {
         category: "",
         minimun_age: 0,
         name: "",
+        pageNumber:1
     })
 
     const [priceInput, setPriceInput] = useState('')
@@ -175,8 +176,8 @@ const FilterAndOrder = () => {
                 </div>
                 <br />
                 <Box>
-                    {/* <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'green.500'} color={'white'} value='Asc' onClick={clickHandlerPrice}>Higher</Button>
-                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'red.500'} color={'white'} value='Desc' onClick={clickHandlerPrice}>Lower</Button> */}
+                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'green.500'} color={'white'} value='higher' name ='order' onClick={handleFilters}>Higher</Button>
+                    <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'red.500'} color={'white'} value='lower' name ='order' onClick={handleFilters}>Lower</Button>
                 </Box>
                 </Flex>
             </Box>
