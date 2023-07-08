@@ -11,6 +11,15 @@ import {
   Text,
   useColorModeValue,
   Box,
+  Collapse,
+  Icon,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  Input,
+  chakra,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,12 +27,16 @@ import { useEffect, useState } from "react";
 import { getProduct } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
 import { addProductToCart } from "../../redux/actions";
-import Review from "../../components/Review";
+import Rating from "../../components/Rating";
 
 export default function socialProfileWithImageHorizontal() {
   const params = useParams();
 
   const productDetail = useSelector((state) => state.productDetail);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [ratingValue, setRatingValue] = useState(0);
+  const [comment, setComment] = useState("");
 
   const handleRatingSubmit = (productId, userId, rate) => {
     // Aquí puedes hacer la llamada a la API para enviar la calificación y actualizar el estado según sea necesario
@@ -39,6 +52,18 @@ export default function socialProfileWithImageHorizontal() {
   const addProductCarrito = (product) => {
     dispatch(addProductToCart(product));
   };
+
+  // Manejador para el clic en una estrella de calificación
+  const handleRatingClick = (value) => {
+    setRatingValue(value);
+    setIsOpen(false); // Cerrar el popover después de hacer clic en una estrella
+  };
+
+  // Manejador para el cambio de comentario
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  };
+  
   return (
     <Box
       backgroundImage="url('/BG3.jpg')"
@@ -144,11 +169,44 @@ export default function socialProfileWithImageHorizontal() {
                    <br />
                    
                 </Stack>
-                <Review
-                      productId={productDetail.id}
-                      userId={1} // Asegúrate de pasar el ID de usuario correcto
-                      onRatingSubmit={handleRatingSubmit}
-                    />
+                <Flex justifyContent="space-between" alignContent="center">
+                  <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                    <PopoverTrigger>
+                      <div onClick={() => setIsOpen(true)}>
+                        {/* Contenido visible del PopoverTrigger */}
+                        <Rating ratingValue={ratingValue} handleRatingClick={handleRatingClick} />
+                      </div>
+                    </PopoverTrigger>
+                    <PopoverContent>
+                      <PopoverHeader>Rate this product</PopoverHeader>
+                      <PopoverBody>
+                        <Flex justifyContent="center">
+                          <Rating ratingValue={ratingValue} handleRatingClick={handleRatingClick} />
+                        </Flex>
+                        <Input
+                          placeholder="Your comment"
+                          value={comment}
+                          onChange={handleCommentChange}
+                          mt={4}
+                        />
+                        <Button
+                          colorScheme="blue"
+                          mt={4}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          Submit
+                        </Button>
+                      </PopoverBody>
+                    </PopoverContent>
+                  </Popover>
+                  {/* <Box fontSize="2xl" color="gray.800">
+                    <Box as="span" color="gray.600" fontSize="lg">
+                      $
+                    </Box>
+                    {price.toFixed(2)}
+                  </Box> */}
+                </Flex>
+
               </Stack>
             </Stack>
           </Center>
