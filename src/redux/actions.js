@@ -16,6 +16,7 @@ export const COMBINED_FILTERS = "COMBINED_FILTERS";
 export const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART";
 export const DECREASE_PRODUCT_QUANTITY = "DECREASE_PRODUCT_QUANTITY";
 export const INCREASE_PRODUCT_QUANTITY = "INCREASE_PRODUCT_QUANTITY";
+export const ACTUALIZAR_FILTRO_PARA_PAGINADO = "ACTUALIZAR_FILTRO_PARA_PAGINADO";
 export const CREATE_REVIEW = "CREATE_REVIEW"
 export const FETCH_REVIEWS = "FETCH_REVIEWS"
 
@@ -232,6 +233,13 @@ export const createDetailOrder = (payload) => {
       alert(error.message);
     }
   };
+};
+
+export const actualizarFiltroPaginado = (filterConfig) => {
+  return {
+    type: "ACTUALIZAR_FILTRO_PARA_PAGINADO",
+    payload: filterConfig 
+  }
 };
 
 

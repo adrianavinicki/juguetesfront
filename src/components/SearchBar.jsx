@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getProductsName } from '../redux/actions';
 import React, { useState, useEffect } from 'react';
 
-const SearchBar = () => {
+const SearchBar = ({handleFilters}) => {
   const dispatch = useDispatch();
   
   const [searchNames, setSearchNames] = useState('');
@@ -13,15 +13,15 @@ const SearchBar = () => {
     setSearchNames(value)
   };
 
-  const handleSearch = () => {
-    dispatch(getProductsName(searchNames))
-    setSearchNames("");
-  };
+  // const handleSearch = () => {
+  //   dispatch(getProductsName(searchNames))
+  //   setSearchNames("");
+  // };
 
   return (
     <InputGroup>
       <Input w={'100px'} type="text" placeholder="Search..." value={searchNames} bg={'gwhite'} onChange={handleInputChange} />
-      <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'#0E1A40'} color={'white'} onClick={handleSearch}>{<SearchIcon color="white" />}</Button>
+      <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'#0E1A40'} color={'white'} name="name" value={searchNames} onClick={handleFilters}>{<SearchIcon color="white" />}</Button>
     </InputGroup>
   );
 };

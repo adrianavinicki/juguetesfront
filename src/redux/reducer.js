@@ -20,6 +20,7 @@ import {
   GET_DETAIL_ORDER_BY_ID,
   GET_PRODUCTS_FILTERED_PAGE,
   PRODUCTS_FILTER,
+  ACTUALIZAR_FILTRO_PARA_PAGINADO,
   CREATE_REVIEW,
   FETCH_REVIEWS
 } from "./actions";
@@ -36,6 +37,7 @@ const initialState = {
   products: [],
   //filteredByAge: [],
   filteredProducts: [],
+  filtroParaPaginado: {},
   productDetail: [],
   cartItems: [],
   // brandFilter: [],
@@ -189,6 +191,13 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         filteredProducts: action.payload
       }
+
+    case "ACTUALIZAR_FILTRO_PARA_PAGINADO":
+      return {
+        ...state,
+        filtroParaPaginado: action.payload
+      }  
+      
       
     case CREATE_REVIEW:
             return {
