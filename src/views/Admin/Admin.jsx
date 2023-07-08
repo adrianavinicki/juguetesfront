@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import BasicStatistics from "../../components/Stats"
 import NavBar2 from "../../components/NavBar2"
+// import { ChartPie } from '../../components/Chart';
 
 
 const Admin = () => {
@@ -14,6 +15,7 @@ const Admin = () => {
         height="100vh"
         >
         <NavBar2></NavBar2>
+        {/* <ChartPie/> */}
         <BasicStatistics/>
         </Box>
     )
