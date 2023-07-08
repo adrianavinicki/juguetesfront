@@ -48,7 +48,7 @@ import React, { useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 
-const Rating = ({ ratingValue, handleRatingClick }) => {
+const Rating = ({ ratingValue, numRatings, handleRatingClick }) => {
   const [hoverRating, setHoverRating] = useState(0);
 
   const renderStars = (ratingValue) => {
@@ -58,9 +58,9 @@ const Rating = ({ ratingValue, handleRatingClick }) => {
       .map((_, i) => {
         let starColor = "gray.300";
         if (hoverRating >= i + 1) {
-          starColor = "black";
+          starColor = "yellow";
         } else if (roundedRating >= i + 1) {
-          starColor = "black";
+          starColor = "yellow";
         }
         return (
           <Box
@@ -85,6 +85,9 @@ const Rating = ({ ratingValue, handleRatingClick }) => {
   return (
     <Flex alignItems="center">
       {renderStars(ratingValue)}
+      {/* <Text ml={2} fontSize="sm" color="gray.500">
+        ({numRatings} Ratings)
+      </Text> */}
     </Flex>
   );
 };
