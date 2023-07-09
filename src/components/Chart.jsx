@@ -49,7 +49,7 @@ export default function PieChart(){
         labels: ['January', 'February', 'March' ],
         datasets: [{
             label: 'Sales per Month',
-            data: [3, 6, 4],
+            data: [3, 6, 5],
             backgroundColor: ['black', 'white'],
             fill: true,
             tension: 0.4,

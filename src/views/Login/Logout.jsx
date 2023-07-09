@@ -9,18 +9,12 @@ export const LogoutButton = () => {
 
   const navigate = useNavigate();
     
-  const handleContinue = () => {
-      navigate('/home');
-    };
-
   return (
     <Button
       colorScheme="gray"
       variant="solid"
       onClick={() => logout({ returnTo: window.location.origin })}
     >
-    {/* <Button onClick={handleContinue}>Continuar</Button> */}
-      {/* <button onClick={() => logout({ returnTo: window.location.origin })}></button> */}
       Logout
     </Button>
   );
