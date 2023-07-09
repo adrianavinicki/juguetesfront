@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { useNavigate } from "react-router-dom";
-
+import { getDetailOrdersIDArray } from "../../redux/actions";
 const apiUrl = import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY;
 
 //const {VITE_MERCADO_PAGO_PUBLIC_KEY} = process.env;
@@ -20,6 +20,7 @@ export default function Payment (props) {
     const detailOrderIdsArray = useSelector(state => state.detailOrdersUsersID);
     const detailCarrito = useSelector(state => state.cartItems);
 
+    console.log(detailOrderIdsArray);
 
     //sacar detailIds y el userId
     const [finalOrder, setFinalOrder] = useState(null);
@@ -28,10 +29,12 @@ export default function Payment (props) {
         
        const handleOrder = async() => {
             //esto se podria hacer con un useEffect
-        const orderID = await axios.post("http://localhost:3010/orders/create",{detailIds: detailOrderIdsArray, userId: 1});
+       const orderArray = detailOrderIdsArray[0];
+        const userId = 1; // ojo recordar arreglar con lo de user de kervys
+        const orderID = await axios.post("http://localhost:3010/orders/create",{detailIds:orderArray, userId});
 
-        setFinalOrder(orderID.data);
-        }; 
+       setFinalOrder(orderID.data.order)
+    }; 
     
     
 
@@ -39,10 +42,12 @@ export default function Payment (props) {
         //aqui se mandaria la data a mercado pago
 
         //IMPORTANTE, una vez dado el OK de la orden, antes de mandar se borra el array de ids y carrito para que no haya duplicados, zaqui se borra el carrito
-        const response = await axios.post("http://localhost:3010/payments/generate", {orderId: finalOrder.order.id})
+        console.log(finalOrder)
+        const response = await axios.post("http://localhost:3010/payments/generate", {orderId: finalOrder.id})
         console.log(response.data.init_point)
         setPreferenceId(response.data.init_point)
-        navigate(response.data.init_point)
+        window.location.href = response.data.init_point
+        //navigate(response.data.init_point)
         alert("mandado a mercado pago")
 
     };
