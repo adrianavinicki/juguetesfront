@@ -11,6 +11,7 @@ const SearchBar = ({handleFilters}) => {
   const handleInputChange = (event) => {
     const {value} = event.target; 
     setSearchNames(value)
+    console.log(searchNames)
   };
 
   // const handleSearch = () => {

@@ -18,6 +18,21 @@ import axios from "axios";
 import { getProductsFiltered, getProductsFilteredPage, productsFilter } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
+////////////////prueba alert///////////////////
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
+import { Search2Icon } from '@chakra-ui/icons'
+
+
+
+
+
+
+///////////////////////////////////////////////
 const CardsContainer = (props) => {
 
   const dispatch = useDispatch()
@@ -66,8 +81,8 @@ const CardsContainer = (props) => {
             <div>
               <Button
                 w={"100px"}
-                name='anterior'
-                isDisabled={currentPageData ===1}
+                name="anterior"
+                isDisabled={currentPageData === 1}
                 _hover={""}
                 color={"white"}
                 bg={"#0E1A40"}
@@ -80,7 +95,7 @@ const CardsContainer = (props) => {
               </span>
               <Button
                 w={"100px"}
-                name='siguiente'
+                name="siguiente"
                 isDisabled={currentPageData === productsData.totalPages}
                 _hover={""}
                 color={"white"}
@@ -105,20 +120,51 @@ const CardsContainer = (props) => {
                   </Flex>
                 </Box>
                 <div>
-                  <SimpleGrid columns={5} bg={''} w={'1300px'} h={'730px'}>
-                    {productsData.data?.map((product) => {
+                  
+                  <SimpleGrid columns={5} bg={""} w={"1300px"} h={"730px"}>
+                    {                    
+                      Boolean(productsData.data?.length) ? (
+                        productsData.data.map((product) => {
                           return (
-                                  <Cards2
-                                    key={product.id}
-                                    id={product.id}
-                                    name={product.name}
-                                    price={product.price}
-                                    image={product.image}
-                                    description={product.description}
-                                    productoCarrito={product}
-                                  />
+                            <Cards2
+                              key={product.id}
+                              id={product.id}
+                              name={product.name}
+                              price={product.price}
+                              image={product.image}
+                              description={product.description}
+                              productoCarrito={product}
+                            />
                           );
-                        })}
+                        })
+                      ) : (
+                        <Box
+                          display='flex'
+                          gridColumn={3}
+                          gridRow={2}
+                          
+                        >
+                          <Alert
+                            status="success"
+                            variant="subtle"
+                            flexDirection="column"
+                            alignItems="center"
+                            justifyContent="center"
+                            textAlign="center"
+                            height="200px"
+                            borderRadius='10px'
+                          >
+                            <Search2Icon boxSize="40px" mr={0} />
+                            <AlertTitle mt={4} mb={1} fontSize="lg">
+                              No Results!
+                            </AlertTitle>
+                            <AlertDescription maxWidth="sm">
+                              There are no products that match your search.
+                            </AlertDescription>
+                          </Alert>
+                        </Box>
+                      )
+                    }
                   </SimpleGrid>
                 </div>
               </Flex>
