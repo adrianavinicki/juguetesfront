@@ -23,7 +23,8 @@ import {
   ACTUALIZAR_FILTRO_PARA_PAGINADO,
   CREATE_REVIEW,
   FETCH_REVIEWS,
-  GET_ALL_USERS
+  GET_ALL_USERS,
+  GET_DETAIL_ORDERS_USERS_ID
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
@@ -50,6 +51,7 @@ const initialState = {
   selectedOrder: null,
   detailOrders: [],
   selectedDetailOrder: null,
+  detailOrdersUsersID: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -216,6 +218,14 @@ const rootReducer = (state = initialState, action) => {
               ...state,
               reviews: action.payload,
             };
+    
+    case GET_DETAIL_ORDERS_USERS_ID:
+
+            return {
+              ...state,
+              detailOrdersUsersID: [...state.detailOrdersUsersID, action.payload]
+            };
+            
          
     default:
       return { ...state };
