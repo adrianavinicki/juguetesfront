@@ -1,6 +1,5 @@
 import Home from "./views/Home/Home";
 import Simple from "./views/Detail/Detail"
-import Detail2 from "./views/Detail/Detail2"
 import Form from "./views/Form/Form";
 import Admin from "./views/Admin/Admin";
 import Edit from "./views/Edit/Edit"
