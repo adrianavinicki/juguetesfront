@@ -2,15 +2,16 @@ import {
     Button,
     Flex,
     Heading,
-    Link,
     Stack,
     Text,
     useColorModeValue as mode,
-  } from '@chakra-ui/react'
+  } from '@chakra-ui/react';
+  import { Link, useNavigate } from 'react-router-dom';
   import { FaArrowRight } from 'react-icons/fa'
   import { formatPrice } from './PriceTag'
   import { useSelector, useDispatch } from "react-redux";
   import axios from 'axios';
+import { getDetailOrdersIDArray } from '../../redux/actions';
 
 
 
@@ -28,15 +29,44 @@ import {
   
   export const CartOrderSummary = () => {
 
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const productsToBuy = useSelector(state => state.cartItems);
     // console.log(productsToBuy[0].quantity)
 
-    const handleSubmit = async (quantity, productId, userId) => {
+    /*const handleSubmit = async (quantity, productId, userId) => {
       console.log(quantity, productId, userId)
-      await axios.post("http://localhost:3010/detailorders/create",{quantity, productId, userId})
-    }
 
+      try {
+        const detailCreated = await axios.post("http://localhost:3010/detailorders/create",{quantity, productId, userId});
+
+        console.log(detailCreated.data.id)
+        dispatch(getDetailOrdersIDArray(detailCreated.data.id));
+        navigate("/payment");
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }*/
+
+  const handleSubmit = async () => {
+      try {
+        const detailOrders = productsToBuy.map(item => {
+          return {
+            quantity: item.quantity,
+            productId: item.id,
+            userId: 1,
+          };
+        });
+        const detailCreated = await axios.post("http://localhost:3010/detailorders/create",detailOrders);
+        console.log(detailCreated.data.detailOrders)
+        dispatch(getDetailOrdersIDArray(detailCreated.data.detailOrders));
+        navigate("/payment");
+      } catch (error) {
+        console.log(error);
+      }
+      
+    };
     const totalPrice = productsToBuy.reduce((total, item) => total + item.price * item.quantity, 0);
 
     return (
@@ -64,11 +94,13 @@ import {
             </Text>
           </Flex>
         </Stack>
-        <Link href='/payment'>
-          <Button type='submit' onClick={() => handleSubmit(productsToBuy[0].quantity, productsToBuy[0].id, 1)} colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />} >
+       <Link to='#'>
+          <Button type='submit' onClick={handleSubmit} colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />} >
             Order
           </Button>
         </Link>
       </Stack>
     )
   }
+
+  
