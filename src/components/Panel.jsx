@@ -101,7 +101,7 @@ import {
             <Container maxW={'2xl'} h={'550px'} mt={10} bg={'gray.200'}
             paddingTop={'10px'}>
             <SimpleGrid columns={{ base: 1, md: 2, lg: 2 }} spacing={10}>
-                {productsData.payload?.map((feature) => (
+                {productsData.data?.map((feature) => (
                 <HStack  key={feature.id} align={'center'} w={'300px'} h={'73px'} bg={'gray.300'}>
                     <Box color={'red.500'} px={3}>
                       <Link>

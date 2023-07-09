@@ -3,16 +3,39 @@ import {
     Flex,
     Heading,
     HStack,
+    Text,
+    Button,
     Link,
     Stack,
     useColorModeValue as mode,
   } from '@chakra-ui/react'
+  import { removeProductFromCart, decreaseProductQuantity, increaseProductQuantity } from "../../redux/actions";
+  import { useSelector, useDispatch } from "react-redux";
   import { CartItem } from './Cartitem'
   import { CartOrderSummary } from './CartOrderSummary'
-  import { cartData } from './_data'
+//   import { cartData } from './_data'
   import NavBar2 from "../../components/NavBar2"
   
   export default function Cart2 () {
+
+    const dispatch = useDispatch();
+    const productsToBuy = useSelector(state => state.cartItems);
+
+    const totalPrice = productsToBuy.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    const handleRemoveProduct = (productId) => {
+        dispatch(removeProductFromCart(productId));
+      };
+    
+    const handleDecreaseQuantity = (productId) => {
+    dispatch(decreaseProductQuantity(productId));
+    };
+
+    const handleIncreaseQuantity = (productId) => {
+        dispatch(increaseProductQuantity(productId));
+    };
+
+
     return (
     <Box 
     backgroundImage="url('/BG3.jpg')"
@@ -23,7 +46,8 @@ import {
     height="100vh"
     >
     <NavBar2/>
-    <Box bg={'white'} margin={'70px'} padding={'30px'} rounded={'20px'}>
+    <Box bg={'white'} margin={'70px'} padding={'30px'} rounded={'20px'} h={'60%'}>
+        
         {/* <Flex> */}
             <Stack
             direction={{
@@ -46,21 +70,24 @@ import {
             flex="2"
             >
             <Heading fontSize="2xl" fontWeight="extrabold">
-                Toy Cart (3 items)
+                Toys
             </Heading>
-    
-            <Stack spacing="6">
-                {cartData.map((item) => (
-                <CartItem key={item.id} {...item} />
-                ))}
-            </Stack>
+            <Box overflowY="auto" maxHeight="400px">
+                {productsToBuy.length === 0?(<Text>el carrito esta vacio.</Text>):(
+                        <Stack spacing="6"> 
+                        {productsToBuy.map((item) => ( //cartData.map
+                        <CartItem key={item.id} {...item} />
+                        ))}
+                        </Stack>
+                )}
+            </Box>
             </Stack>
     
             <Flex direction="column" align="center" flex="1" marginTop={'30px'}>
             <CartOrderSummary />
             <HStack mt="6" fontWeight="semibold">
                 <p>or</p>
-                <Link color={mode('blue.500', 'blue.200')}>Continue shopping</Link>
+                <Link href="/" color={mode('blue.500', 'blue.200')}>Continue shopping</Link>
             </HStack>
             </Flex>
         </Stack>

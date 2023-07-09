@@ -36,6 +36,16 @@ import {
 
     const { isOpen, onToggle } = useDisclosure();
   
+    const navigationItems = isAuthenticated
+    ? [
+        { label: "My Orders", href: "#" },
+        { label: "Home", href: "/" },
+        { label: "Create Toy", href: "/form" },
+        { label: "Cart", href: "/cart" },
+        { label: "Admin", href: "/admin" },
+      ]
+    : [{ label: "Home", href: "/" }];
+
     return (
       <Box w={'100%'}>
         <Flex
@@ -49,51 +59,38 @@ import {
           borderColor={useColorModeValue('gray.900', 'gray.900')}
           align={'center'}
           paddingLeft={'200px'}>
-          <Flex
-            flex={{ base: 1, md: 'auto' }}
-            ml={{ base: -2 }}
-            display={{ base: 'flex', md: 'none' }}
-            >
-            <IconButton
-              onClick={onToggle}
-              icon={
-                isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-              }
-              variant={'ghost'}
-              aria-label={'Toggle Navigation'}
-            />
-          </Flex>
-          <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+ <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <div>
-            <Image src="/LOGO PNG.png" w={'70px'} alt="Wonder Toys" />
+            <Image src="/LOGO PNG.png" w={"70px"} alt="Wonder Toys" />
           </div>
-  
-            <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-              
-              <DesktopNav />
-            
-            </Flex>
-            
-          </Flex>
-
-          
-          <Flex ml="auto" paddingRight={'200px'}>
+        </Flex>
+        <Flex ml="auto" paddingRight={"200px"}>
           {isAuthenticated ? (
             <>
+              {/* <Flex display={{ base: "none", md: "flex" }} ml={10}>
+                <DesktopNav navigationItems={navigationItems} />
+              </Flex> */}
+              <Flex
+                display={{ base: "none", md: "flex" }}
+                ml={10}
+                justifyContent="flex-start"
+              >
+                <DesktopNav navigationItems={navigationItems} />
+              </Flex>
+
               <Profile />
-              <LogoutButton />
-              {MenuUser}
+              {/* <LogoutButton /> */}
             </>
           ) : (
             <LoginAuth />
           )}
         </Flex>
-        </Flex>
-  
-        <Collapse in={isOpen} animateOpacity>
-          <MobileNav />
-        </Collapse>
-      </Box>
+      </Flex>
+
+      <Collapse in={isOpen} animateOpacity>
+        <MobileNav />
+      </Collapse>
+    </Box>
     );
   }
   
@@ -251,23 +248,25 @@ import {
   
   const NAV_ITEMS/*: Array<NavItem>*/ = [
     {
+      label: 'Home',
+      href: '/',
+    },
+    {
+      label: "Cart",
+      href: "/cart",
+    },
+    {
       label: 'My Orders',
-      children: [
-        {
-          label: 'Closed Orders',
-          subLabel: 'Trending Design to inspire you',
-          href: '#',
-        },
-        {
-          label: 'Pending Orders',
-          subLabel: 'Up-and-coming Designers',
-          href: '#',
-        },
-      ],
+      href: '#',
     },
     {
       label: 'Admin',
       children: [
+        {
+          label: 'Create Toy',
+          subLabel: 'Create a New Toy',
+          href: '/form',
+        },
         {
           label: 'Stats',
           subLabel: 'Sales, Orders, Users',
@@ -280,16 +279,4 @@ import {
         },
       ],
     },
-    {
-      label: 'Home',
-      href: '/',
-    },
-    {
-      label: 'Create Toy',
-      href: '/form',
-    },
-    {
-      label: "Cart",
-      href: "/cart",
-    }
   ];

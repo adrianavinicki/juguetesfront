@@ -22,7 +22,8 @@ import {
   PRODUCTS_FILTER,
   ACTUALIZAR_FILTRO_PARA_PAGINADO,
   CREATE_REVIEW,
-  FETCH_REVIEWS
+  FETCH_REVIEWS,
+  GET_ALL_USERS
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
@@ -45,6 +46,7 @@ const initialState = {
   // ageFilter: [],
   reviews: [],
   orders: [],
+  users: [],
   selectedOrder: null,
   detailOrders: [],
   selectedDetailOrder: null,
@@ -177,6 +179,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: action.payload,
+      };
+    case GET_ALL_USERS:
+      return {
+        ...state,
+        users: action.payload,
       };
     case GET_ORDER_BY_ID:
       return { ...state, selectedOrder: action.payload };
