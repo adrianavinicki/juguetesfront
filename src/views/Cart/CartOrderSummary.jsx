@@ -12,6 +12,7 @@ import {
   import { useSelector, useDispatch } from "react-redux";
   import axios from 'axios';
 import { getDetailOrdersIDArray } from '../../redux/actions';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
@@ -28,6 +29,8 @@ import { getDetailOrdersIDArray } from '../../redux/actions';
   }
   
   export const CartOrderSummary = () => {
+
+    const { isAuthenticated, user } = useAuth0();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -49,7 +52,13 @@ import { getDetailOrdersIDArray } from '../../redux/actions';
       
     }*/
 
-  const handleSubmit = async () => {
+    const handleSubmit = async () => {
+
+      console.log(isAuthenticated, user.email)
+      if(!isAuthenticated) {
+        alert("please login first to order")
+        return;
+      } // aqui agregar un else if si el usuario esta registrado o no en la base de datos
       try {
         const detailOrders = productsToBuy.map(item => {
           return {
@@ -72,7 +81,7 @@ import { getDetailOrdersIDArray } from '../../redux/actions';
     return (
       <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
         <Heading size="md">Order Summary</Heading>
-  
+      {console.log(user)}
         <Stack spacing="6">
           <OrderSummaryItem label="Subtotal" value={formatPrice(totalPrice)} />
           {/* <OrderSummaryItem label="Shipping + Tax">

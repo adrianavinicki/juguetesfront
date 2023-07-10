@@ -8,7 +8,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import store from './redux/store';
 import { LoginAuth } from './views/Login/LoginAuth';
-import Rating from './components/Rating';
 
 const persistor = persistStore(store);
 
@@ -22,9 +21,9 @@ ReactDOM.render(
     <ChakraProvider>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
+          
           <App />
           <LoginAuth />
-          <Rating />
         </PersistGate>
       </Provider>
     </ChakraProvider>

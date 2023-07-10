@@ -20,11 +20,15 @@ export default function Payment (props) {
     const detailOrderIdsArray = useSelector(state => state.detailOrdersUsersID);
     const detailCarrito = useSelector(state => state.cartItems);
 
+   
+
+    const totalPrice = detailCarrito.reduce((total, item) => total + item.price * item.quantity, 0);
     console.log(detailOrderIdsArray);
 
     //sacar detailIds y el userId
     const [finalOrder, setFinalOrder] = useState(null);
     const [preferenceId, setPreferenceId] = useState(null);
+    const [activateButton, setActivateButton] = useState(false);
     
         
        const handleOrder = async() => {
@@ -34,6 +38,7 @@ export default function Payment (props) {
         const orderID = await axios.post("http://localhost:3010/orders/create",{detailIds:orderArray, userId});
 
        setFinalOrder(orderID.data.order)
+       setActivateButton(true);
     }; 
     
     
@@ -48,7 +53,7 @@ export default function Payment (props) {
         setPreferenceId(response.data.init_point)
         window.location.href = response.data.init_point
         //navigate(response.data.init_point)
-        alert("mandado a mercado pago")
+        
 
     };
 
@@ -66,8 +71,9 @@ export default function Payment (props) {
     {console.log( finalOrder)}
 
     <Box bg={'aquamarine'}>
-        <Text></Text>
+        
         <Text>please check your order:</Text>
+
         {detailCarrito.map((product, index) =>(
             <div key={index}>
             <p >nombre: {product.name}</p>
@@ -77,10 +83,10 @@ export default function Payment (props) {
             </div>
         ))}
 
-        
-
-        <Button onClick={handleOrder}>seguro de su compra?</Button>
-        <button onClick={handlePayment} >mandar a mercado pago</button>
+        <h3>total: ${totalPrice}</h3> 
+            {/*que pasa si le doy a OK purchase y luego regreso?. que pasa si no estoy de acuerdo con la compra?*/}
+        <Button onClick={handleOrder}>OK Purchase?</Button>
+        {activateButton && <Button onClick={handlePayment} >Payment</Button>}
 
         {/*<div id="wallet_container">
            {preferenceId ? <Wallet initialization={{ preferenceId: preferenceId }} />: null} 

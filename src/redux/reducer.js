@@ -24,15 +24,17 @@ import {
   CREATE_REVIEW,
   FETCH_REVIEWS,
   GET_ALL_USERS,
-  GET_DETAIL_ORDERS_USERS_ID
+  GET_DETAIL_ORDERS_USERS_ID,
+  GET_ID_USER
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
-
+//import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "root",
   storage: storageSession,
+  //storage, //esta parte y la de arriba es para usar el localStorage en ves de la ssesion
 };
 
 const initialState = {
@@ -52,6 +54,7 @@ const initialState = {
   detailOrders: [],
   selectedDetailOrder: null,
   detailOrdersUsersID: [],
+  idUser: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -225,6 +228,11 @@ const rootReducer = (state = initialState, action) => {
               ...state,
               detailOrdersUsersID: [...state.detailOrdersUsersID, action.payload]
             };
+    case GET_ID_USER:
+      return {
+        ...state,
+        idUser: action.payload
+      };
             
          
     default:
