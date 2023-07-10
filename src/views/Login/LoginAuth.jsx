@@ -11,7 +11,7 @@ export const LoginAuth = () => {
       colorScheme="gray"
       variant="solid"
     >
-      Login
+      Login 
     </Button>
   );
 };

@@ -43,8 +43,9 @@ import {
         { label: "Create Toy", href: "/form" },
         { label: "Cart", href: "/cart" },
         { label: "Admin", href: "/admin" },
+        { label: "Profile", href: "/Profile"}
       ]
-    : [{ label: "Home", href: "/" }];
+    : [{ label: "Home", href: "/" }, { label: "Cart", href: "/cart" }];
 
     return (
       <Box w={'100%'}>
@@ -82,7 +83,11 @@ import {
               {/* <LogoutButton /> */}
             </>
           ) : (
+            <>
+            <DesktopNav navigationItems={navigationItems} />
             <LoginAuth />
+            </>
+            
           )}
         </Flex>
       </Flex>
@@ -94,14 +99,15 @@ import {
     );
   }
   
-  const DesktopNav = () => {
+  const DesktopNav = (props) => {
     const linkColor = useColorModeValue('white', 'gray.200');
     const linkHoverColor = useColorModeValue('red.600', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   
     return (
       <Stack direction={'row'} spacing={4} align={'center'}>
-        {NAV_ITEMS.map((navItem) => (
+
+        {props.navigationItems.map((navItem) => (
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
@@ -280,3 +286,14 @@ import {
       ],
     },
   ];
+
+  const NAV_ITEMS_NOT_LOGGED = [
+    {
+      label: 'Home',
+      href: '/',
+    },
+    {
+      label: "Cart",
+      href: "/cart",
+    },
+  ]
