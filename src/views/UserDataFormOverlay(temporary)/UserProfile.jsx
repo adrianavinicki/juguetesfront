@@ -11,10 +11,10 @@ export default function UserProfile() {
 
     const dispatch = useDispatch();
     const usuario = useSelector(state => state.idUser); //el back manda el id del user y el user entero
-    const {user} = useAuth0();
+    const {user} = useAuth0(); // si no esta el nombre y el apellido, que el formulario muestre llenar esos campos
 
     const [userDB, setUserDB] = useState(null);
-
+  console.log(user)
     useEffect(() => {
         const getUser = async() => {
             if(usuario){
@@ -71,7 +71,7 @@ export default function UserProfile() {
         width="100vw"
         height="100vh">
             <NavBar2/>
-           {console.log(usuario)}
+           {console.log(usuario, user?.email)}
             <Box
             bg="white"
             p={4}
@@ -90,7 +90,45 @@ export default function UserProfile() {
                 <Text fontWeight="bold">Nombre: {user.given_name}</Text>
                 <Text fontWeight="bold">Apellido: {user.family_name}</Text>
                 <Text fontWeight="bold">Email: {user.email}</Text>
-               { !usuario? (<><Text fontWeight="bold" mt={4}>
+               { !user?.given_name || !user?.family_name ? (<><Text fontWeight="bold" mt={4}>
+                <h3>por favor ingrese sus datos</h3>
+              Formulario
+            </Text>
+            <Select
+              name="gender"
+              placeholder="Seleccionar género"
+              value={userCreate.gender}
+              onChange={handleChange}
+              mt={2}
+            >
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+              <option value="X">Otro</option>
+            </Select>
+            <Input
+              name="delivery_address"
+              placeholder="Dirección de entrega"
+              value={userCreate.delivery_address}
+              onChange={handleChange}
+              mt={2}
+            />
+            <Input
+              name="mobile"
+              placeholder="Número de teléfono"
+              value={userCreate.mobile}
+              onChange={handleChange}
+              mt={2}
+            />
+            <Input name="first_name" placeholder="nombre" value={userCreate.first_name} onChange={handleChange}/>
+            <Input name="last_name" placeholder="apellido" value={userCreate.last_name} onChange={handleChange}/>
+            <Button onClick={handleSubmitUser} mt={4}>
+              Guardar
+            </Button>
+            </>) : !usuario ?
+            (
+            
+            <Box><Text fontWeight="bold" mt={4}>
+              <h3>por favor ingrese sus datos</h3>
               Formulario
             </Text>
             <Select
@@ -121,16 +159,19 @@ export default function UserProfile() {
             <Button onClick={handleSubmitUser} mt={4}>
               Guardar
             </Button>
-            </>) : 
-            (
-            <>
-            
-            </>
+            </Box>
+            ) : (
+            <div>
+              <Text fontWeight="bold">Nombre: {user.given_name}</Text>
+                <Text fontWeight="bold">Apellido: {user.family_name}</Text>
+                <Text fontWeight="bold">Email: {user.email}</Text>
+            </div>
             )}
                 </>
             )}
 
         </Box>
+        {/*aqui incluir la data de las compras de cada user*/}
         <Link to="/"><Button>seguir comprando</Button></Link>
         </Box>
     )
