@@ -1,114 +1,179 @@
-import Cards from "./Cards"
-import { Flex, Box } from "@chakra-ui/react"
-import { useSelector } from "react-redux"
-import { useEffect, useState } from "react"
-import FilterAndOrder from "./Filters"
+import Cards from "./Cards";
+import Cards2 from "./Cards2";
+import {
+  Flex,
+  Box,
+  Button,
+  Image,
+  Grid,
+  GridItem,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import FilterAndOrder from "./Filters";
+import SearchBar from "./SearchBar";
+import axios from "axios";
+import { getProductsFiltered, getProductsFilteredPage, productsFilter } from "../redux/actions";
+import { useDispatch } from "react-redux";
+
+////////////////prueba alert///////////////////
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
+import { Search2Icon } from '@chakra-ui/icons'
 
 
-const CardsContainer = () => {
 
-    
-    const products = useSelector(state=>state.filteredProducts)
 
-    const [page, setPage] = useState(getSavedPage() || 1); //creo un estado para el paginado.
 
-    const CARDS_PER_PAGE = 6; //le digo cuantos productos por pagina quiero
 
-    const maxPage = Math.ceil(products.length / CARDS_PER_PAGE);//divido la cantidad de products por los que me quiero en pagina, 12
+///////////////////////////////////////////////
+const CardsContainer = (props) => {
 
-    const indexOfLastCard = page * CARDS_PER_PAGE;
-    const indexOfFirstCard = indexOfLastCard - CARDS_PER_PAGE;
-    const displayedProducts = products.slice( //estos son los products que se muestran.
-        indexOfFirstCard,
-        indexOfLastCard
-    );
+  const dispatch = useDispatch()
+  const productsData = useSelector(state=>state.filteredProducts)
+  const configuracionFiltros = useSelector(state => state.filtroParaPaginado);
+  //let currentPageData = Number(productsData.currentPage)
+  const [currentPageData, setCurrentPageData] = useState(
+    Number(productsData.currentPage)
+  );
+  const pages = Number(productsData.totalPages)
 
-    const handlePrevPage = () => {//pagina actual menos 1
-        if (page > 1) {
-            setPage(page - 1);
-        }
-    };
+  useEffect(()=> {
+    setCurrentPageData(Number(productsData.currentPage));
+  },[productsData]);
 
-    const handleNextPage = () => {//pagina actual mas 1
-        if (page < maxPage) {
-            setPage(page + 1);
-        }
-    };
 
-    const handleFirstPage = () => {//seteo la pagina en 1
-        setPage(1);
-    };
 
-    const handleLastPage = () => {//seteo la pagina en el maximo que me de acorde a la cantidad de productos
-        setPage(maxPage);
-    };
+  // const handlePageState = (pageNumber) => {
+  //   dispatch(getProductsFilteredPage({pageNumber:pageNumber}))
+  //   // currentPageData = pageNumber
+  // }
 
-    useEffect(() => {
-        // Guarda la página actual en localStorage
-        savePage(page);
-    }, [page]);
+  const handlePageState = (e) => {
+    console.log(e.target.name);
+    //const nextPage = currentPageData + 1;
+    const nextPage = e.target.name === 'siguiente'? currentPageData + 1 : currentPageData - 1
+    setCurrentPageData(nextPage);
+    const filters = configuracionFiltros;
+    const params = { ...configuracionFiltros, pageNumber: nextPage }; // Agrega la propiedad 'page' al objeto de parámetros
 
-    function savePage(page) {
-        localStorage.setItem('currentPage', page.toString()); //le guardo en el local storage la current page
-    }
+    axios
+      .get("http://localhost:3010/products", { params })
+      .then((res) => {
+        dispatch(productsFilter(res.data));
+      })
+      .catch((error) => {
+        console.error("Error al obtener los productos: ", error);
+      });
+  };
 
-    function getSavedPage() {
-        const savedPage = localStorage.getItem('currentPage'); //le pido la current page
-        return savedPage ? parseInt(savedPage, 10) : null;
-    }
-
-    const goToPage = (pageNumber) => { //voy a la pagina que le diga
-        setPage(pageNumber);
-    };
-
-    return(
-        <div>
+  return (
+    <div>
+      <div>
+        <Box bg={""} w={"1663px"}>
+          <Flex direction={"column"} paddingTop={"60px"} align={"center"}>
             <div>
-                {page > 1 && ( //lt = lower than
-                        <button  onClick={handleFirstPage} disabled={page === 1}>
-                            &lt;&lt; 1 
-                        </button>
-                    )}
-                <button onClick={handlePrevPage} disabled={page === 1}>
-                    Prev
-                </button>
-
-                {Array.from({ length: maxPage }, (_, index) => ( 
-                    <button key={index} onClick={() => goToPage(index + 1)} 
-                    className={page === index + 1 }>
-                        {index + 1}
-                    </button>
-                ))}
-
-                <button onClick={handleNextPage} disabled={page === maxPage}>
-                    Next
-                </button>
-                {page < maxPage && ( //gt = greater than
-                    <button onClick={handleLastPage} disabled={page === maxPage}>
-                        {maxPage} &gt;&gt;
-                    </button>
-                )}
+              <Button
+                w={"100px"}
+                name="anterior"
+                isDisabled={currentPageData === 1}
+                _hover={""}
+                color={"white"}
+                bg={"#0E1A40"}
+                onClick={handlePageState}
+              >
+                Anterior
+              </Button>
+              <span>
+                Página {currentPageData} de {pages}
+              </span>
+              <Button
+                w={"100px"}
+                name="siguiente"
+                isDisabled={currentPageData === productsData.totalPages}
+                _hover={""}
+                color={"white"}
+                bg={"#0E1A40"}
+                onClick={handlePageState}
+              >
+                Siguiente
+              </Button>
             </div>
-            
-            <FilterAndOrder setPage={setPage}/>
 
-            <div>
-                <Flex>
-                    {displayedProducts.map(product=>{
-                        return <Cards
-                        key={product.id} 
-                        id={product.id}
-                        name={product.name}
-                        price={product.price}
-                        image={product.image}
-                        description={product.description}
-                />
-            })}
-                </Flex>
-            </div>
-            
-        </div>
-    )
-}
+            <Box>
+              <Flex>
+                <Box
+                  bg={"gray.400"}
+                  marginLeft={""}
+                  rounded={"20px"}
+                  w={"250px"}
+                  h={"530px"}
+                >
+                  <Flex direction={"column"} align={"center"}>
+                    <FilterAndOrder />
+                  </Flex>
+                </Box>
+                <div>
+                  
+                  <SimpleGrid columns={5} bg={""} w={"1300px"} h={"730px"}>
+                    {                    
+                      Boolean(productsData.data?.length) ? (
+                        productsData.data.map((product) => {
+                          return (
+                            <Cards2
+                              key={product.id}
+                              id={product.id}
+                              name={product.name}
+                              price={product.price}
+                              image={product.image}
+                              description={product.description}
+                              productoCarrito={product}
+                            />
+                          );
+                        })
+                      ) : (
+                        <Box
+                          display='flex'
+                          gridColumn={3}
+                          gridRow={2}
+                          
+                        >
+                          <Alert
+                            status="success"
+                            variant="subtle"
+                            flexDirection="column"
+                            alignItems="center"
+                            justifyContent="center"
+                            textAlign="center"
+                            height="200px"
+                            borderRadius='10px'
+                          >
+                            <Search2Icon boxSize="40px" mr={0} />
+                            <AlertTitle mt={4} mb={1} fontSize="lg">
+                              No Results!
+                            </AlertTitle>
+                            <AlertDescription maxWidth="sm">
+                              There are no products that match your search.
+                            </AlertDescription>
+                          </Alert>
+                        </Box>
+                      )
+                    }
+                  </SimpleGrid>
+                </div>
+              </Flex>
+            </Box>
+          </Flex>
+        </Box>
+      </div>
+    </div>
+  );
+};
 
-export default CardsContainer
+export default CardsContainer;
