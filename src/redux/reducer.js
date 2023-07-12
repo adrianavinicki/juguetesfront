@@ -25,7 +25,8 @@ import {
   FETCH_REVIEWS,
   GET_ALL_USERS,
   GET_DETAIL_ORDERS_USERS_ID,
-  GET_ID_USER
+  GET_ID_USER,
+  DELETE_CART,
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
@@ -234,7 +235,12 @@ const rootReducer = (state = initialState, action) => {
         idUser: action.payload
       };
             
-         
+    case DELETE_CART:
+     return {
+        ...state,
+        cartItems: []
+      };
+
     default:
       return { ...state };
   }

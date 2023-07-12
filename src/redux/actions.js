@@ -33,6 +33,9 @@ export const GET_DETAIL_ORDER_BY_ID = "GET_DETAIL_ORDER_BY_ID";
 //export const PUT_DETAIL_ORDER = "PUT_DETAIL_ORDER";
 export const GET_DETAIL_ORDERS_USERS_ID = "GET_DETAIL_ORDERS_USERS_ID";
 export const GET_ID_USER = "GET_ID_USER";
+export const DELETE_CART = "DELETE_CART";
+export const REDUCE_STOCK_QUANTITY = "REDUCE_STOCK_QUANTITY";
+
 export const getProducts = () => {
   return async function (dispatch) {
     const dbData = await axios.get("http://localhost:3010/products");
@@ -288,5 +291,12 @@ export const getIdEmailUser = (idEmailUser) => {
   return {
     type: GET_ID_USER,
     payload: idEmailUser
+  };
+};
+
+export const deleteCart = () => {
+  return {
+    type: DELETE_CART,
+    
   };
 };
