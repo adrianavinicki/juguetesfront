@@ -7,16 +7,22 @@ import { getProducts } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
 import CaptionCarousel from "../../components/Carousel"
 import SmallWithLogoLeft from "../../components/Footer"
-
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 const Home = ()=>{
 
     const dispatch = useDispatch();
-    
+    const { isAuthenticated, user } = useAuth0();
+  
     useEffect(()=>{
         dispatch(getProducts());
     },[dispatch])
+
+    useEffect(() => {
+
+  }, [])
 
     return(
         <Box 
