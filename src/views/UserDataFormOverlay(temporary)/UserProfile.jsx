@@ -82,14 +82,19 @@ export default function UserProfile() {
             my={4}
             >
             {/* el condicional espera a que cargue la data de user*/ }
-            {user && (
-                <>
+            {usuario && (
+            <Box>
                 <Text fontSize="xl" fontWeight="bold" mb={4}>
                     Datos Del Usuario
                 </Text>
                 <Text fontWeight="bold">Nombre: {user.given_name}</Text>
                 <Text fontWeight="bold">Apellido: {user.family_name}</Text>
                 <Text fontWeight="bold">Email: {user.email}</Text>
+            </Box>)}
+
+            {user && (
+                <>
+                
                { !user?.given_name || !user?.family_name ? (<><Text fontWeight="bold" mt={4}>
                 <h3>por favor ingrese sus datos</h3>
               Formulario

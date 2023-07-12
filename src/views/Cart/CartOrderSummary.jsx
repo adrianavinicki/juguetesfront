@@ -11,8 +11,9 @@ import {
   import { formatPrice } from './PriceTag'
   import { useSelector, useDispatch } from "react-redux";
   import axios from 'axios';
-import { getDetailOrdersIDArray } from '../../redux/actions';
+import { getDetailOrdersIDArray, getIdEmailUser } from '../../redux/actions';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from 'react';
 
 
 
@@ -31,10 +32,23 @@ import { useAuth0 } from "@auth0/auth0-react";
   export const CartOrderSummary = () => {
 
     const { isAuthenticated, user } = useAuth0();
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const getUser = async() => {
+        if(isAuthenticated){
+          const idCliente = await axios.post("http://localhost:3010/users/userEmail", {email: user?.email});
+          dispatch(getIdEmailUser(idCliente.data))
+        }
+
+        getUser();
+      }
+    }, [])
+
+    
     const productsToBuy = useSelector(state => state.cartItems);
+    const idCliente = useSelector(state => state.idUser);
     // console.log(productsToBuy[0].quantity)
 
     /*const handleSubmit = async (quantity, productId, userId) => {
@@ -58,7 +72,10 @@ import { useAuth0 } from "@auth0/auth0-react";
       if(!isAuthenticated) {
         alert("please login first to order")
         return;
-      } // aqui agregar un else if si el usuario esta registrado o no en la base de datos
+      } else if(!idCliente){
+        alert("please, complete the rest of your data to be able to send your toys");
+        navigate("/Profile");
+      }// aqui agregar un else if si el usuario esta registrado o no en la base de datos
       try {
         const detailOrders = productsToBuy.map(item => {
           return {
