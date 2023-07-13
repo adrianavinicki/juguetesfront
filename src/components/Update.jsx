@@ -224,7 +224,7 @@ import {
               value={update.minimun_age}
               onChange={handleChange}
             />
-          <FormLabel>Current Status: {productDetail.product_status.toString()}</FormLabel>
+          <FormLabel>Current Status: {productDetail.product_status}</FormLabel>
           <Select
               placeholder="Select"
               _placeholder={{ color: 'gray.500' }}
