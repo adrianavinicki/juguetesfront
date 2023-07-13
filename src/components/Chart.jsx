@@ -12,6 +12,8 @@ import {
     Box,
     Flex,
   } from '@chakra-ui/react';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Doughnut, Bar, Line } from 'react-chartjs-2';
 
 ChartJS.register(
@@ -26,6 +28,8 @@ ChartJS.register(
 );
 
 export default function PieChart(){
+
+    const orders = useSelector((state) => state.orders);
 
     const pieData = {
         labels: ['Open Orders', 'Closed Orders'],
