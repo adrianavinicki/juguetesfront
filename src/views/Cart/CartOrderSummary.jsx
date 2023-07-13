@@ -35,6 +35,7 @@ import { useAuth0 } from "@auth0/auth0-react";
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const productsToBuy = useSelector(state => state.cartItems);
+
     // console.log(productsToBuy[0].quantity)
 
     /*const handleSubmit = async (quantity, productId, userId) => {
@@ -54,7 +55,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
     const handleSubmit = async () => {
 
-      console.log(isAuthenticated, user.email)
       if(!isAuthenticated) {
         alert("please login first to order")
         return;
