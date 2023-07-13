@@ -15,6 +15,7 @@ export default function UserProfile() {
 
     const [userDB, setUserDB] = useState(null);
   console.log(user)
+
     useEffect(() => {
         const getUser = async() => {
             if(usuario){
@@ -29,11 +30,11 @@ export default function UserProfile() {
         }
 
         getUser();
-    }, [])
+    }, [usuario])
 
     const [userCreate, setUserCreate] = useState({
-        first_name: user?.given_name,
-        last_name: user?.family_name,
+        first_name: userDB?.first_name,
+        last_name: userDB?.last_name,
         email: user?.email,
         gender: "",
         delivery_address: "",
@@ -54,7 +55,8 @@ export default function UserProfile() {
         try {
            const id = await axios.post("http://localhost:3010/users/create", userCreate);
             dispatch(getIdEmailUser(id.data.userID));
-            alert("data actualizada con exito!")
+            alert("data actualizada con exito!");
+            Navigate("/")
         } catch (error) {
             console.log(error);
             alert("a ocurrido un error, por favor intente mas tarde");
@@ -87,18 +89,21 @@ export default function UserProfile() {
                 <Text fontSize="xl" fontWeight="bold" mb={4}>
                     Datos Del Usuario
                 </Text>
-                <Text fontWeight="bold">Nombre: {user.given_name}</Text>
-                <Text fontWeight="bold">Apellido: {user.family_name}</Text>
-                <Text fontWeight="bold">Email: {user.email}</Text>
+                <Text fontWeight="bold">Nombre: {userDB?.first_name}</Text>
+                <Text fontWeight="bold">Apellido: {userDB?.last_name}</Text>
+                <Text fontWeight="bold">Email: {userDB?.email}</Text>
+                <Text fontWeight="bold">Direccion: {userDB?.delivery_address}</Text>
             </Box>)}
-
+              {console.log(userDB)}
             {user && (
                 <>
                 
-               { !user?.given_name || !user?.family_name ? (<><Text fontWeight="bold" mt={4}>
+               { !userDB?.first_name || !userDB?.last_name /*|| !user?.given_name || !user?.family_name*/ ? (<><Text fontWeight="bold" mt={4}>
                 <h3>por favor ingrese sus datos</h3>
               Formulario
             </Text>
+            <Input name="first_name" placeholder="nombre" value={userCreate.first_name} onChange={handleChange}/>
+            <Input name="last_name" placeholder="apellido" value={userCreate.last_name} onChange={handleChange}/>
             <Select
               name="gender"
               placeholder="Seleccionar género"
@@ -124,8 +129,7 @@ export default function UserProfile() {
               onChange={handleChange}
               mt={2}
             />
-            <Input name="first_name" placeholder="nombre" value={userCreate.first_name} onChange={handleChange}/>
-            <Input name="last_name" placeholder="apellido" value={userCreate.last_name} onChange={handleChange}/>
+            
             <Button onClick={handleSubmitUser} mt={4}>
               Guardar
             </Button>
@@ -165,13 +169,7 @@ export default function UserProfile() {
               Guardar
             </Button>
             </Box>
-            ) : (
-            <div>
-              <Text fontWeight="bold">Nombre: {user.given_name}</Text>
-                <Text fontWeight="bold">Apellido: {user.family_name}</Text>
-                <Text fontWeight="bold">Email: {user.email}</Text>
-            </div>
-            )}
+            ) :null}
                 </>
             )}
 

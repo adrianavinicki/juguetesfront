@@ -13,12 +13,14 @@ import {
   import axios from 'axios';
 import { getDetailOrdersIDArray, getIdEmailUser } from '../../redux/actions';
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 
   const OrderSummaryItem = (props) => {
     const { label, value, children } = props
+
+    
     return (
       <Flex justify="space-between" fontSize="sm">
         <Text fontWeight="medium" color={mode('gray.600', 'gray.400')}>
@@ -34,21 +36,37 @@ import { useEffect } from 'react';
     const { isAuthenticated, user } = useAuth0();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [userData, setUserData] = useState(null);
+    const idCliente = useSelector(state => state.idUser);
 
     useEffect(() => {
       const getUser = async() => {
-        if(isAuthenticated){
-          const idCliente = await axios.post("http://localhost:3010/users/userEmail", {email: user?.email});
-          dispatch(getIdEmailUser(idCliente.data))
-        }
 
-        getUser();
-      }
+        try {
+          if(isAuthenticated && !idCliente){
+            const idClient = await axios.post("http://localhost:3010/users/userEmail", {email: user?.email});
+            dispatch(getIdEmailUser(idClient.data.idUser));
+            setUserData(idClient.data.user);
+          }; 
+
+          if(!userData && idCliente){
+            const dataUser = await axios.get(`http://localhost:3010/users/${idCliente}`);
+            setUserData(dataUser.data);
+          }
+        } catch (error) {
+          console.log(error);
+        };
+        
+        
+      };
+
+      getUser();
+
     }, [])
 
     
     const productsToBuy = useSelector(state => state.cartItems);
-    const idCliente = useSelector(state => state.idUser);
+    
     // console.log(productsToBuy[0].quantity)
 
     /*const handleSubmit = async (quantity, productId, userId) => {
@@ -72,7 +90,8 @@ import { useEffect } from 'react';
       if(!isAuthenticated) {
         alert("please login first to order")
         return;
-      } else if(!idCliente){
+      }
+      if(!idCliente){
         alert("please, complete the rest of your data to be able to send your toys");
         navigate("/Profile");
       }// aqui agregar un else if si el usuario esta registrado o no en la base de datos
@@ -81,13 +100,17 @@ import { useEffect } from 'react';
           return {
             quantity: item.quantity,
             productId: item.id,
-            userId: 1,
+            userId: userData.id,
           };
         });
-        const detailCreated = await axios.post("http://localhost:3010/detailorders/create",detailOrders);
+
+        if(idCliente) {
+          const detailCreated = await axios.post("http://localhost:3010/detailorders/create",detailOrders);
         console.log(detailCreated.data.detailOrders)
         dispatch(getDetailOrdersIDArray(detailCreated.data.detailOrders));
         navigate("/payment");
+        };
+        
       } catch (error) {
         console.log(error);
       }

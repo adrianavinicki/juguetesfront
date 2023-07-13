@@ -5,7 +5,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { useNavigate } from "react-router-dom";
-import { getDetailOrdersIDArray } from "../../redux/actions";
+import { deleteCart, getDetailOrdersIDArray } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 const apiUrl = import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY;
 
 //const {VITE_MERCADO_PAGO_PUBLIC_KEY} = process.env;
@@ -16,7 +17,8 @@ initMercadoPago(apiUrl);
 
 export default function Payment (props) {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const detailOrderIdsArray = useSelector(state => state.detailOrdersUsersID);
     const detailCarrito = useSelector(state => state.cartItems);
 
@@ -49,8 +51,9 @@ export default function Payment (props) {
         //IMPORTANTE, una vez dado el OK de la orden, antes de mandar se borra el array de ids y carrito para que no haya duplicados, zaqui se borra el carrito
         console.log(finalOrder)
         const response = await axios.post("http://localhost:3010/payments/generate", {orderId: finalOrder.id})
-        console.log(response.data.init_point)
-        setPreferenceId(response.data.init_point)
+        console.log(response.data.init_point);
+        dispatch(deleteCart()); //este es el borrado logico del cart y del id array de las detail orders. Esto me parece que quedaria mejor hacerlo LUEGO de que la compra en mercado pago haya sido exitosa
+        setPreferenceId(response.data.init_point);
         window.location.href = response.data.init_point
         //navigate(response.data.init_point)
         

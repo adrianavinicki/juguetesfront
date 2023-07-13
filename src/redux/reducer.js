@@ -238,6 +238,7 @@ const rootReducer = (state = initialState, action) => {
     case DELETE_CART:
      return {
         ...state,
+        detailOrdersUsersID: [],
         cartItems: []
       };
 
