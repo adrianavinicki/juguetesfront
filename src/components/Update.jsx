@@ -9,6 +9,7 @@ import {
     Stack,
     useColorModeValue,
     HStack,
+    Select,
     Avatar,
     AvatarBadge,
     IconButton,
@@ -37,12 +38,13 @@ import {
       description:"",
       quantity:"",
       price:"",
-      product_status: true,
+      product_status: "",
   })
 
     const params = useParams()
     
     const productDetail = useSelector((state)=>state.productDetail)
+    
 
 
     const handleChange = (event) => {
@@ -55,7 +57,34 @@ import {
       console.log(update)
 
       try {
-       
+
+          if(update.name === "") {
+            update.name = productDetail.name
+          }
+          if(update.brand === "") {
+            update.brand = productDetail.brand
+          }
+          if(update.category === "") {
+            update.category = productDetail.category
+          }
+          if(update.minimun_age === "") {
+            update.minimun_age = productDetail.minimun_age
+          }
+          if(update.description === "") {
+            update.description = productDetail.description
+          }
+          if(update.quantity === "") {
+            update.quantity = productDetail.quantity
+          }
+          if(update.price === "") {
+            update.price = productDetail.price
+          }
+          if(update.product_status === "") {
+            update.product_status = productDetail.product_status
+          }
+
+          console.log(update)
+
           dispatch(putProduct(params.id, update));
           alert("toy updated");
 
@@ -67,7 +96,7 @@ import {
           description:"",
           quantity:"",
           price:"",
-          product_status: true,})
+          product_status:"",})
           
       } catch (error) {
           console.log(error)
@@ -195,6 +224,17 @@ import {
               value={update.minimun_age}
               onChange={handleChange}
             />
+          <FormLabel>Current Status: {productDetail.product_status.toString()}</FormLabel>
+          <Select
+              placeholder="Select"
+              _placeholder={{ color: 'gray.500' }}
+              type="boolean"
+              name="product_status"
+              value={update.product_status}
+              onChange={handleChange}>
+            <option value="True">True</option>
+            <option value="False">False</option>
+          </Select>
           </FormControl>
           <Stack spacing={6} direction={['column', 'row']}>
             <Link href={'/edit'}>
