@@ -20,6 +20,7 @@ export const ACTUALIZAR_FILTRO_PARA_PAGINADO =
   "ACTUALIZAR_FILTRO_PARA_PAGINADO";
 export const CREATE_REVIEW = "CREATE_REVIEW";
 export const FETCH_REVIEWS = "FETCH_REVIEWS";
+export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
 export const GET_ALL_USERS = "GET_ALL_USERS";
@@ -57,6 +58,16 @@ export const getProducts = () => {
     );
     const products = dbData.data;
     dispatch({ type: GET_PRODUCTS, payload: products });
+  };
+};
+
+export const getAllProducts = () => {
+  return async function (dispatch) {
+    const dbData = await axios.get(
+      "http://localhost:3010/products/all/products"
+    );
+    const products = dbData.data;
+    dispatch({ type: GET_ALL_PRODUCTS, payload: products });
   };
 };
 

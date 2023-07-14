@@ -37,6 +37,7 @@ export default function CaptionCarousel(props) {
   const [slider, setSlider] = React.useState/*<typeof Slider | null>*/(null);
   const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cartItems);
+  const allProducts = useSelector((state) => state.allProducts);
     
     const addProductCarrito = (product) => {
       dispatch(addProductToCart(product));
@@ -50,25 +51,28 @@ export default function CaptionCarousel(props) {
   // This can be static or loaded from a server
   const cards = [
     {
-      title: 'School Bus',
+      title: 'Jenga Classic Juego de Mesa',
       text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        "El juego de mesa Jenga Classic es un juego de habilidad y equilibrio en el que los jugadores deben quitar y apilar bloques de madera sin que la torre se derrumbe.",
       image:
-        '/schoolbus.png',
+        '/jenga.png',
+      id: 1030, 
     },
     {
-      title: 'Barbie',
+      title: 'LEGO Star Wars Halcón Milenario',
       text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        "Construye el icónico Halcón Milenario de Star Wars con más de 1300 piezas y recrea escenas de las películas con las mini-figuras de Han Solo, Chewbacca y otros personajes.",
       image:
-        '/barbie2.png',
+        '/halcon.png',
+      id: 1023,
     },
     {
-      title: 'Nerf',
+      title: 'Hot Wheels Basic Car 50-Pack',
       text:
-        "The project board is an exclusive resource for contract work. It's perfect for freelancers, agencies, and moonlighters.",
+        "Un juego de 50 autos Hot Wheels en varios diseños y colores para horas de juego imaginativo y colección.",
       image:
-        '/nerf.png',
+        '/hotwheels.png',
+      id: 1038,
     },
   ];
 
@@ -147,7 +151,7 @@ export default function CaptionCarousel(props) {
                     transform="translate(0, -50%)"
                     direction={'column'} 
                     align={'center'}>
-                    <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} color={'blue.900'}
+                    <Heading fontSize={'30px'} color={'white'}
                     fontWeight={'bold'}>
                       {card.title}
                     </Heading>
@@ -169,10 +173,10 @@ export default function CaptionCarousel(props) {
                             href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
                           />
                         </Box>
-                        <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} w={'100px'} marginRight={'30px'}>Add to Cart</Button>
-                        <Link key={props.id} href={`/detail/${props.id}`}>
+                        {/* <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} w={'100px'} marginRight={'30px'}>Add to Cart</Button>
+                        <Link href={`/detail/${card.id}`}>
                             <Button _hover={{transform: 'translateY(-2px)',boxShadow: 'lg',}} bg={'blue.900'} color={'white'} w={'100px'}>Detail</Button>
-                        </Link>
+                        </Link> */}
                         
                         </Flex>
                     </Box>
