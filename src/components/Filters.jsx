@@ -5,7 +5,7 @@ import { getProducts, filterByAge, filterByPrice, filterByCategory, filterByBran
 import { Box, Flex, Button, FormLabel, Select, Input, InputGroup } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons';
 //import SearchBar from "./SearchBar";
-const GET_ALL_PRODUCTS = import.meta.env.VITE_GET_ALL_PRODUCTS;
+const GET_PRODUCTS_ALL = import.meta.env.VITE_GET_ALL_PRODUCTS;
 
 
 const FilterAndOrder = () => {
@@ -50,7 +50,7 @@ const FilterAndOrder = () => {
         console.log(params);
         dispatch(actualizarFiltroPaginado(params));
 
-       axios.get(GET_ALL_PRODUCTS/*"http://localhost:3010/products"*/,{params})
+       axios.get(GET_PRODUCTS_ALL/*"http://localhost:3010/products"*/,{params})
        .then(res => {dispatch(productsFilter(res.data))})
     },[filters])
 
