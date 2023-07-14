@@ -10,6 +10,7 @@ import Cart2 from "./views/Cart/Cart2";
 import OrdersData from "./components/Orders";
 import Payment from "./views/Pago/Pago"
 import UserProfile from "./views/UserDataFormOverlay(temporary)/UserProfile";
+import UsersData from "./components/Users"
 
 
 const router = createBrowserRouter([
@@ -35,6 +36,9 @@ const router = createBrowserRouter([
     },
     {   path:"/admin/orders",
         element: <OrdersData/>,
+    },
+    {   path:"/admin/users",
+        element: <UsersData/>,
     },
     {
         path:"/edit",
