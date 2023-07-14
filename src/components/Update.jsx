@@ -28,6 +28,8 @@ import {
   export default function ProductProfileEdit(features)/*: JSX.Element*/ {
 
     const dispatch = useDispatch();
+
+    const [image, setImage] = useState(null);
     
 
     const [update, setUpdate] = useState({ //creo un estado del form.
@@ -38,6 +40,7 @@ import {
       description:"",
       quantity:"",
       price:"",
+      // image:"",
       product_status: "",
   })
 
@@ -51,6 +54,11 @@ import {
       const {name, value} = event.target;
       setUpdate(prevState => ({...prevState, [name]: value}));
   };
+
+  const handleImageChange = event => {
+    const file = event.target.files[0];
+    setImage(file);
+};
 
     const handleSubmit = event => {
       console.log("hola")
@@ -81,6 +89,9 @@ import {
           }
           if(update.product_status === "") {
             update.product_status = productDetail.product_status
+          }
+          if(image === "") {
+            setImage(productDetail.image)
           }
 
           console.log(update)
@@ -132,19 +143,17 @@ import {
             <Stack direction={['column', 'row']} spacing={6}>
               <Center>
                 <Avatar size="xl" src={productDetail.image}>
-                  <AvatarBadge
-                    as={IconButton}
-                    size="sm"
-                    rounded="full"
-                    top="-10px"
-                    colorScheme="red"
-                    aria-label="remove Image"
-                    icon={<SmallCloseIcon />}
-                  />
                 </Avatar>
               </Center>
               <Center w="full">
-                <Button w="full">Change Picture</Button>
+                <Input 
+                type='file'
+                name="image"
+                id="image"
+                value={update.image}
+                onChange={handleImageChange}
+                // onBlur={handleOnBlur}
+                ></Input>
               </Center>
             </Stack>
           </FormControl>
@@ -224,7 +233,7 @@ import {
               value={update.minimun_age}
               onChange={handleChange}
             />
-          <FormLabel>Current Status: {productDetail.product_status.toString()}</FormLabel>
+          <FormLabel>Current Status: {productDetail.product_status}</FormLabel>
           <Select
               placeholder="Select"
               _placeholder={{ color: 'gray.500' }}

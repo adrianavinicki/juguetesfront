@@ -8,6 +8,8 @@ import {
   Tbody,
   Tfoot,
   Tr,
+  Link,
+  Button,
   Th,
   Td,
   TableCaption,
@@ -70,7 +72,11 @@ function OrdersData() {
     <TableContainer>
       <NavBar2></NavBar2>
       <Table variant="striped" colorScheme="blue.900">
-        <TableCaption>Stats Sales</TableCaption>
+        <TableCaption>
+        <Link href={'/admin'}>
+        <Button bg={'blue.900'} color={'white'}>Go Back</Button>
+        </Link>
+        </TableCaption>
         <Thead>
           <Tr>
             <Th>User Id</Th>
