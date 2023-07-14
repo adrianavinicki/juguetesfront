@@ -9,6 +9,7 @@ import {
     Stack,
     useColorModeValue,
     HStack,
+    Select,
     Avatar,
     AvatarBadge,
     IconButton,
@@ -27,6 +28,8 @@ import {
   export default function ProductProfileEdit(features)/*: JSX.Element*/ {
 
     const dispatch = useDispatch();
+
+    const [image, setImage] = useState(null);
     
 
     const [update, setUpdate] = useState({ //creo un estado del form.
@@ -37,12 +40,14 @@ import {
       description:"",
       quantity:"",
       price:"",
-      product_status: true,
+      // image:"",
+      product_status: "",
   })
 
     const params = useParams()
     
     const productDetail = useSelector((state)=>state.productDetail)
+    
 
 
     const handleChange = (event) => {
@@ -50,12 +55,47 @@ import {
       setUpdate(prevState => ({...prevState, [name]: value}));
   };
 
+  const handleImageChange = event => {
+    const file = event.target.files[0];
+    setImage(file);
+};
+
     const handleSubmit = event => {
       console.log("hola")
       console.log(update)
 
       try {
-       
+
+          if(update.name === "") {
+            update.name = productDetail.name
+          }
+          if(update.brand === "") {
+            update.brand = productDetail.brand
+          }
+          if(update.category === "") {
+            update.category = productDetail.category
+          }
+          if(update.minimun_age === "") {
+            update.minimun_age = productDetail.minimun_age
+          }
+          if(update.description === "") {
+            update.description = productDetail.description
+          }
+          if(update.quantity === "") {
+            update.quantity = productDetail.quantity
+          }
+          if(update.price === "") {
+            update.price = productDetail.price
+          }
+          if(update.product_status === "") {
+            update.product_status = productDetail.product_status
+          }
+          if(image === "") {
+            setImage(productDetail.image)
+          }
+
+          console.log(update)
+
           dispatch(putProduct(params.id, update));
           alert("toy updated");
 
@@ -67,7 +107,7 @@ import {
           description:"",
           quantity:"",
           price:"",
-          product_status: true,})
+          product_status:"",})
           
       } catch (error) {
           console.log(error)
@@ -103,19 +143,17 @@ import {
             <Stack direction={['column', 'row']} spacing={6}>
               <Center>
                 <Avatar size="xl" src={productDetail.image}>
-                  <AvatarBadge
-                    as={IconButton}
-                    size="sm"
-                    rounded="full"
-                    top="-10px"
-                    colorScheme="red"
-                    aria-label="remove Image"
-                    icon={<SmallCloseIcon />}
-                  />
                 </Avatar>
               </Center>
               <Center w="full">
-                <Button w="full">Change Picture</Button>
+                <Input 
+                type='file'
+                name="image"
+                id="image"
+                value={update.image}
+                onChange={handleImageChange}
+                // onBlur={handleOnBlur}
+                ></Input>
               </Center>
             </Stack>
           </FormControl>
@@ -195,6 +233,17 @@ import {
               value={update.minimun_age}
               onChange={handleChange}
             />
+          <FormLabel>Current Status: {productDetail.product_status}</FormLabel>
+          <Select
+              placeholder="Select"
+              _placeholder={{ color: 'gray.500' }}
+              type="boolean"
+              name="product_status"
+              value={update.product_status}
+              onChange={handleChange}>
+            <option value="True">True</option>
+            <option value="False">False</option>
+          </Select>
           </FormControl>
           <Stack spacing={6} direction={['column', 'row']}>
             <Link href={'/edit'}>

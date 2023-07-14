@@ -38,13 +38,34 @@ import {
   
     const navigationItems = isAuthenticated
     ? [
-        { label: "My Orders", href: "#" },
+        //{ label: "My Orders", href: "#" },
         { label: "Home", href: "/" },
-        { label: "Create Toy", href: "/form" },
+        {
+          label: 'Admin',
+          children: [
+            {
+              label: 'Create Toy',
+              subLabel: 'Create a New Toy',
+              href: '/form',
+            },
+            {
+              label: 'Stats',
+              subLabel: 'Sales, Orders, Users',
+              href: '/admin',
+            },
+            {
+              label: 'Edit Product',
+              subLabel: 'Update or Delete Product',
+              href: '/edit',
+            },
+          ],
+        },
+        // { label: "Create Toy", href: "/form" },
         { label: "Cart", href: "/cart" },
-        { label: "Admin", href: "/admin" },
+        // { label: "Admin", href: "/admin" },
+        { label: "Profile", href: "/Profile"}
       ]
-    : [{ label: "Home", href: "/" }];
+    : [{ label: "Home", href: "/" }, { label: "Cart", href: "/cart" }];
 
     return (
       <Box w={'100%'}>
@@ -64,25 +85,33 @@ import {
             <Image src="/LOGO PNG.png" w={"70px"} alt="Wonder Toys" />
           </div>
         </Flex>
-        <Flex ml="auto" paddingRight={"200px"}>
+        <Flex  ml="auto" paddingRight={"100px"}>
           {isAuthenticated ? (
-            <>
+            <Box>
               {/* <Flex display={{ base: "none", md: "flex" }} ml={10}>
                 <DesktopNav navigationItems={navigationItems} />
               </Flex> */}
               <Flex
-                display={{ base: "none", md: "flex" }}
-                ml={10}
-                justifyContent="flex-start"
+                // display={{ base: "none", md: "flex" }}
+                // ml={10}
+                // justifyContent="flex-start"
+                // justify={'space-around'}
+                
               >
-                <DesktopNav navigationItems={navigationItems} />
-              </Flex>
-
+                <Box marginRight={'800px'} marginTop={'10px'}>
+                  <DesktopNav navigationItems={navigationItems} />
+                </Box>
+                
               <Profile />
               {/* <LogoutButton /> */}
-            </>
+              </Flex>
+            </Box>
           ) : (
+            <Box>
+            <DesktopNav navigationItems={navigationItems} />
             <LoginAuth />
+            </Box>
+            
           )}
         </Flex>
       </Flex>
@@ -94,14 +123,15 @@ import {
     );
   }
   
-  const DesktopNav = () => {
+  const DesktopNav = (props) => {
     const linkColor = useColorModeValue('white', 'gray.200');
     const linkHoverColor = useColorModeValue('red.600', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
   
     return (
       <Stack direction={'row'} spacing={4} align={'center'}>
-        {NAV_ITEMS.map((navItem) => (
+
+        {props.navigationItems.map((navItem) => (
           <Box key={navItem.label}>
             <Popover trigger={'hover'} placement={'bottom-start'}>
               <PopoverTrigger>
@@ -280,3 +310,14 @@ import {
       ],
     },
   ];
+
+  const NAV_ITEMS_NOT_LOGGED = [
+    {
+      label: 'Home',
+      href: '/',
+    },
+    {
+      label: "Cart",
+      href: "/cart",
+    },
+  ]

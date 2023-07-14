@@ -7,7 +7,7 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import store from './redux/store';
-import { LoginAuth } from './views/Login/LoginAuth';
+//import { LoginAuth } from './views/Login/LoginAuth';
 
 const persistor = persistStore(store);
 
@@ -15,14 +15,15 @@ ReactDOM.render(
   <Auth0Provider
     domain="wondertoyshenry.us.auth0.com"
     clientId="pmqIpRA46YXGq9RBHCY0BG7calWTBYWG"
-    redirectUri={window.location.origin}
+    redirectUri={window.location.origin} //authorizationParams.redirect_uri
     cacheLocation="localstorage" // Guarda el estado de la sesión en el almacenamiento local
   >
     <ChakraProvider>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
+          
           <App />
-          <LoginAuth />
+         
         </PersistGate>
       </Provider>
     </ChakraProvider>

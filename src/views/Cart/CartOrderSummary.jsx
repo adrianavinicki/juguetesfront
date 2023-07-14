@@ -12,7 +12,8 @@ import {
   import { useSelector, useDispatch } from "react-redux";
   import axios from 'axios';
 import { getDetailOrdersIDArray } from '../../redux/actions';
-
+import { useAuth0 } from "@auth0/auth0-react";
+const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
 
 
   const OrderSummaryItem = (props) => {
@@ -29,9 +30,12 @@ import { getDetailOrdersIDArray } from '../../redux/actions';
   
   export const CartOrderSummary = () => {
 
+    const { isAuthenticated, user } = useAuth0();
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const productsToBuy = useSelector(state => state.cartItems);
+
     // console.log(productsToBuy[0].quantity)
 
     /*const handleSubmit = async (quantity, productId, userId) => {
@@ -49,7 +53,12 @@ import { getDetailOrdersIDArray } from '../../redux/actions';
       
     }*/
 
-  const handleSubmit = async () => {
+    const handleSubmit = async () => {
+
+      if(!isAuthenticated) {
+        alert("please login first to order")
+        return;
+      } // aqui agregar un else if si el usuario esta registrado o no en la base de datos
       try {
         const detailOrders = productsToBuy.map(item => {
           return {
@@ -58,7 +67,7 @@ import { getDetailOrdersIDArray } from '../../redux/actions';
             userId: 1,
           };
         });
-        const detailCreated = await axios.post("http://localhost:3010/detailorders/create",detailOrders);
+        const detailCreated = await axios.post(POST_NEW_DETAIL_ORDER/*"http://localhost:3010/detailorders/create"*/,detailOrders);
         console.log(detailCreated.data.detailOrders)
         dispatch(getDetailOrdersIDArray(detailCreated.data.detailOrders));
         navigate("/payment");
@@ -67,12 +76,15 @@ import { getDetailOrdersIDArray } from '../../redux/actions';
       }
       
     };
+
     const totalPrice = productsToBuy.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    console.log(totalPrice)
 
     return (
       <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
         <Heading size="md">Order Summary</Heading>
-  
+      {console.log(user)}
         <Stack spacing="6">
           <OrderSummaryItem label="Subtotal" value={formatPrice(totalPrice)} />
           {/* <OrderSummaryItem label="Shipping + Tax">
