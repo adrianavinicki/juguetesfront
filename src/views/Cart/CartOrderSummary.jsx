@@ -13,7 +13,7 @@ import {
   import axios from 'axios';
 import { getDetailOrdersIDArray } from '../../redux/actions';
 import { useAuth0 } from "@auth0/auth0-react";
-
+const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
 
 
   const OrderSummaryItem = (props) => {
@@ -67,7 +67,7 @@ import { useAuth0 } from "@auth0/auth0-react";
             userId: 1,
           };
         });
-        const detailCreated = await axios.post("http://localhost:3010/detailorders/create",detailOrders);
+        const detailCreated = await axios.post(POST_NEW_DETAIL_ORDER/*"http://localhost:3010/detailorders/create"*/,detailOrders);
         console.log(detailCreated.data.detailOrders)
         dispatch(getDetailOrdersIDArray(detailCreated.data.detailOrders));
         navigate("/payment");
