@@ -17,6 +17,7 @@ const Home = ()=>{
     const navigate = useNavigate();
     const { isAuthenticated, user } = useAuth0();
   
+
     useEffect(()=>{
         //aqui se puedde poner un if que verifique si el array de products no es cero para no llamar tanto al back
         dispatch(getProducts());
@@ -29,17 +30,20 @@ const Home = ()=>{
             //    navigate("/Profile");
             //} aqui tratart de crear al usuario, si el given name y el family name estan vacios (esto para los ratings!!!) (REDIRIGIR AL USUARIO AL PROFILE PARA QUE COMPLETE LOS DATOS QuE FALTAN, tanto para usar los ratings como para comprar en el carrito), redirigirlo al profile para que complete esos datos. Los campos gender y address pueden ser nulos, verificarlos en el cart
             try {
+                console.log(user)
                 const idUser = await axios.post("http://localhost:3010/users/userEmail", {email: user?.email});
                 dispatch(getIdEmailUser(idUser.data.idUser));
+                console.log(idUser.data.idUser)
+                
 
             } catch (error) {
-                console.log("falta id del user")
+                console.log("cargando el id del user")
             }
         }
 
         getUserId();
 
-  }, [])
+  }, [user])
 
     return(
         <Box 
