@@ -50,7 +50,7 @@ import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 
 const Rating = ({ ratingValue, numRatings, handleRatingClick }) => {
   const [hoverRating, setHoverRating] = useState(0);
-
+  //console.log(hoverRating);
   const renderStars = (ratingValue) => {
     const roundedRating = Math.round(ratingValue * 2) / 2;
     return Array(5)

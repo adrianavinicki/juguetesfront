@@ -16,13 +16,18 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
+  PopoverCloseButton,
   Input,
   chakra,
+  useToast,
 } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import { addProductToCart } from "../redux/actions";
 import Rating from "./Rating";
+import RatingDisplay from "./RatingDisplay";
+import axios from "axios";
+
 
 const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
   // Dispatch para agregar productos al carrito
@@ -33,6 +38,8 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [ratingValue, setRatingValue] = useState(0);
   const [comment, setComment] = useState("");
+  //estodo user Hardcodeado
+  let user = 15;
 
   // Manejador para agregar productos al carrito
   const addProductToCartHandler = (product) => {
@@ -51,12 +58,55 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
   // Manejador para el clic en una estrella de calificación
   const handleRatingClick = (value) => {
     setRatingValue(value);
-    setIsOpen(false); // Cerrar el popover después de hacer clic en una estrella
+    //setIsOpen(false); // Cerrar el popover después de hacer clic en una estrella
   };
 
   // Manejador para el cambio de comentario
   const handleCommentChange = (event) => {
     setComment(event.target.value);
+  };
+
+  const toast = useToast();
+  const createRating = async (data) => {
+    try {
+      await axios.post("http://localhost:3010/rating/create",data)
+        console.log('Maaaaaaaande un ratinggggggg!')
+    } catch (error) {
+       console.log('entro al catch')
+        toast({
+        title: 'Account created.',
+        description: "We've created your account for you.",
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    } finally {
+        setIsOpen(false)
+        setRatingValue(0)
+        setComment('')
+    };
+  }
+
+  //funcion manejo de 'submit'
+
+  const submitHandler = (e) => {
+    const data = {
+      rate: ratingValue,
+      review: comment,
+      productId: id,
+      id: user,
+    }
+
+    console.log(data);
+    createRating(data);
+    // .then(console.log('Maaaaaaaande un ratinggggggg!'))
+    // .then(setIsOpen(false))
+    // .then(setRatingValue(0))
+    // .then(setComment(''))
+    // .catch(
+    //   error => console.log(error.message)
+
+    // )
   };
 
   return (
@@ -152,10 +202,12 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
                     <PopoverTrigger>
                       <div onClick={() => setIsOpen(true)}>
                         {/* Contenido visible del PopoverTrigger */}
-                        <Rating ratingValue={ratingValue} handleRatingClick={handleRatingClick} />
+                        <RatingDisplay/>
+                        {/* <Rating ratingValue={ratingValue} handleRatingClick={handleRatingClick} /> */}
                       </div>
                     </PopoverTrigger>
                     <PopoverContent>
+                      <PopoverCloseButton/>
                       <PopoverHeader>Rate this product</PopoverHeader>
                       <PopoverBody>
                         <Flex justifyContent="center">
@@ -170,7 +222,7 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
                         <Button
                           colorScheme="blue"
                           mt={4}
-                          onClick={() => setIsOpen(false)}
+                          onClick={submitHandler}
                         >
                           Submit
                         </Button>
