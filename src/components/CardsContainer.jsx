@@ -76,7 +76,7 @@ const CardsContainer = (props) => {
   return (
     <div>
       <div>
-        <Box bg={""} w={"1663px"}>
+        <Box bg={""} w={"100%"}>
           <Flex direction={"column"} paddingTop={"60px"} align={"center"}>
             <div>
               <Button
@@ -121,7 +121,7 @@ const CardsContainer = (props) => {
                 </Box>
                 <div>
                   
-                  <SimpleGrid columns={5} bg={""} w={"1300px"} h={"730px"}>
+                  <SimpleGrid columns={5} bg={""} w={"100%"} h={"100%"}>
                     {                    
                       Boolean(productsData.data?.length) ? (
                         productsData.data.map((product) => {

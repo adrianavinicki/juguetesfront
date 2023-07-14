@@ -76,7 +76,10 @@ import { useAuth0 } from "@auth0/auth0-react";
       }
       
     };
+
     const totalPrice = productsToBuy.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    console.log(totalPrice)
 
     return (
       <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
