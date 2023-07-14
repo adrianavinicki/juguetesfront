@@ -11,21 +11,23 @@ export const FILTER_BY_BRAND = "FILTER_BY_BRAND";
 export const ORDER_BY_PRICE = "ORDER_BY_PRICE";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const GET_PRODUCTS_FILTERED = "GET_PRODUCTS_FILTERED";
-export const GET_PRODUCTS_FILTERED_PAGE = "GET_PRODUCTS_FILTERED_PAGE"
+export const GET_PRODUCTS_FILTERED_PAGE = "GET_PRODUCTS_FILTERED_PAGE";
 export const COMBINED_FILTERS = "COMBINED_FILTERS";
 export const REMOVE_PRODUCT_FROM_CART = "REMOVE_PRODUCT_FROM_CART";
 export const DECREASE_PRODUCT_QUANTITY = "DECREASE_PRODUCT_QUANTITY";
 export const INCREASE_PRODUCT_QUANTITY = "INCREASE_PRODUCT_QUANTITY";
-export const ACTUALIZAR_FILTRO_PARA_PAGINADO = "ACTUALIZAR_FILTRO_PARA_PAGINADO";
-export const CREATE_REVIEW = "CREATE_REVIEW"
-export const FETCH_REVIEWS = "FETCH_REVIEWS"
+export const ACTUALIZAR_FILTRO_PARA_PAGINADO =
+  "ACTUALIZAR_FILTRO_PARA_PAGINADO";
+export const CREATE_REVIEW = "CREATE_REVIEW";
+export const FETCH_REVIEWS = "FETCH_REVIEWS";
+export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
 export const GET_ALL_USERS = "GET_ALL_USERS";
 //export const POST_ORDER = "POST_ORDER";
 //export const PUT_ORDER = "PUT_ORDER";
 export const GET_ORDER_BY_ID = "GET_ORDER_BY_ID";
-export const PRODUCTS_FILTER = "PRODUCTS_FILTER"
+export const PRODUCTS_FILTER = "PRODUCTS_FILTER";
 
 export const GET_ALL_DETAIL_ORDERS = "GET_ALL_DETAIL_ORDERS";
 export const GET_DETAIL_ORDER_BY_ID = "GET_DETAIL_ORDER_BY_ID";
@@ -33,17 +35,47 @@ export const GET_DETAIL_ORDER_BY_ID = "GET_DETAIL_ORDER_BY_ID";
 //export const PUT_DETAIL_ORDER = "PUT_DETAIL_ORDER";
 export const GET_DETAIL_ORDERS_USERS_ID = "GET_DETAIL_ORDERS_USERS_ID";
 export const GET_ID_USER = "GET_ID_USER";
+
+const GET_ALL_PRODUCTS = import.meta.env.VITE_GET_ALL_PRODUCTS;
+const GET_PRODUCT_BY_NAME = import.meta.env.VITE_GET_PRODUCT_BY_NAME;
+const POST_NEW_PRODUCT = import.meta.env.VITE_POST_NEW_PRODUCT;
+const PUT_PRODUCT_UPDATE = import.meta.env.VITE_PUT_PRODUCT_UPDATE;
+const GET_PRODUCT_BY_NAME_VALUE = import.meta.env
+  .VITE_GET_PRODUCT_BY_NAME_VALUE;
+const GET_ORDERS = import.meta.env.VITE_GET_ORDERS;
+const GET_USERS = import.meta.env.VITE_GET_USERS;
+const PUT_ORDER_UPDATE = import.meta.env.VITE_PUT_ORDER_UPDATE;
+const POST_NEW_ORDER = import.meta.env.VITE_POST_NEW_ORDER;
+const GET_DETAIL_ORDERS = import.meta.env.VITE_GET_DETAIL_ORDERS;
+const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
+const POST_RATING = import.meta.env.VITE_POST_RATING;
+const GET_RATINGS = import.meta.env.VITE_GET_RATINGS;
+
 export const getProducts = () => {
   return async function (dispatch) {
-    const dbData = await axios.get("http://localhost:3010/products");
+    const dbData = await axios.get(
+      GET_ALL_PRODUCTS /*"http://localhost:3010/products"*/
+    );
     const products = dbData.data;
     dispatch({ type: GET_PRODUCTS, payload: products });
   };
 };
 
+export const getAllProducts = () => {
+  return async function (dispatch) {
+    const dbData = await axios.get(
+      "http://localhost:3010/products/all/products"
+    );
+    const products = dbData.data;
+    dispatch({ type: GET_ALL_PRODUCTS, payload: products });
+  };
+};
+
 export const getProduct = (id) => {
   return async function (dispatch) {
-    const dbData = await axios.get(`http://localhost:3010/products/${id}`);
+    const dbData = await axios.get(
+      `${GET_ALL_PRODUCTS}/${id}` /* `http://localhost:3010/products/${id}`*/
+    );
     const product = dbData.data;
     dispatch({ type: GET_PRODUCT, payload: product });
   };
@@ -52,7 +84,7 @@ export const getProduct = (id) => {
 export const getProductsName = (names) => {
   return async function (dispatch) {
     const dbData = await axios.get(
-      `http://localhost:3010/products/?name=${names}`
+      GET_PRODUCT_BY_NAME /*`http://localhost:3010/products/?name=${names}`*/
     );
     const filteredProducts = dbData.data;
     dispatch({ type: GET_PRODUCTS_NAME, payload: filteredProducts });
@@ -62,41 +94,48 @@ export const getProductsName = (names) => {
 export const postProduct = (payload) => {
   return async function (dispatch) {
     const response = await axios.post(
-      "http://localhost:3010/products/create",
+      POST_NEW_PRODUCT /*
+      "http://localhost:3010/products/create"*/,
+      payload
+    );
+    return response;
+  };
+};
+//NO LO PUDE PROBAR!!!!!
+export const putProduct = (id, payload) => {
+  return async function (dispatch) {
+    const response = await axios.put(
+      `${PUT_PRODUCT_UPDATE}/${id}` /*`http://localhost:3010/products/update/${id}`*/,
       payload
     );
     return response;
   };
 };
 
-export const putProduct = (id, payload) => {
-    return async function(dispatch){
-        const response = await axios.put(`http://localhost:3010/products/update/${id}`, payload);
-        return response;
-    };
-};
-
-
 export const getProductsFiltered = (name, value) => {
   return async function (dispatch) {
     const response = await axios.get(
-      `http://localhost:3010/products/?${name}=${value}`
+      GET_PRODUCT_BY_NAME_VALUE /*`http://localhost:3010/products/?${name}=${value}`*/
     );
     const responseData = response.data;
     dispatch({ type: GET_PRODUCTS_FILTERED, payload: responseData });
   };
 };
 
-
+//HASTA ACA LLEGUE.......
 
 export const getProductsFilteredPage = (params) => {
-    return async function(dispatch){
-        const response2 = await axios.get("http://localhost:3010/products",{params:params});
-        const responseData = response2.data;
-        dispatch({ type: GET_PRODUCTS_FILTERED_PAGE, payload : responseData})
-    }
-}
-
+  return async function (dispatch) {
+    const response2 = await axios.get(
+      GET_ALL_PRODUCTS /*"http://localhost:3010/products"*/,
+      {
+        params: params,
+      }
+    );
+    const responseData = response2.data;
+    dispatch({ type: GET_PRODUCTS_FILTERED_PAGE, payload: responseData });
+  };
+};
 
 export const filterByAge = (age) => {
   return {
@@ -163,7 +202,9 @@ export const increaseProductQuantity = (productID) => {
 
 export const getAllOrders = () => {
   return async function (dispatch) {
-    const dbData = await axios.get("http://localhost:3010/orders");
+    const dbData = await axios.get(
+      GET_ORDERS /*"http://localhost:3010/orders"*/
+    );
     const orders = dbData.data;
     dispatch({ type: GET_ALL_ORDERS, payload: orders });
   };
@@ -171,7 +212,7 @@ export const getAllOrders = () => {
 
 export const getAllUsers = () => {
   return async function (dispatch) {
-    const dbData = await axios.get("http://localhost:3010/users");
+    const dbData = await axios.get(GET_USERS /*"http://localhost:3010/users"*/);
     const users = dbData.data;
     dispatch({ type: GET_ALL_USERS, payload: users });
   };
@@ -179,7 +220,9 @@ export const getAllUsers = () => {
 
 export const getOrderById = (id) => {
   return async function (dispatch) {
-    const dbData = await axios.get(`http://localhost:3010/orders/${id}`);
+    const dbData = await axios.get(
+      `${GET_ORDERS}/${id}` /*`http://localhost:3010/orders/${id}`*/
+    );
     const order = dbData.data;
     dispatch({ type: GET_ORDER_BY_ID, payload: order });
   };
@@ -188,7 +231,10 @@ export const getOrderById = (id) => {
 export const modifyOrder = (id, orderData) => {
   return async function () {
     try {
-      await axios.put(`http://localhost:3010/orders/update/${id}`, orderData);
+      await axios.put(
+        `${PUT_ORDER_UPDATE}/${id}` /*`http://localhost:3010/orders/update/${id}`*/,
+        orderData
+      );
     } catch (error) {
       alert(error.message);
     }
@@ -200,7 +246,10 @@ export const modifyOrder = (id, orderData) => {
 export const createOrder = (payload) => {
   return async function () {
     try {
-      await axios.post("http://localhost:3010/orders/create", payload);
+      await axios.post(
+        POST_NEW_ORDER /*"http://localhost:3010/orders/create"*/,
+        payload
+      );
       alert("Order Created");
     } catch (error) {
       alert(error.message);
@@ -210,7 +259,9 @@ export const createOrder = (payload) => {
 
 export const getAllDetailOrders = () => {
   return async function (dispatch) {
-    const dbData = await axios.get("http://localhost:3010/detailorders");
+    const dbData = await axios.get(
+      GET_DETAIL_ORDERS /*"http://localhost:3010/detailorders"*/
+    );
     const details = dbData.data;
     dispatch({
       type: GET_ALL_DETAIL_ORDERS,
@@ -221,23 +272,28 @@ export const getAllDetailOrders = () => {
 
 export const getDetailOrderById = (id) => {
   return async function (dispatch) {
-    const dbData = await axios.get(`http://localhost:3010/detailorders/${id}`);
+    const dbData = await axios.get(
+      `${GET_DETAIL_ORDERS}/${id}` /*`http://localhost:3010/detailorders/${id}`*/
+    );
     const detail = dbData.data;
     dispatch({ type: GET_DETAIL_ORDER_BY_ID, payload: detail });
   };
 };
 
 export const productsFilter = (params) => {
-    return {
-        type: PRODUCTS_FILTER,
-        payload: params
-    };
-}
+  return {
+    type: PRODUCTS_FILTER,
+    payload: params,
+  };
+};
 
 export const createDetailOrder = (payload) => {
   return async function () {
     try {
-      await axios.post("http://localhost:3010/detailorders/create", payload);
+      await axios.post(
+        POST_NEW_DETAIL_ORDER /*"http://localhost:3010/detailorders/create"*/,
+        payload
+      );
       alert("Detail Order Created");
     } catch (error) {
       alert(error.message);
@@ -248,17 +304,20 @@ export const createDetailOrder = (payload) => {
 export const actualizarFiltroPaginado = (filterConfig) => {
   return {
     type: "ACTUALIZAR_FILTRO_PARA_PAGINADO",
-    payload: filterConfig 
-  }
+    payload: filterConfig,
+  };
 };
-
 
 export const createReview = (reviewData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post('http://localhost:3010/rating/create', reviewData);
+      const response = await axios.post(
+        POST_RATING /*
+        "http://localhost:3010/rating/create"*/,
+        reviewData
+      );
       const review = response.data.review;
-      dispatch({ type: 'CREATE_REVIEW', payload: review });
+      dispatch({ type: "CREATE_REVIEW", payload: review });
     } catch (error) {
       console.log(error);
     }
@@ -268,9 +327,11 @@ export const createReview = (reviewData) => {
 export const fetchReviews = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('http://localhost:3010/rating');
+      const response = await axios.get(
+        GET_RATINGS /*"http://localhost:3010/rating"*/
+      );
       const reviews = response.data;
-      dispatch({ type: 'FETCH_REVIEWS', payload: reviews });
+      dispatch({ type: "FETCH_REVIEWS", payload: reviews });
     } catch (error) {
       console.log(error);
     }
@@ -280,13 +341,13 @@ export const fetchReviews = () => {
 export const getDetailOrdersIDArray = (idDetailOrder) => {
   return {
     type: GET_DETAIL_ORDERS_USERS_ID,
-    payload: idDetailOrder
-  }
+    payload: idDetailOrder,
+  };
 };
 
 export const getIdEmailUser = (idEmailUser) => {
   return {
     type: GET_ID_USER,
-    payload: idEmailUser
+    payload: idEmailUser,
   };
 };

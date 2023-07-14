@@ -7,8 +7,10 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getIdEmailUser } from "../../redux/actions";
 
-export default function UserProfile() {
+const GET_USERS = import.meta.env.VITE_GET_USERS;
+const POST_NEW_USER = import.meta.env.VITE_POST_NEW_USER;
 
+export default function UserProfile() {
     const dispatch = useDispatch();
     const usuario = useSelector(state => state.idUser); //el back manda el id del user y el user entero
     const {user} = useAuth0(); // si no esta el nombre y el apellido, que el formulario muestre llenar esos campos
@@ -19,7 +21,7 @@ export default function UserProfile() {
         const getUser = async() => {
             if(usuario){
               try {
-                const user = await axios.get(`http://localhost:3010/users/${usuario}`);
+                const user = await axios.get(`${GET_USERS}/${usuario}`/*`http://localhost:3010/users/${usuario}`*/);
                 setUserDB(user.data);
                 } catch (error) {
                     console.error(error);
@@ -52,12 +54,12 @@ export default function UserProfile() {
     const handleSubmitUser = async() => {
         console.log(userCreate);
         try {
-           const id = await axios.post("http://localhost:3010/users/create", userCreate);
+           const id = await axios.post(POST_NEW_USER/*"http://localhost:3010/users/create"*/, userCreate);
             dispatch(getIdEmailUser(id.data.userID));
-            alert("data actualizada con exito!")
+            alert("User Created")
         } catch (error) {
             console.log(error);
-            alert("a ocurrido un error, por favor intente mas tarde");
+            alert("There is an error, please try later");
             return;
         }
         

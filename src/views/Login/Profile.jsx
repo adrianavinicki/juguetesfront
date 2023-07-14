@@ -13,7 +13,7 @@ export const Profile = () => {
       <Menu>
       <MenuButton as={Flex} alignItems="center">
         <HStack spacing={2}>
-          <Text>{user.name}</Text>
+          <Text color={'white'}>{user.name}</Text>
           <Avatar src={user.picture} alt={user.name} />
         </HStack>
       </MenuButton>
