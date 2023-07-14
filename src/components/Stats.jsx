@@ -10,7 +10,10 @@ import {
     useColorModeValue,
   } from '@chakra-ui/react';
   import { ReactNode, useEffect } from 'react';
+  import { formatPrice } from '../views/Cart/PriceTag'
   import { BsPerson } from 'react-icons/bs';
+  import { BsCashCoin } from 'react-icons/bs';
+  import { BsCartCheck  } from 'react-icons/bs';
   import { FiServer } from 'react-icons/fi';
   import { GoLocation } from 'react-icons/go';
   import { Link } from 'react-router-dom';
@@ -58,12 +61,19 @@ import {
 
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users);
+    const orders = useSelector((state) => state.orders);
     const detailOrders = useSelector((state) => state.detailOrders);
 
     useEffect(() => {
       dispatch(getAllUsers());
       dispatch(getAllDetailOrders());
     }, []);
+
+    console.log(orders)
+
+    const totalPrice = orders.reduce((total, item) => total + parseInt(item.totalprice),0);
+
+    console.log(totalPrice)
 
     return (
       <Box maxW="7xl"  mx={'auto'} pt={30} px={{ base: 2, sm: 12, md: 17 }}>
@@ -78,23 +88,25 @@ import {
         <br />
         <br />
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
+          <Link to= "/admin/users">
           <StatsCard
             title={'Users'}
             stat={users.length}
             icon={<BsPerson size={'3em'} />}
           />
+          </Link>
           <Link to= "/admin/orders">
             <StatsCard
             title={'Sales'}
-            stat={'1,000'}
-            icon={<FiServer size={'3em'} />}
+            stat={orders.length}
+            icon={<BsCartCheck size={'3em'} />}
             />
           </Link>
           
           <StatsCard
-            title={'Income'}
-            stat={'$76.467'}
-            icon={<GoLocation size={'3em'} />}
+            title={'Total Income'}
+            stat={formatPrice(totalPrice)}
+            icon={<BsCashCoin size={'3em'} />}
           />
         </SimpleGrid>
         <StatsGridWithImage />

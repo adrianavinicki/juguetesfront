@@ -35,6 +35,7 @@ const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const productsToBuy = useSelector(state => state.cartItems);
+
     // console.log(productsToBuy[0].quantity)
 
     /*const handleSubmit = async (quantity, productId, userId) => {
@@ -54,7 +55,6 @@ const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
 
     const handleSubmit = async () => {
 
-      console.log(isAuthenticated, user.email)
       if(!isAuthenticated) {
         alert("please login first to order")
         return;
@@ -76,7 +76,10 @@ const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
       }
       
     };
+
     const totalPrice = productsToBuy.reduce((total, item) => total + item.price * item.quantity, 0);
+
+    console.log(totalPrice)
 
     return (
       <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
