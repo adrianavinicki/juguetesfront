@@ -77,43 +77,15 @@ const DEL_PRODUCT= import.meta.env.VITE_DEL_PRODUCT
         </Stack>
         <Flex justify={'center'}
         marginTop={'10px'}>
-        {/* <div>
-            <Button
-              w={"100px"}
-              _hover={""}
-              color={"white"}
-              bg={"blue.900"}
-              onClick={() => handlePageState(currentPageData - 1)}
-            >
-              Anterior
-            </Button>
-            <span>
-              Página {currentPageData} de {pages}
-            </span>
-            <Button
-              w={"100px"}
-              _hover={""}
-              color={"white"}
-              bg={"blue.900"}
-              onClick={() => handlePageState(currentPageData + 1)}
-            >
-              Siguiente
-            </Button>
-          </div> */}
         </Flex>
 
         <Box>
-            <Flex just>
+            <Flex >
             <Container maxW={'3xl'} h={'550px'} mt={10} bg={'gray.200'}
             paddingTop={'10px'}>
             <SimpleGrid columns={{ base: 1, md: 2, lg: 2 }} spacing={10} overflowY="auto" maxHeight="530px" maxW={'3xl'}>
                 {allProducts.map((feature) => (
                 <HStack  key={feature.id} align={'center'} w={'330px'} h={'140px'} bg={'gray.300'} >
-                    {/* <Box color={'red.500'} px={3}>
-                      <Link>
-                      <Icon onClick={() => handleDelete(feature.id)} as={DeleteIcon} />
-                      </Link>
-                    </Box> */}
                     <Box color={'blue.500'} px={8}>
                     <Link key={feature.id} href={`/edit/${feature.id}`}>
                     <Icon as={EditIcon} />

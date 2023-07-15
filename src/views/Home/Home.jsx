@@ -47,22 +47,24 @@ const Home = ()=>{
 
     return(
         <Box 
-        backgroundImage="url('/BG5.jpg.png')"
+        backgroundImage="url('/BG5.jpg')"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
         width="100%"
         height="100%"
         >
-            <Box>
+            <Box bg={''}>
                 <Flex direction={"row"} align={'center'} justify={'space-evenly'}>
                 <NavBar2 />
                 </Flex>
                 <CaptionCarousel></CaptionCarousel>
-                <Box w={'100vw'}>
+                <Box bg={''} h={'100vh'} maxW={'97%'}>
                     <CardsContainer/>
                 </Box>
-                <SmallWithLogoLeft />
+                <Box mt={''}>
+                    <SmallWithLogoLeft />
+                </Box>
             </Box>
             {/* <SmallWithLogoLeft /> */}
             

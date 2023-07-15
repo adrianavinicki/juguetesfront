@@ -13,12 +13,9 @@ import {
   import axios from 'axios';
 import { getDetailOrdersIDArray, getIdEmailUser } from '../../redux/actions';
 import { useAuth0 } from "@auth0/auth0-react";
-<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 
-=======
 const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
->>>>>>> develop
 
 
   const OrderSummaryItem = (props) => {
@@ -70,11 +67,7 @@ const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
 
     
     const productsToBuy = useSelector(state => state.cartItems);
-<<<<<<< HEAD
     
-=======
-
->>>>>>> develop
     // console.log(productsToBuy[0].quantity)
 
     /*const handleSubmit = async (quantity, productId, userId) => {
@@ -94,10 +87,6 @@ const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
 
     const handleSubmit = async () => {
 
-<<<<<<< HEAD
-      //console.log(isAuthenticated, user.email)
-=======
->>>>>>> develop
       if(!isAuthenticated) {
         alert("please login first to order")
         return;
@@ -114,19 +103,11 @@ const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
             userId: userData.id,
           };
         });
-<<<<<<< HEAD
-
-        if(idCliente) {
-          const detailCreated = await axios.post("http://localhost:3010/detailorders/create",detailOrders);
-=======
         const detailCreated = await axios.post(POST_NEW_DETAIL_ORDER/*"http://localhost:3010/detailorders/create"*/,detailOrders);
->>>>>>> develop
         console.log(detailCreated.data.detailOrders)
         dispatch(getDetailOrdersIDArray(detailCreated.data.detailOrders));
         navigate("/payment");
-        };
-        
-      } catch (error) {
+        } catch (error) {
         console.log(error);
       }
       

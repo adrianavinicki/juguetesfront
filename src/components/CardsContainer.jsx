@@ -26,7 +26,7 @@ import {
   AlertDescription,
 } from '@chakra-ui/react'
 import { Search2Icon } from '@chakra-ui/icons'
-const GET_ALL_PRODUCTS = import.meta.env.VITE_GET_ALL_PRODUCTS;
+const GET_PRODUCTS_ALL = import.meta.env.VITE_GET_ALL_PRODUCTS;
 
 
 
@@ -64,7 +64,7 @@ const CardsContainer = (props) => {
     const params = { ...configuracionFiltros, pageNumber: nextPage }; // Agrega la propiedad 'page' al objeto de parámetros
 
     axios
-      .get(GET_ALL_PRODUCTS/*"http://localhost:3010/products"*/, { params })
+      .get(GET_PRODUCTS_ALL/*"http://localhost:3010/products"*/, { params })
       .then((res) => {
         dispatch(productsFilter(res.data));
       })
@@ -76,7 +76,7 @@ const CardsContainer = (props) => {
   return (
     <div>
       <div>
-        <Box bg={""} w={"100%"}>
+        <Box bg={""} w={"98%"} ml={'1%'} maxW={'100%'}>
           <Flex direction={"column"} paddingTop={"60px"} align={"center"}>
             <div>
               <Button
@@ -119,7 +119,7 @@ const CardsContainer = (props) => {
                     <FilterAndOrder />
                   </Flex>
                 </Box>
-                <div>
+                <Box bg={""} rounded={"20px"}>
                   
                   <SimpleGrid columns={5} bg={""} w={"100%"} h={"100%"}>
                     {                    
@@ -166,7 +166,7 @@ const CardsContainer = (props) => {
                       )
                     }
                   </SimpleGrid>
-                </div>
+                </Box>
               </Flex>
             </Box>
           </Flex>
