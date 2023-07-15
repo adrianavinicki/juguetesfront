@@ -11,6 +11,7 @@ import OrdersData from "./components/Orders";
 import Payment from "./views/Pago/Pago"
 import UserProfile from "./views/UserDataFormOverlay(temporary)/UserProfile";
 import UsersData from "./components/Users"
+import MyShopping from "./views/Mis Compras/MyShopping";
 
 
 const router = createBrowserRouter([
@@ -56,6 +57,11 @@ const router = createBrowserRouter([
         path:"/Profile",
         element: <UserProfile/>
     },
+    {
+        path:"/shopping",
+        element: <MyShopping/>
+    }
+
 ]);
 
 function App() {

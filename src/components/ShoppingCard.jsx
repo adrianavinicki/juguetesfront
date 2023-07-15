@@ -29,7 +29,7 @@ import RatingDisplay from "./RatingDisplay";
 import axios from "axios";
 
 
-const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
+const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
   // Dispatch para agregar productos al carrito
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cartItems);
@@ -198,13 +198,13 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
                   </Collapse>
                 </Flex>
                 <Flex justifyContent="space-between" alignContent="center">
+                  <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                    <PopoverTrigger>
                       <div onClick={() => setIsOpen(true)}>
                         {/* Contenido visible del PopoverTrigger */}
                         <RatingDisplay/>
                         {/* <Rating ratingValue={ratingValue} handleRatingClick={handleRatingClick} /> */}
                       </div>
-                  {/* <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                    <PopoverTrigger>
                     </PopoverTrigger>
                     <PopoverContent>
                       <PopoverCloseButton/>
@@ -228,7 +228,7 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
                         </Button>
                       </PopoverBody>
                     </PopoverContent>
-                  </Popover> */}
+                  </Popover>
                   <Box fontSize="2xl" color="gray.800">
                     <Box as="span" color="gray.600" fontSize="lg">
                       $
@@ -245,5 +245,4 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
   );
 };
 
-export default ProductAddToCart;
-
+export default ShoppingCard;

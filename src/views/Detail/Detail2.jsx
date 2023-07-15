@@ -27,7 +27,7 @@ import { useEffect, useState } from "react";
 import { getProduct } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
 import { addProductToCart } from "../../redux/actions";
-import Rating from "../../components/Rating";
+import RatingDisplay from "../../components/RatingDisplay";
 
 export default function socialProfileWithImageHorizontal() {
   const params = useParams();
@@ -170,12 +170,12 @@ export default function socialProfileWithImageHorizontal() {
                    
                 </Stack>
                 <Flex justifyContent="space-between" alignContent="center">
-                  <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                    <PopoverTrigger>
                       <div onClick={() => setIsOpen(true)}>
                         {/* Contenido visible del PopoverTrigger */}
-                        <Rating ratingValue={ratingValue} handleRatingClick={handleRatingClick} />
+                        <RatingDisplay/>
                       </div>
+                  {/* <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                    <PopoverTrigger>
                     </PopoverTrigger>
                     <PopoverContent>
                       <PopoverHeader>Rate this product</PopoverHeader>
@@ -198,7 +198,7 @@ export default function socialProfileWithImageHorizontal() {
                         </Button>
                       </PopoverBody>
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
                   {/* <Box fontSize="2xl" color="gray.800">
                     <Box as="span" color="gray.600" fontSize="lg">
                       $
