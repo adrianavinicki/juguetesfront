@@ -67,6 +67,7 @@ import {
     useEffect(() => {
       dispatch(getAllUsers());
       dispatch(getAllDetailOrders());
+      dispatch(getAllOrders());
     }, []);
 
     console.log(orders)
