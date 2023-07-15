@@ -55,7 +55,7 @@ export default function CaptionCarousel(props) {
       text:
         "El juego de mesa Jenga Classic es un juego de habilidad y equilibrio en el que los jugadores deben quitar y apilar bloques de madera sin que la torre se derrumbe.",
       image:
-        '/nerf3.png',
+        '/nerf.jpg.png',
       id: 1030, 
     },
     {
@@ -63,7 +63,7 @@ export default function CaptionCarousel(props) {
       text:
         "Construye el icónico Halcón Milenario de Star Wars con más de 1300 piezas y recrea escenas de las películas con las mini-figuras de Han Solo, Chewbacca y otros personajes.",
       image:
-        '/halcon2.png',
+        '/halcon23.png',
       id: 1023,
     },
     {
@@ -71,7 +71,7 @@ export default function CaptionCarousel(props) {
       text:
         "Un juego de 50 autos Hot Wheels en varios diseños y colores para horas de juego imaginativo y colección.",
       image:
-        '/schoolbus3.png',
+        '/schoolbus3.png.jpg.png',
       id: 1038,
     },
   ];

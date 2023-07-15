@@ -2,7 +2,7 @@ import { CloseButton, Flex, Link, Select, useColorModeValue, Button, Text, Box }
 import { PriceTag } from './PriceTag'
 import { CartProductMeta } from './CartProductMeta'
 import { useDispatch } from "react-redux";
-import { removeProductFromCart, decreaseProductQuantity, increaseProductQuantity } from "../../redux/actions";
+import { removeProductFromCart, decreaseProductQuantity, increaseProductQuantity, emptyCart } from "../../redux/actions";
 
 
 const QuantitySelect = (props) => {
@@ -40,6 +40,10 @@ export const CartItem = (props) => {
 
   const handleRemoveProduct = (productId) => {
     dispatch(removeProductFromCart(productId));
+  };
+
+  const handleEmptyCart = () => {
+    dispatch(emptyCart());
   };
 
   const handleDecreaseQuantity = (productId) => {

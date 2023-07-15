@@ -141,14 +141,19 @@ export default function Payment(props) {
                       onClick={handleOrder}
                       leftIcon={<SiMercadopago size="2.5em" />}
                       colorScheme="blue"
+                      w={'120px'}
                     >
                       Buy
                     </Button>
+                    <br />
+                    <br />
+                    
                     {activateButton && (
                       <Button
                         onClick={handlePayment}
                         leftIcon={<SiMercadopago size="2.5em" />}
                         colorScheme="blue"
+                        w={'120px'}
                       >
                         Payment
                       </Button>
@@ -156,7 +161,7 @@ export default function Payment(props) {
                     <br />
                     <br />
                     <Link href="/cart">
-                      <Button bg="blue.900" color={"white"} _hover={'none'} ml={'4%'}>
+                      <Button bg="blue.900" color={"white"} _hover={'none'} w={'120px'}>
                         Go Back
                       </Button>
                     </Link>
