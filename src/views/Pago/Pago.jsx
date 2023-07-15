@@ -8,8 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { deleteCart, getDetailOrdersIDArray } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 const apiUrl = import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY;
+const POST_NEW_ORDER = import.meta.env.VITE_POST_NEW_ORDER;
+const POST_PAYMENT = import.meta.env.VITE_POST_PAYMENT;
 
-//const {VITE_MERCADO_PAGO_PUBLIC_KEY} = process.env;
 initMercadoPago(apiUrl);
 
 
@@ -37,7 +38,7 @@ export default function Payment (props) {
             //esto se podria hacer con un useEffect
        const orderArray = detailOrderIdsArray[0];
         const userId = 1; // ojo recordar arreglar con lo de user de kervys
-        const orderID = await axios.post("http://localhost:3010/orders/create",{detailIds:orderArray, userId});
+        const orderID = await axios.post(POST_NEW_ORDER/*"http://localhost:3010/orders/create"*/,{detailIds:orderArray, userId});
 
        setFinalOrder(orderID.data.order)
        setActivateButton(true);
@@ -50,10 +51,16 @@ export default function Payment (props) {
 
         //IMPORTANTE, una vez dado el OK de la orden, antes de mandar se borra el array de ids y carrito para que no haya duplicados, zaqui se borra el carrito
         console.log(finalOrder)
+<<<<<<< HEAD
         const response = await axios.post("http://localhost:3010/payments/generate", {orderId: finalOrder.id})
         console.log(response.data.init_point);
         dispatch(deleteCart()); //este es el borrado logico del cart y del id array de las detail orders. Esto me parece que quedaria mejor hacerlo LUEGO de que la compra en mercado pago haya sido exitosa
         setPreferenceId(response.data.init_point);
+=======
+        const response = await axios.post(POST_PAYMENT/*"http://localhost:3010/payments/generate"*/, {orderId: finalOrder.id})
+        console.log(response.data.init_point)
+        setPreferenceId(response.data.init_point)
+>>>>>>> develop
         window.location.href = response.data.init_point
         //navigate(response.data.init_point)
         

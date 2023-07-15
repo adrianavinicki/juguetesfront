@@ -27,6 +27,7 @@ import {
   GET_DETAIL_ORDERS_USERS_ID,
   GET_ID_USER,
   DELETE_CART,
+  GET_ALL_PRODUCTS
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
@@ -45,6 +46,7 @@ const initialState = {
   filtroParaPaginado: {},
   productDetail: [],
   cartItems: [],
+  allProducts: [],
   // brandFilter: [],
   // categoryFilter: [],
   // ageFilter: [],
@@ -65,6 +67,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         products: action.payload,
         filteredProducts: action.payload,
+      };
+    case GET_ALL_PRODUCTS:
+      return {
+        ...state,
+        allProducts: action.payload,
       };
     case GET_PRODUCT:
       return { ...state, productDetail: action.payload };
