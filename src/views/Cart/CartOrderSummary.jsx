@@ -86,14 +86,14 @@ import { useEffect, useState } from 'react';
 
     const handleSubmit = async () => {
 
-      console.log(isAuthenticated, user.email)
+      //console.log(isAuthenticated, user.email)
       if(!isAuthenticated) {
         alert("please login first to order")
         return;
       }
       if(!idCliente){
-        alert("please, complete the rest of your data to be able to send your toys");
-        navigate("/Profile");
+        alert("please, complete the rest of your data in your profile to be able to send your toys");
+        return;
       }// aqui agregar un else if si el usuario esta registrado o no en la base de datos
       try {
         const detailOrders = productsToBuy.map(item => {

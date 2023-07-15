@@ -123,7 +123,7 @@ const CardsContainer = (props) => {
                   
                   <SimpleGrid columns={5} bg={""} w={"1300px"} h={"730px"}>
                     {                    
-                      Boolean(productsData.data?.length) ? (
+                      productsData.data?.length ? (
                         productsData.data.map((product) => {
                           return (
                             <Cards2

@@ -15,7 +15,7 @@ const Home = ()=>{
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { isAuthenticated, user } = useAuth0();
+    const { isAuthenticated, user, isLoading } = useAuth0();
   
 
     useEffect(()=>{
