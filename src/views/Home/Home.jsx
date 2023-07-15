@@ -20,7 +20,7 @@ const Home = ()=>{
 
     return(
         <Box 
-        backgroundImage="url('/BG5.jpg')"
+        backgroundImage="url('/BG6.jpg')"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
