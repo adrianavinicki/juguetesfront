@@ -10,6 +10,7 @@ import {
     VStack,
     FormControl,
     FormLabel,
+    Heading,
     FormHelperText,
     Select,
     Input,
@@ -203,9 +204,11 @@ const Form = ()=>{
             backgroundSize="cover"
             width="100vw"
             height="92vh"
-            paddingTop={'90px'}
+            paddingTop={'40px'}
             >
         <VStack>
+        <Heading color={'white'}>Create Toy</Heading>
+        <br />
             <Flex direction="column" align={'center'}>
                 <form onSubmit={handleSubmit}>
                 <FormControl>

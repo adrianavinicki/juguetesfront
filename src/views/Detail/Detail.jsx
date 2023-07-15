@@ -88,13 +88,13 @@ import {
           columns={{ base: 1, lg: 2 }}
           spacing={{ base: 8, md: 10 }}
           py={{ base: 18, md: 6 }}>
-          <Flex>
+          <Flex mt={'20%'} ml={'30%'}>
             <Image
               rounded={'md'}
               alt={'product image'}
               src={productDetail.image}
               align={'center'}
-              maxH={'700px'}
+              maxH={'300px'}
             />
           </Flex>
           <Stack spacing={{ base: 6, md: 10 }}>
@@ -161,7 +161,7 @@ import {
                 />
               }>
               <VStack spacing={{ base: 4, sm: 6 }}>
-                <Text fontSize={'lg'}>
+                <Text fontSize={'lg'} color={'white'}>
                     {productDetail.description}
                 </Text>
               </VStack>
@@ -200,13 +200,13 @@ import {
                     <Text as={'span'} fontWeight={'bold'}>
                       Minimum Age:
                     </Text>{' '}
-                    20 mm
+                    {productDetail.minimun_age}
                   </ListItem>
                   <ListItem>
                     <Text as={'span'} fontWeight={'bold'}>
                       Quantity:
                     </Text>{' '}
-                    leather strap
+                    {productDetail.quantity}
                   </ListItem>
                 </List>
               </Box>
