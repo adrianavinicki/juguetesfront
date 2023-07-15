@@ -55,7 +55,7 @@ export default function CaptionCarousel(props) {
       text:
         "El juego de mesa Jenga Classic es un juego de habilidad y equilibrio en el que los jugadores deben quitar y apilar bloques de madera sin que la torre se derrumbe.",
       image:
-        '/jenga.png',
+        '/nerf3.png',
       id: 1030, 
     },
     {
@@ -63,7 +63,7 @@ export default function CaptionCarousel(props) {
       text:
         "Construye el icónico Halcón Milenario de Star Wars con más de 1300 piezas y recrea escenas de las películas con las mini-figuras de Han Solo, Chewbacca y otros personajes.",
       image:
-        '/halcon.png',
+        '/halcon2.png',
       id: 1023,
     },
     {
@@ -71,7 +71,7 @@ export default function CaptionCarousel(props) {
       text:
         "Un juego de 50 autos Hot Wheels en varios diseños y colores para horas de juego imaginativo y colección.",
       image:
-        '/hotwheels.png',
+        '/schoolbus3.png',
       id: 1038,
     },
   ];
@@ -138,8 +138,7 @@ export default function CaptionCarousel(props) {
                 backgroundRepeat="no-repeat"
                 backgroundSize="480px"
                 backgroundImage={`url(${card.image})`}
-                h={'650px'}
-                top={'100px'}
+                h={'550px'}
                 >
                 {/* This is the block you need to change, to customize the caption */}
                 <Container size="container.lg" height="500px" position="relative">
@@ -151,13 +150,13 @@ export default function CaptionCarousel(props) {
                     transform="translate(0, -50%)"
                     direction={'column'} 
                     align={'center'}>
-                    <Heading fontSize={'30px'} color={'white'}
+                    {/* <Heading fontSize={'30px'} color={'white'}
                     fontWeight={'bold'}>
                       {card.title}
                     </Heading>
                     <Text fontSize={{ base: 'md', lg: 'lg' }} color="white">
                       {card.text}
-                    </Text>
+                    </Text> */}
                     <Box>
                         <Flex>
                         <Box>

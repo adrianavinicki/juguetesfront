@@ -36,7 +36,7 @@ export const GET_DETAIL_ORDER_BY_ID = "GET_DETAIL_ORDER_BY_ID";
 export const GET_DETAIL_ORDERS_USERS_ID = "GET_DETAIL_ORDERS_USERS_ID";
 export const GET_ID_USER = "GET_ID_USER";
 
-const GET_ALL_PRODUCTS2 = import.meta.env.VITE_GET_ALL_PRODUCTS;
+const GET_PRODUCTS_ALL = import.meta.env.VITE_GET_ALL_PRODUCTS;
 const GET_PRODUCT_BY_NAME = import.meta.env.VITE_GET_PRODUCT_BY_NAME;
 const POST_NEW_PRODUCT = import.meta.env.VITE_POST_NEW_PRODUCT;
 const PUT_PRODUCT_UPDATE = import.meta.env.VITE_PUT_PRODUCT_UPDATE;
@@ -54,7 +54,7 @@ const GET_RATINGS = import.meta.env.VITE_GET_RATINGS;
 export const getProducts = () => {
   return async function (dispatch) {
     const dbData = await axios.get(
-      GET_ALL_PRODUCTS2 /*"http://localhost:3010/products"*/
+      GET_PRODUCTS_ALL /*"http://localhost:3010/products"*/
     );
     const products = dbData.data;
     dispatch({ type: GET_PRODUCTS, payload: products });
@@ -74,7 +74,7 @@ export const getAllProducts = () => {
 export const getProduct = (id) => {
   return async function (dispatch) {
     const dbData = await axios.get(
-      `${GET_ALL_PRODUCTS2}/${id}` /* `http://localhost:3010/products/${id}`*/
+      `${GET_PRODUCTS_ALL}/${id}` /* `http://localhost:3010/products/${id}`*/
     );
     const product = dbData.data;
     dispatch({ type: GET_PRODUCT, payload: product });
@@ -127,7 +127,7 @@ export const getProductsFiltered = (name, value) => {
 export const getProductsFilteredPage = (params) => {
   return async function (dispatch) {
     const response2 = await axios.get(
-      GET_ALL_PRODUCTS2 /*"http://localhost:3010/products"*/,
+      GET_PRODUCTS_ALL /*"http://localhost:3010/products"*/,
       {
         params: params,
       }
