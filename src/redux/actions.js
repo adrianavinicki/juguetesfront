@@ -28,6 +28,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 //export const PUT_ORDER = "PUT_ORDER";
 export const GET_ORDER_BY_ID = "GET_ORDER_BY_ID";
 export const EMPTY_CART = "EMPTY_CART"
+export const EMPTY_DETAIL = "EMPTY_DETAIL"
 export const PRODUCTS_FILTER = "PRODUCTS_FILTER";
 
 export const GET_ALL_DETAIL_ORDERS = "GET_ALL_DETAIL_ORDERS";
@@ -190,6 +191,12 @@ export const removeProductFromCart = (productID) => {
 export const emptyCart = () => {
   return {
     type: EMPTY_CART,
+  };
+};
+
+export const emptyDetail = () => {
+  return {
+    type: EMPTY_DETAIL,
   };
 };
 

@@ -8,6 +8,7 @@ import {
   FILTER_BY_CATEGORY,
   FILTER_BY_BRAND,
   ORDER_BY_PRICE,
+  EMPTY_DETAIL,
   ADD_TO_CART,
   GET_PRODUCTS_FILTERED,
   COMBINED_FILTERS,
@@ -151,6 +152,11 @@ const rootReducer = (state = initialState, action) => {
       return{
         ...state,
         cartItems:[],
+      }
+    case EMPTY_DETAIL:
+      return{
+        ...state,
+        productDetail:[],
       }
 
     case DECREASE_PRODUCT_QUANTITY:

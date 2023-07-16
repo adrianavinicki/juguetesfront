@@ -3,7 +3,7 @@ import CardsContainer from "../../components/CardsContainer";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts } from "../../redux/actions";
+import { getProducts, emptyDetail } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
 import CaptionCarousel from "../../components/Carousel"
 import SmallWithLogoLeft from "../../components/Footer"
@@ -16,6 +16,7 @@ const Home = ()=>{
     
     useEffect(()=>{
         dispatch(getProducts());
+        dispatch(emptyDetail())
     },[dispatch])
 
     return(
