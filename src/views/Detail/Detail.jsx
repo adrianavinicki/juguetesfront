@@ -31,8 +31,8 @@ import { LiaStarSolid } from "react-icons/lia"
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getProduct } from "../../redux/actions";
-import { addProductToCart } from "../../redux/actions";
+import { emptyCart, getProduct } from "../../redux/actions";
+import { addProductToCart, emptyDetail } from "../../redux/actions";
 import React from "react";
 import Rating from "../../components/Rating";
 
@@ -55,8 +55,11 @@ export default function Simple() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProduct(params.id));
+     dispatch(getProduct(params.id));
+    dispatch(emptyCart())
   }, [dispatch, params.id]);
+
+  dispatch(emptyCart())
 
   const addProductCarrito = (product) => {
     dispatch(addProductToCart(product));
@@ -252,7 +255,7 @@ export default function Simple() {
                   </Box>
                   <Box bg={''} w={'70%'}>
                     <Text color={'white'} fontWeight={'bold'} fontSize={'30px'}>Reviews</Text>
-                    <Box mt={'15px'} bg={"gray.800"} h={'200px'} overflowY="auto" maxH={'200'} maxW={'370px'}>
+                    <Box mt={'15px'} bg={"gray.800"} h={'100%'} overflowY="auto" maxH={'250'} maxW={'370px'}>
                       {falsasReviews.map((review) => (
                         <HStack  key={review.id} align={'center'} w={'330px'} h={'100px'} bg={'white'}  m={'10px'} rounded={'5px'}>
                         <VStack ml={'10px'} align={'start'}>
@@ -274,6 +277,7 @@ export default function Simple() {
             </Stack>
 
             <Button
+              onClick={() => addProductCarrito(productDetail)}
               rounded={"none"}
               w={"full"}
               size={"lg"}
@@ -285,7 +289,6 @@ export default function Simple() {
                 transform: "translateY(2px)",
                 boxShadow: "lg",
               }}
-              onClick={addProductCarrito(productDetail)}
             >
               Add to cart
             </Button>

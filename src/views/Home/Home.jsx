@@ -3,7 +3,7 @@ import CardsContainer from "../../components/CardsContainer";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getIdEmailUser, getProducts } from "../../redux/actions";
+import { getIdEmailUser, getProducts, emptyDetail } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
 import CaptionCarousel from "../../components/Carousel"
 import SmallWithLogoLeft from "../../components/Footer"
@@ -21,6 +21,7 @@ const Home = ()=>{
     useEffect(()=>{
         //aqui se puedde poner un if que verifique si el array de products no es cero para no llamar tanto al back
         dispatch(getProducts());
+        dispatch(emptyDetail())
     },[dispatch])
 
     useEffect(() => {
