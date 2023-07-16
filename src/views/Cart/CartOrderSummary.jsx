@@ -67,7 +67,7 @@ const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
             userId: 1,
           };
         });
-        const detailCreated = await axios.post(POST_NEW_DETAIL_ORDER/*"http://localhost:3010/detailorders/create"*/,detailOrders);
+        const detailCreated = await axios.post(POST_NEW_DETAIL_ORDER,detailOrders);
         console.log(detailCreated.data.detailOrders)
         dispatch(getDetailOrdersIDArray(detailCreated.data.detailOrders));
         navigate("/payment");

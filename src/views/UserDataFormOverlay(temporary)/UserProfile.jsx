@@ -20,7 +20,7 @@ export default function UserProfile() {
         const getUser = async() => {
             if(usuario){
               try {
-                const user = await axios.get(`${GET_USERS}/${usuario}`/*`http://localhost:3010/users/${usuario}`*/);
+                const user = await axios.get(`${GET_USERS}/${usuario}`);
                 setUserDB(user.data);
                 } catch (error) {
                     console.error(error);
@@ -53,7 +53,7 @@ export default function UserProfile() {
     const handleSubmitUser = async() => {
         console.log(userCreate);
         try {
-           const id = await axios.post(POST_NEW_USER/*"http://localhost:3010/users/create"*/, userCreate);
+           const id = await axios.post(POST_NEW_USER, userCreate);
             dispatch(getIdEmailUser(id.data.userID));
             alert("User Created")
         } catch (error) {

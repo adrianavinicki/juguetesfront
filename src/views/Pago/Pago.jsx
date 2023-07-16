@@ -53,7 +53,7 @@ export default function Payment(props) {
     const orderArray = detailOrderIdsArray[0];
     const userId = 1; // ojo recordar arreglar con lo de user de kervys
     const orderID = await axios.post(
-      POST_NEW_ORDER /*"http://localhost:3010/orders/create"*/,
+      POST_NEW_ORDER,
       { detailIds: orderArray, userId }
     );
 
@@ -67,7 +67,7 @@ export default function Payment(props) {
     //IMPORTANTE, una vez dado el OK de la orden, antes de mandar se borra el array de ids y carrito para que no haya duplicados, zaqui se borra el carrito
     console.log(finalOrder);
     const response = await axios.post(
-      POST_PAYMENT /*"http://localhost:3010/payments/generate"*/,
+      POST_PAYMENT,
       { orderId: finalOrder.id }
     );
     console.log(response.data.init_point);
