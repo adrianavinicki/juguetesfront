@@ -23,7 +23,8 @@ import { EditIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useNavigate } from "react-router-dom";
-import { getDetailOrdersIDArray } from "../../redux/actions";
+import { deleteCart, getDetailOrdersIDArray } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 const apiUrl = import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY;
 const POST_NEW_ORDER = import.meta.env.VITE_POST_NEW_ORDER;
 const POST_PAYMENT = import.meta.env.VITE_POST_PAYMENT;
@@ -32,16 +33,17 @@ initMercadoPago(apiUrl);
 
 //global state
 
-export default function Payment(props) {
-  const navigate = useNavigate();
-  const detailOrderIdsArray = useSelector((state) => state.detailOrdersUsersID);
-  const detailCarrito = useSelector((state) => state.cartItems);
+export default function Payment (props) {
 
-  const totalPrice = detailCarrito.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-  console.log(detailOrderIdsArray);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const detailOrderIdsArray = useSelector(state => state.detailOrdersUsersID);
+    const detailCarrito = useSelector(state => state.cartItems);
+
+   
+
+    const totalPrice = detailCarrito.reduce((total, item) => total + item.price * item.quantity, 0);
+    console.log(detailOrderIdsArray);
 
   //sacar detailIds y el userId
   const [finalOrder, setFinalOrder] = useState(null);
@@ -53,7 +55,7 @@ export default function Payment(props) {
     const orderArray = detailOrderIdsArray[0];
     const userId = 1; // ojo recordar arreglar con lo de user de kervys
     const orderID = await axios.post(
-      POST_NEW_ORDER /*"http://localhost:3010/orders/create"*/,
+      POST_NEW_ORDER,
       { detailIds: orderArray, userId }
     );
 
@@ -67,7 +69,7 @@ export default function Payment(props) {
     //IMPORTANTE, una vez dado el OK de la orden, antes de mandar se borra el array de ids y carrito para que no haya duplicados, zaqui se borra el carrito
     console.log(finalOrder);
     const response = await axios.post(
-      POST_PAYMENT /*"http://localhost:3010/payments/generate"*/,
+      POST_PAYMENT,
       { orderId: finalOrder.id }
     );
     console.log(response.data.init_point);

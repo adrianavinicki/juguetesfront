@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 
+const POST_NEW_USER = import.meta.env.VITE_POST_NEW_USER;
+
 const UserSync = ({ onUserData }) => {
   const { isAuthenticated, isLoading, user } = useAuth0();
 
@@ -49,7 +51,7 @@ const UserSync = ({ onUserData }) => {
 
   const createUser = async (userData) => {
     try {
-      const response = await axios.post("http://localhost:3010/users/create", userData);
+      const response = await axios.post(POST_NEW_USER, userData);
       console.log("Usuario creado correctamente:", response.data);
       // Realiza las acciones adicionales según tus necesidades
     } catch (error) {
