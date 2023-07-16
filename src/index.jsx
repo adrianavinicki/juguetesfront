@@ -29,8 +29,6 @@ ReactDOM.render(
     <ChakraProvider>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <LoginAuth />
-          <Rating />
           <App />
           <UserSync onUserDataW={handleUserData} />
         </PersistGate>
