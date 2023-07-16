@@ -57,12 +57,8 @@ export default function UserProfile() {
         try {
            const id = await axios.post(POST_NEW_USER/*"http://localhost:3010/users/create"*/, userCreate);
             dispatch(getIdEmailUser(id.data.userID));
-<<<<<<< HEAD
             alert("data actualizada con exito!");
-            Navigate("/")
-=======
-            alert("User Created")
->>>>>>> develop
+           
         } catch (error) {
             console.log(error);
             alert("There is an error, please try later");
