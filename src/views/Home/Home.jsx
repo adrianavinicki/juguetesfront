@@ -47,13 +47,14 @@ const Home = ()=>{
 
     return(
         <Box 
-        backgroundImage="url('/BG5.jpg')"
+        backgroundImage="url('/BG6.jpg')"
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
         width="100%"
         height="100%"
         >
+            {console.log(user)}
             <Box bg={''}>
                 <Flex direction={"row"} align={'center'} justify={'space-evenly'}>
                 <NavBar2 />

@@ -93,9 +93,9 @@ export default function Payment (props) {
         >
           <Flex>
             {console.log(finalOrder)}
-            <Box bg={"gray.200"} w={"50%"} h={"650px"} ml={"24%"}>
+            <Box bg={"gray.500"} w={"50%"} h={"650px"} ml={"24%"} roundedLeft="lg">
               <Flex>
-                <Box bg={""} w={"70%"} h={"600px"} p={"30px"}>
+                <Box bg={"gray.200"} w={"70%"} h={"650px"} p={"30px"} roundedLeft="lg" >
                   <Flex direction={"column"}>
                     <Text>Please check your order:</Text>
                     <br />
@@ -130,8 +130,8 @@ export default function Payment (props) {
                   </Flex>
                 </Box>
 
-                <Box bg={""} mt={"10%"}>
-                  <Image src="/LOGO PNG.png" w={"200px"} alt="Wonder Toys" />
+                <Box bg={""} ml={'2%'} mt={"10%"}>
+                  <Image ml={'4%'} src="/LOGO PNG.png" w={"200px"} alt="Wonder Toys" />
                   <br />
                   <br />
                   <Heading>Total: ${totalPrice}</Heading>
@@ -143,14 +143,19 @@ export default function Payment (props) {
                       onClick={handleOrder}
                       leftIcon={<SiMercadopago size="2.5em" />}
                       colorScheme="blue"
+                      w={'120px'}
                     >
                       Buy
                     </Button>
+                    <br />
+                    <br />
+                    
                     {activateButton && (
                       <Button
                         onClick={handlePayment}
                         leftIcon={<SiMercadopago size="2.5em" />}
                         colorScheme="blue"
+                        w={'120px'}
                       >
                         Payment
                       </Button>
@@ -158,7 +163,7 @@ export default function Payment (props) {
                     <br />
                     <br />
                     <Link href="/cart">
-                      <Button bg="blue.900" color={"white"} _hover={'none'}>
+                      <Button bg="blue.900" color={"white"} _hover={'none'} w={'120px'}>
                         Go Back
                       </Button>
                     </Link>

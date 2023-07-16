@@ -9,7 +9,8 @@ export const LoginAuth = () => {
   const navigate = useNavigate();
 
   const login = () => {
-    navigate("/login");
+    loginWithRedirect()
+    //navigate("/login");
 
   }
   return (

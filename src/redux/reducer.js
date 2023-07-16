@@ -26,8 +26,9 @@ import {
   GET_ALL_USERS,
   GET_DETAIL_ORDERS_USERS_ID,
   GET_ID_USER,
+  GET_ALL_PRODUCTS,
+  EMPTY_CART,
   DELETE_CART,
-  GET_ALL_PRODUCTS
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
@@ -147,6 +148,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cartItems: updatedCartItems,
       };
+    case EMPTY_CART:
+      return{
+        ...state,
+        cartItems:[],
+      }
 
     case DECREASE_PRODUCT_QUANTITY:
       const updatedItems = state.cartItems.map((item) => {
