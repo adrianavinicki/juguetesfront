@@ -10,6 +10,7 @@ import OrdersData from "./components/Orders";
 import Payment from "./views/Pago/Pago"
 import UserProfile from "./views/UserDataFormOverlay(temporary)/UserProfile";
 import UsersData from "./components/Users"
+import LoginAndSign from "./views/UserDataFormOverlay(temporary)/LoginAndSign";
 
 
 const router = createBrowserRouter([
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
         path:"/Profile",
         element: <UserProfile/>
     },
+    {
+        path:"/login",
+        element: <LoginAndSign/>
+    }
 ]);
 
 function App() {

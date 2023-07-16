@@ -23,7 +23,8 @@ import { EditIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useNavigate } from "react-router-dom";
-import { getDetailOrdersIDArray } from "../../redux/actions";
+import { deleteCart, getDetailOrdersIDArray } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 const apiUrl = import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY;
 const POST_NEW_ORDER = import.meta.env.VITE_POST_NEW_ORDER;
 const POST_PAYMENT = import.meta.env.VITE_POST_PAYMENT;
@@ -32,16 +33,17 @@ initMercadoPago(apiUrl);
 
 //global state
 
-export default function Payment(props) {
-  const navigate = useNavigate();
-  const detailOrderIdsArray = useSelector((state) => state.detailOrdersUsersID);
-  const detailCarrito = useSelector((state) => state.cartItems);
+export default function Payment (props) {
 
-  const totalPrice = detailCarrito.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-  console.log(detailOrderIdsArray);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const detailOrderIdsArray = useSelector(state => state.detailOrdersUsersID);
+    const detailCarrito = useSelector(state => state.cartItems);
+
+   
+
+    const totalPrice = detailCarrito.reduce((total, item) => total + item.price * item.quantity, 0);
+    console.log(detailOrderIdsArray);
 
   //sacar detailIds y el userId
   const [finalOrder, setFinalOrder] = useState(null);

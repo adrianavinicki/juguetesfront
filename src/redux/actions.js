@@ -36,14 +36,16 @@ export const GET_DETAIL_ORDER_BY_ID = "GET_DETAIL_ORDER_BY_ID";
 //export const PUT_DETAIL_ORDER = "PUT_DETAIL_ORDER";
 export const GET_DETAIL_ORDERS_USERS_ID = "GET_DETAIL_ORDERS_USERS_ID";
 export const GET_ID_USER = "GET_ID_USER";
+export const DELETE_CART = "DELETE_CART";
+export const REDUCE_STOCK_QUANTITY = "REDUCE_STOCK_QUANTITY";
+
 
 const GET_PRODUCTS_ALL = import.meta.env.VITE_GET_ALL_PRODUCTS;
 const GET_PRODUCTS_ALL_DOS = import.meta.env.VITE_GET_ALL_PRODUCTS_DOS;
 const GET_PRODUCT_BY_NAME = import.meta.env.VITE_GET_PRODUCT_BY_NAME;
 const POST_NEW_PRODUCT = import.meta.env.VITE_POST_NEW_PRODUCT;
 const PUT_PRODUCT_UPDATE = import.meta.env.VITE_PUT_PRODUCT_UPDATE;
-const GET_PRODUCT_BY_NAME_VALUE = import.meta.env
-  .VITE_GET_PRODUCT_BY_NAME_VALUE;
+const GET_PRODUCT_BY_NAME_VALUE = import.meta.env.VITE_GET_PRODUCT_BY_NAME_VALUE;
 const GET_ORDERS = import.meta.env.VITE_GET_ORDERS;
 const GET_USERS = import.meta.env.VITE_GET_USERS;
 const PUT_ORDER_UPDATE = import.meta.env.VITE_PUT_ORDER_UPDATE;
@@ -314,5 +316,12 @@ export const getIdEmailUser = (idEmailUser) => {
   return {
     type: GET_ID_USER,
     payload: idEmailUser,
+  };
+};
+
+export const deleteCart = () => {
+  return {
+    type: DELETE_CART,
+    
   };
 };
