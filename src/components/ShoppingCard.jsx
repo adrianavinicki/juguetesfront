@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { FiShoppingCart } from "react-icons/fi";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
-import { addProductToCart } from "../redux/actions";
+//import { addProductToCart } from "../redux/actions";
 import Rating from "./Rating";
 import RatingDisplay from "./RatingDisplay";
 import axios from "axios";
@@ -38,22 +38,9 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [ratingValue, setRatingValue] = useState(0);
   const [comment, setComment] = useState("");
+
   //estodo user Hardcodeado
-  let user = 1;
-
-  // Manejador para agregar productos al carrito
-  const addProductToCartHandler = (product) => {
-    dispatch(addProductToCart(product));
-  };
-
-  // Obtener la cantidad del producto en el carrito
-  const getProductQuantityInCart = () => {
-    const item = cartItems.find((item) => item.id === id);
-    return item ? item.quantity : 0;
-  };
-
-  // Determinar si mostrar el icono del carrito en el botón
-  const cartIconVisible = getProductQuantityInCart() > 0;
+  let user = 5;
 
   // Manejador para el clic en una estrella de calificación
   const handleRatingClick = (value) => {
@@ -70,12 +57,17 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
   const createRating = async (data) => {
     try {
       await axios.post("http://localhost:3010/rating/create",data)
-        console.log('Maaaaaaaande un ratinggggggg!')
+      toast({
+        title: 'Success',
+        description: 'You rated this product',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+      })
     } catch (error) {
-       console.log('entro al catch')
         toast({
-        title: 'Account created.',
-        description: "We've created your account for you.",
+        title: 'error',
+        description: error.message,
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -85,28 +77,36 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
         setRatingValue(0)
         setComment('')
     };
-  }
+  };
+
+  const clearStates = () => {
+    setIsOpen(false)
+    setRatingValue(0)
+    setComment('')
+    toast({
+      title: 'Error',
+      position:'top',
+      description: "sorry you already rated this product.",
+      status: 'error',
+      duration: 9000,
+      isClosable: true,
+    });
+  };
 
   //funcion manejo de 'submit'
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     const data = {
       rate: ratingValue,
       review: comment,
       productId: id,
-      id: user,
+      userId: user,
     }
-
-    console.log(data);
-    createRating(data);
-    // .then(console.log('Maaaaaaaande un ratinggggggg!'))
-    // .then(setIsOpen(false))
-    // .then(setRatingValue(0))
-    // .then(setComment(''))
-    // .catch(
-    //   error => console.log(error.message)
-
-    // )
+    const ratings = await axios.get(`http://localhost:3010/rating/user/${user}`);
+    const alreadyRated = ratings.data.filter(el=>el.productId===id);
+    Boolean(alreadyRated.length)
+    ?clearStates()
+    :createRating(data);
   };
 
   return (
@@ -125,14 +125,12 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
         <VStack>
           <Box h="220px">
             <Flex>
-              <Link to={`/detail/${id}`}>
                 <Image
                   src={image}
                   alt={`Picture of ${name}`}
                   roundedTop="lg"
                   maxH="200px"
                 />
-              </Link>
             </Flex>
           </Box>
           <Box>
@@ -155,54 +153,12 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
                     {name}
                   </Box>
                 </Flex>
-
-                <Flex>
-                  <Button
-                    colorScheme="facebook"
-                    size="sm"
-                    onClick={() =>
-                      addProductToCartHandler({ id, image, name, price })
-                    }
-                  >
-                    <Icon as={FiShoppingCart} />
-                    Add to Cart
-                  </Button>
-
-                  <Collapse in={cartIconVisible}>
-                    <Tooltip
-                      label="Go to cart"
-                      bg="white"
-                      placement="top"
-                      color="gray.800"
-                      fontSize="1.2em"
-                    >
-                      <Flex>
-                        <Link to="/cart">
-                          <Icon
-                            as={FiShoppingCart}
-                            h={7}
-                            w={7}
-                            alignSelf="center"
-                          />
-                          <Badge
-                            ml={1}
-                            colorScheme="red"
-                            position="absolute"
-                            borderRadius="full"
-                          >
-                            {getProductQuantityInCart()}
-                          </Badge>
-                        </Link>
-                      </Flex>
-                    </Tooltip>
-                  </Collapse>
-                </Flex>
                 <Flex justifyContent="space-between" alignContent="center">
                   <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
                     <PopoverTrigger>
                       <div onClick={() => setIsOpen(true)}>
                         {/* Contenido visible del PopoverTrigger */}
-                        <RatingDisplay/>
+                        <RatingDisplay productId={id}/>
                         {/* <Rating ratingValue={ratingValue} handleRatingClick={handleRatingClick} /> */}
                       </div>
                     </PopoverTrigger>

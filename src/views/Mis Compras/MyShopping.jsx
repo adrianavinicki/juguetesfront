@@ -45,9 +45,34 @@ const user = {
 			price: 10999,
 			image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR966ukW5XMpLHIumMLi4nm7EY4hDBGsUoyweB7nrm-Ekdt-Yu4qd24RRGjcayOoWI9t8M&usqp=CAU",
 			product_status: true
+		},
+		{
+			id: 1025,
+			name: "Hot Wheels Pista de Choques Criss Cross",
+			brand: "Hot Wheels",
+			category: "Pista de carreras",
+			minimun_age: 5,
+			description: "La Pista de Choques Criss Cross de Hot Wheels es una pista de carreras de alta velocidad con múltiples zonas de choque y cuatro lanzadores para que hasta cuatro jugadores compitan al mismo tiempo.",
+			quantity: 2000,
+			price: 21999,
+			image: "https://m.media-amazon.com/images/I/71291zjlclL.jpg",
+			product_status: true
+		},
+		{
+			"id": 1024,
+			"name": "Nerf N-Strike Elite Disruptor Blaster",
+			"brand": "Nerf",
+			"category": "Pistola",
+			"minimun_age": 8,
+			"description": "La pistola Nerf N-Strike Elite Disruptor puede disparar seis dardos seguidos a una distancia de hasta 27 metros. Tiene un tambor giratorio que permite recargar rápidamente durante las batallas intensas.",
+			"quantity": 2000,
+			"price": 39999,
+			"image": "https://i.ytimg.com/vi/oPGv5t_FbWA/maxresdefault.jpg",
+			"product_status": true
 		}
     ]
 };
+
 
 
 const MyShopping = () => {

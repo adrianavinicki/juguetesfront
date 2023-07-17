@@ -200,7 +200,7 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
                 <Flex justifyContent="space-between" alignContent="center">
                       <div onClick={() => setIsOpen(true)}>
                         {/* Contenido visible del PopoverTrigger */}
-                        <RatingDisplay/>
+                        <RatingDisplay productId={id}/>
                         {/* <Rating ratingValue={ratingValue} handleRatingClick={handleRatingClick} /> */}
                       </div>
                   {/* <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
