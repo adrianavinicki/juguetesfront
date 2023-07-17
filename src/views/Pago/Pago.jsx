@@ -14,7 +14,8 @@ import {
   Center,
   Text,
 } from "@chakra-ui/react";
-import { SiMercadopago } from "react-icons/si";
+
+import { SiMercadopago, SiCashapp } from "react-icons/si";
 import NavBar2 from "../../components/NavBar2";
 import { CheckIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
@@ -141,8 +142,9 @@ export default function Payment (props) {
                     {/*que pasa si le doy a OK purchase y luego regreso?. que pasa si no estoy de acuerdo con la compra?*/}
                     <Button
                       onClick={handleOrder}
-                      leftIcon={<SiMercadopago size="2.5em" />}
-                      colorScheme="blue"
+                      leftIcon={<SiCashapp size="2em" />}
+                      bg="blue.900"
+                      color={'white'}
                       w={'120px'}
                     >
                       Buy
