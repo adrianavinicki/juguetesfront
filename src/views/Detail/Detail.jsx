@@ -45,6 +45,13 @@ export default function Simple() {
   const [ratingValue, setRatingValue] = useState(0);
   const [comment, setComment] = useState("");
 
+  // const getReviews = () => {
+  //   return async function () {
+  //     const response = await axios.get(GET_PRODUCT_BY_NAME_VALUE);
+  //     const responseData = response.data;;
+  //   };
+  // };
+
   const handleRatingSubmit = (productId, userId, rate) => {
     // Aquí puedes hacer la llamada a la API para enviar la calificación y actualizar el estado según sea necesario
     console.log(
@@ -121,7 +128,7 @@ export default function Simple() {
               maxH={"350px"}
             />
           </Flex>
-          <Stack spacing={{ base: 6, md: 10 }}>
+          <Stack spacing={{ base: 6, md: 8 }}>
             <Box as={"header"} bg={""}>
               <Heading
                 lineHeight={1.1}
@@ -292,14 +299,17 @@ export default function Simple() {
             >
               Add to cart
             </Button>
-            <Stack
+            <Link href="/">
+            <Button ml={'42%'}>Go Back</Button>
+            </Link>
+            {/* <Stack
               direction="row"
               alignItems="center"
               justifyContent={"center"}
             >
               <MdLocalShipping color="white" />
               <Text color={"white"}>2-3 business days delivery</Text>
-            </Stack>
+            </Stack> */}
           </Stack>
         </SimpleGrid>
       </Container>

@@ -13,6 +13,7 @@ const Admin = () => {
         backgroundSize="cover"
         width="100vw"
         height="100vh"
+        overflow="hidden"
         >
         <NavBar2></NavBar2>
         {/* <ChartPie/> */}
