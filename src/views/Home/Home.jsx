@@ -56,7 +56,9 @@ const Home = ()=>{
         height="100%"
         >
             {console.log(user)}
-            <Box bg={''}>
+            <Box bg={''}
+                width="100%"
+                height="100%" >
                 <Flex direction={"row"} align={'center'} justify={'space-evenly'}>
                 <NavBar2 />
                 </Flex>
@@ -64,7 +66,7 @@ const Home = ()=>{
                 <Box bg={''} h={'100vh'} maxW={'97%'}>
                     <CardsContainer/>
                 </Box>
-                <Box mt={''}>
+                <Box >
                     <SmallWithLogoLeft />
                 </Box>
             </Box>
