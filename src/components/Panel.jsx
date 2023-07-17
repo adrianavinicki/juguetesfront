@@ -48,7 +48,7 @@ const DEL_PRODUCT= import.meta.env.VITE_DEL_PRODUCT
       const confirmed = window.confirm('¿Estás seguro de que deseas eliminar este producto?');
       if(confirmed) {
         try {
-          await axios.delete(`${DEL_PRODUCT}/${id}`/*`http://localhost:3010/products/delete/${id}`*/);
+          await axios.delete(`${DEL_PRODUCT}/${id}`);
         } catch (error) {
           console.error(error);
         } 
