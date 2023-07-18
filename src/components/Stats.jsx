@@ -67,6 +67,7 @@ import {
     useEffect(() => {
       dispatch(getAllUsers());
       dispatch(getAllDetailOrders());
+      dispatch(getAllOrders());
     }, []);
 
     console.log(orders)
@@ -76,7 +77,7 @@ import {
     console.log(totalPrice)
 
     return (
-      <Box maxW="7xl"  mx={'auto'} pt={30} px={{ base: 2, sm: 12, md: 17 }}>
+      <Box maxW="7xl" bg={''}  mx={'auto'} mt={'1%'} px={{ base: 2, sm: 12, md: 17 }}>
         <chakra.h1
           textAlign={'center'}
           fontSize={'4xl'}
@@ -109,7 +110,9 @@ import {
             icon={<BsCashCoin size={'3em'} />}
           />
         </SimpleGrid>
-        <StatsGridWithImage />
+        <Box bg={''} maxH={'50%'}>
+          <StatsGridWithImage />
+        </Box>
       </Box>
     );
   }

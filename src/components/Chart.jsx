@@ -32,7 +32,7 @@ export default function PieChart(){
     const orders = useSelector((state) => state.orders);
 
     const pieData = {
-        labels: ['Open Orders', 'Closed Orders'],
+        labels: ['In Process Sales', 'Closed Sales'],
         datasets: [{
             label: 'Poll',
             data: [2, 6],

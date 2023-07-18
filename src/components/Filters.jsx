@@ -50,7 +50,7 @@ const FilterAndOrder = () => {
         console.log(params);
         dispatch(actualizarFiltroPaginado(params));
 
-       axios.get(GET_PRODUCTS_ALL/*"http://localhost:3010/products"*/,{params})
+       axios.get(GET_PRODUCTS_ALL,{params})
        .then(res => {dispatch(productsFilter(res.data))})
     },[filters])
 
