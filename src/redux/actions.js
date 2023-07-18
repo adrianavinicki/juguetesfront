@@ -31,6 +31,8 @@ export const EMPTY_CART = "EMPTY_CART";
 export const EMPTY_DETAIL = "EMPTY_DETAIL"
 export const PRODUCTS_FILTER = "PRODUCTS_FILTER";
 
+export const EMPTY_DETAIL_ORDERS_ID = "EMPTY_DETAIL_ORDERS_ID"
+
 export const GET_ALL_DETAIL_ORDERS = "GET_ALL_DETAIL_ORDERS";
 export const GET_DETAIL_ORDER_BY_ID = "GET_DETAIL_ORDER_BY_ID";
 //export const POST_DETAIL_ORDER = "POST_DETAIL_ORDER";
@@ -174,6 +176,12 @@ export const removeProductFromCart = (productID) => {
 export const emptyCart = () => {
   return {
     type: EMPTY_CART,
+  };
+};
+
+export const emptyDetailOrdersId = () => {
+  return {
+    type: EMPTY_DETAIL_ORDERS_ID,
   };
 };
 
