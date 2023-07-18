@@ -22,12 +22,15 @@ import {
   import { useDispatch, useSelector } from "react-redux";
   import { useEffect, useState } from "react";
   import { getProduct } from "../redux/actions";
-  import { putProduct } from "../redux/actions"
+  import { putProduct } from "../redux/actions";
+  import { useToast } from '@chakra-ui/react'
 
   
   export default function ProductProfileEdit(features)/*: JSX.Element*/ {
 
     const dispatch = useDispatch();
+
+    const toast = useToast()
 
     const [image, setImage] = useState(null);
     
@@ -61,8 +64,6 @@ import {
 };
 
     const handleSubmit = event => {
-      console.log("hola")
-      console.log(update)
 
       try {
 
@@ -94,10 +95,15 @@ import {
             setImage(productDetail.image)
           }
 
-          console.log(update)
-
           dispatch(putProduct(params.id, update));
-          alert("toy updated");
+
+          toast({
+            title: "Juguete Actualizado",
+            description: "El Juguete a sido actualizado con exito.",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
 
           setUpdate({    
           name:"",
@@ -233,7 +239,7 @@ import {
               value={update.minimun_age}
               onChange={handleChange}
             />
-          <FormLabel>Current Status: {productDetail.product_status.toString()}</FormLabel>
+          <FormLabel>Estado: {productDetail.product_status === true ? "Activo" : "Pausado"}</FormLabel>
           <Select
               placeholder="Select"
               _placeholder={{ color: 'gray.500' }}
@@ -241,8 +247,8 @@ import {
               name="product_status"
               value={update.product_status}
               onChange={handleChange}>
-            <option value="True">True</option>
-            <option value="False">False</option>
+            <option value="True">Activo</option>
+            <option value="False">Pausado</option>
           </Select>
           </FormControl>
           <Stack spacing={6} direction={['column', 'row']}>
