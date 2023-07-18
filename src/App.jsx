@@ -5,12 +5,13 @@ import Admin from "./views/Admin/Admin";
 import Edit from "./views/Edit/Edit"
 import Update from "./views/Update/Update"
 import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-dom";
-import Cart from "./views/Cart/Cart";
 import Cart2 from "./views/Cart/Cart2";
 import OrdersData from "./components/Orders";
 import Payment from "./views/Pago/Pago"
 import UserProfile from "./views/UserDataFormOverlay(temporary)/UserProfile";
 import UsersData from "./components/Users"
+import LoginAndSign from "./views/UserDataFormOverlay(temporary)/LoginAndSign";
+import MyShopping from "./views/Mis Compras/MyShopping";
 
 
 const router = createBrowserRouter([
@@ -56,6 +57,15 @@ const router = createBrowserRouter([
         path:"/Profile",
         element: <UserProfile/>
     },
+    {
+        path:"/login",
+        element: <LoginAndSign/>
+    },
+    {
+        path:"/shopping",
+        element: <MyShopping/>
+    }
+
 ]);
 
 function App() {

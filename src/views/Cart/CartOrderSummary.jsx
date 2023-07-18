@@ -11,13 +11,17 @@ import {
   import { formatPrice } from './PriceTag'
   import { useSelector, useDispatch } from "react-redux";
   import axios from 'axios';
-import { getDetailOrdersIDArray } from '../../redux/actions';
+import { getDetailOrdersIDArray, getIdEmailUser } from '../../redux/actions';
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from 'react';
+
 const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
 
 
   const OrderSummaryItem = (props) => {
     const { label, value, children } = props
+
+    
     return (
       <Flex justify="space-between" fontSize="sm">
         <Text fontWeight="medium" color={mode('gray.600', 'gray.400')}>
@@ -31,11 +35,39 @@ const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
   export const CartOrderSummary = () => {
 
     const { isAuthenticated, user } = useAuth0();
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const productsToBuy = useSelector(state => state.cartItems);
+    const [userData, setUserData] = useState(null);
+    const idCliente = useSelector(state => state.idUser);
 
+    useEffect(() => {
+      const getUser = async() => {
+
+        try {
+          if(isAuthenticated && !idCliente){
+            const idClient = await axios.post("http://localhost:3010/users/userEmail", {email: user?.email});
+            dispatch(getIdEmailUser(idClient.data.idUser));
+            setUserData(idClient.data.user);
+          }; 
+
+          if(!userData && idCliente){
+            const dataUser = await axios.get(`http://localhost:3010/users/${idCliente}`);
+            setUserData(dataUser.data);
+          }
+        } catch (error) {
+          console.log(error);
+        };
+        
+        
+      };
+
+      getUser();
+
+    }, [])
+
+    
+    const productsToBuy = useSelector(state => state.cartItems);
+    
     // console.log(productsToBuy[0].quantity)
 
     /*const handleSubmit = async (quantity, productId, userId) => {
@@ -58,20 +90,24 @@ const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
       if(!isAuthenticated) {
         alert("please login first to order")
         return;
-      } // aqui agregar un else if si el usuario esta registrado o no en la base de datos
+      }
+      if(!idCliente){
+        alert("please, complete the rest of your data in your profile to be able to send your toys");
+        return;
+      }// aqui agregar un else if si el usuario esta registrado o no en la base de datos
       try {
         const detailOrders = productsToBuy.map(item => {
           return {
             quantity: item.quantity,
             productId: item.id,
-            userId: 1,
+            userId: userData.id,
           };
         });
-        const detailCreated = await axios.post(POST_NEW_DETAIL_ORDER/*"http://localhost:3010/detailorders/create"*/,detailOrders);
+        const detailCreated = await axios.post(POST_NEW_DETAIL_ORDER,detailOrders);
         console.log(detailCreated.data.detailOrders)
         dispatch(getDetailOrdersIDArray(detailCreated.data.detailOrders));
         navigate("/payment");
-      } catch (error) {
+        } catch (error) {
         console.log(error);
       }
       

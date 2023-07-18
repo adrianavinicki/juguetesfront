@@ -8,6 +8,7 @@ import {
   FILTER_BY_CATEGORY,
   FILTER_BY_BRAND,
   ORDER_BY_PRICE,
+  EMPTY_DETAIL,
   ADD_TO_CART,
   GET_PRODUCTS_FILTERED,
   COMBINED_FILTERS,
@@ -26,16 +27,18 @@ import {
   GET_ALL_USERS,
   GET_DETAIL_ORDERS_USERS_ID,
   GET_ID_USER,
-  GET_ALL_PRODUCTS
+  GET_ALL_PRODUCTS,
+  EMPTY_CART,
+  DELETE_CART,
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
 import storageSession from "redux-persist/lib/storage/session";
-//import storage from "redux-persist/lib/storage";
+import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "root",
-  storage: storageSession,
-  //storage, //esta parte y la de arriba es para usar el localStorage en ves de la ssesion
+  //storage: storageSession,
+  storage, //esta parte y la de arriba es para usar el localStorage en ves de la ssesion
 };
 
 const initialState = {
@@ -146,6 +149,16 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cartItems: updatedCartItems,
       };
+    case EMPTY_CART:
+      return{
+        ...state,
+        cartItems:[],
+      }
+    case EMPTY_DETAIL:
+      return{
+        ...state,
+        productDetail:[],
+      }
 
     case DECREASE_PRODUCT_QUANTITY:
       const updatedItems = state.cartItems.map((item) => {
@@ -241,7 +254,13 @@ const rootReducer = (state = initialState, action) => {
         idUser: action.payload
       };
             
-         
+    case DELETE_CART:
+     return {
+        ...state,
+        detailOrdersUsersID: [],
+        cartItems: []
+      };
+
     default:
       return { ...state };
   }
