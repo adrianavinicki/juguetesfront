@@ -9,7 +9,7 @@ import CaptionCarousel from "../../components/Carousel"
 import SmallWithLogoLeft from "../../components/Footer"
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
-
+const POST_USER_EMAIL = import.meta.env.VITE_POST_USER_EMAIL;
 
 const Home = ()=>{
 
@@ -32,7 +32,7 @@ const Home = ()=>{
             //} aqui tratart de crear al usuario, si el given name y el family name estan vacios (esto para los ratings!!!) (REDIRIGIR AL USUARIO AL PROFILE PARA QUE COMPLETE LOS DATOS QuE FALTAN, tanto para usar los ratings como para comprar en el carrito), redirigirlo al profile para que complete esos datos. Los campos gender y address pueden ser nulos, verificarlos en el cart
             try {
                 if(user){
-                const idUser = await axios.post("http://localhost:3010/users/userEmail", {email: user?.email});
+                const idUser = await axios.post(POST_USER_EMAIL/*"http://localhost:3010/users/userEmail"*/, {email: user?.email});
                 dispatch(getIdEmailUser(idUser.data.idUser));
                 console.log(idUser.data.idUser)
                 }
