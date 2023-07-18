@@ -51,6 +51,7 @@ const UserSync = ({ onUserData }) => {
 
   const createUser = async (userData) => {
     try {
+	//AQUI AGREGAR UN IF QUE VERIFIQUE SI FALTA DATA EN USER, SI ES ASI, QUE SE EJECUTE LO DE ABAJO
       const response = await axios.post(POST_NEW_USER, userData);
       console.log("Usuario creado correctamente:", response.data);
       // Realiza las acciones adicionales según tus necesidades

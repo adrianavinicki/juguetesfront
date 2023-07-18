@@ -32,8 +32,8 @@ const Home = ()=>{
             try {
                 console.log(user)
                 const idUser = await axios.post("http://localhost:3010/users/userEmail", {email: user?.email});
-                dispatch(getIdEmailUser(idUser.data.idUser));
-                console.log(idUser.data.idUser)
+                dispatch(getIdEmailUser(idUser.data.user));
+                console.log(idUser.data.user)
                 
 
             } catch (error) {

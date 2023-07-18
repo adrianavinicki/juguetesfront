@@ -67,6 +67,7 @@ export default function LoginAndSign(){
     
         })
             console.log(usuarioNuevo.data)
+            loginWithRedirect();
         } catch (error) {
             console.log("ocurrio un error", error)
         }
