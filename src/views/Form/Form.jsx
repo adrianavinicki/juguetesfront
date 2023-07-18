@@ -10,6 +10,7 @@ import {
     VStack,
     FormControl,
     FormLabel,
+    Heading,
     FormHelperText,
     Select,
     Input,
@@ -54,6 +55,7 @@ const Form = ()=>{
        if(form.minimun_age === '0' || !form.minimun_age) errors.minimun_age = 'Minimun Age is required';
        if(!form.description) errors.description = 'Description is required';
        if(!image) errors.image = "Product image is required";
+       if (image && !image.type.startsWith('image/')) errors.image = 'Please select a valid image file.'
 
        return errors; 
     };
@@ -75,9 +77,12 @@ const Form = ()=>{
         setForm(prevState => ({...prevState, [name]: value}));
     };
 
-    const handleImageChange = event => {
-        const file = event.target.files[0];
-        setImage(file);
+    const handleImageChange = (event) => {
+      const file = event.target.files[0];
+      setImage(file);
+      const error = validateForm(form, file);
+      setErrors(error);
+ 
     };
 
 
@@ -203,9 +208,11 @@ const Form = ()=>{
             backgroundSize="cover"
             width="100vw"
             height="92vh"
-            paddingTop={'90px'}
+            paddingTop={'40px'}
             >
         <VStack>
+        <Heading color={'white'}>Create Toy</Heading>
+        <br />
             <Flex direction="column" align={'center'}>
                 <form onSubmit={handleSubmit}>
                 <FormControl>
@@ -216,14 +223,14 @@ const Form = ()=>{
                 <FormLabel color={'white'}>Brands</FormLabel>
                 <Select placeholder='Select Brand' name="brand" value={form.brand} bg={'white'} onChange={handleChange} onBlur={handleOnBlur}>
                     {brandsData.map((b) => (
-                            <option value={b}>{b}</option>
+                            <option value={b} key={b} >{b}</option>
                         ))}
                 </Select>
                 {errors.brand && <p>{errors.brand}</p>}
                 <FormLabel color={'white'}>Category</FormLabel>
                 <Select placeholder='Select Category' name="category" value={form.category} bg={'white'} onChange={handleChange} onBlur={handleOnBlur}>
                     {categoriesData.map((c) => (
-                        <option value={c}>{c}</option>
+                        <option value={c} key={c} >{c}</option>
                     ))}
                 </Select>
                 {errors.category && <p>{errors.category}</p>}        
@@ -256,7 +263,7 @@ const Form = ()=>{
                     </NumberInputStepper>
                 </NumberInput>
                 <FormLabel color={'white'}>Image</FormLabel>
-                    <Input type="file" id="imagen" name="imagen" w={'350px'} onChange={handleImageChange} onBlur={handleOnBlur}/>
+                    <Input type="file" id="imagen" name="imagen" w={'350px'} onChange={handleImageChange}/>
                     {/* {image && <img src={URL.createObjectURL(image)} alt="alt"/>} */}
                     {errors.image && <p>{errors.image}</p>}
                     <br />

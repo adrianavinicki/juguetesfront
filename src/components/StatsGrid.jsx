@@ -13,7 +13,7 @@ import PieChart from './Chart';
 
 export default function StatsGridWithImage() {
   return (
-    <Box bg={'blue.900'} h={'500px'} w={'1050px'} marginTop={'25px'} marginLeft={'100px'} border={'4px solid'}
+    <Box bg={'blue.900'} h={'400px'} w={'1050px'} marginTop={'45px'} marginLeft={'100px'} border={'4px solid'}
     borderColor={'white'}
     rounded={'lg'}>
       <Container maxW={'7xl'} maxH={'500px'} zIndex={10} position={'relative'}>
@@ -22,7 +22,7 @@ export default function StatsGridWithImage() {
           <Stack
             flex={30}
             color={'gray.400'}
-            justify={{ lg: 'center' }}
+            justify={{ lg: '' }}
             py={{ base: 4, md: 5, xl: 30 }}>
             <Box mb={{ base: 8, md: 20 }}>
               <Text
@@ -40,15 +40,7 @@ export default function StatsGridWithImage() {
                 fontSize={{ base: '3xl', md: '5xl' }}>
                 Wonder Toys
               </Heading>
-              <Text fontSize={'xl'} color={'gray.400'}>
-                The NewLife™ technology allows you to monitor your sales and get
-                complete insights at real time. The proprietary
-                software/hardware ecosystem prevents your ecommerce from getting
-                neglected.
-              </Text>
-            </Box>
-            <Box>
-            <PieChart></PieChart>
+              <PieChart></PieChart>
             </Box>
           </Stack>
           <Flex flex={1} />

@@ -7,9 +7,17 @@ import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import store from './redux/store';
-//import { LoginAuth } from './views/Login/LoginAuth';
+import { LoginAuth } from './views/Login/LoginAuth';
+import Rating from './components/Rating';
+import UserSync from './components/UserSync';
 
 const persistor = persistStore(store);
+
+const handleUserData = (userData) => {
+  // Lógica para manejar los datos del usuario
+  console.log("Pasando por Index 1", JSON.stringify(userData));
+  // Otros procesamientos o actualizaciones de estado
+};
 
 ReactDOM.render(
   <Auth0Provider
@@ -21,12 +29,11 @@ ReactDOM.render(
     <ChakraProvider>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          
           <App />
-         
+          <UserSync onUserDataW={handleUserData} />
         </PersistGate>
       </Provider>
     </ChakraProvider>
   </Auth0Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
