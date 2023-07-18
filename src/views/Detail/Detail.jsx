@@ -47,6 +47,8 @@ import {
     const [comment, setComment] = useState("");
 
      const handleRatingSubmit = (productId, userId, rate) => {
+
+      
     // Aquí puedes hacer la llamada a la API para enviar la calificación y actualizar el estado según sea necesario
     console.log(`Producto: ${productId}, Usuario: ${userId}, Calificación: ${rate}`);
   };
