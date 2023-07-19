@@ -14,7 +14,8 @@ export default function UserProfile() {
     const dispatch = useDispatch();
     const usuario = useSelector(state => state.idUser); //el back manda el id del user y el user entero
     const {user} = useAuth0(); // si no esta el nombre y el apellido, que el formulario muestre llenar esos campos
-
+  //
+  //ACOMODAR USUARIO, AHORA ES EL USER ENTERO
     const [userDB, setUserDB] = useState(null);
   console.log(user)
 
@@ -75,7 +76,7 @@ export default function UserProfile() {
         width="100vw"
         height="100vh">
             <NavBar2/>
-           {console.log(usuario, user?.email)}
+           {console.log(user?.email)}
             <Box
             bg="white"
             p={4}

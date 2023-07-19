@@ -132,9 +132,11 @@ export const CartOrderSummary = () => {
 
   console.log(totalPrice);
 
-  return (
-    <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
-      <Heading size="md">Order Summary</Heading>
+    console.log(totalPrice)
+
+    return (
+      <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
+        <Heading size="md">Suma de los productos</Heading>
       {console.log(user)}
       <Stack spacing="6">
         <OrderSummaryItem label="Subtotal" value={formatPrice(totalPrice)} />
