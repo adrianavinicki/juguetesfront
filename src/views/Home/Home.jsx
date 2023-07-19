@@ -3,7 +3,7 @@ import CardsContainer from "../../components/CardsContainer";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getIdEmailUser, getProducts, emptyDetail } from "../../redux/actions";
+import { getIdEmailUser, getProducts, emptyDetail, getUserObject } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
 import CaptionCarousel from "../../components/Carousel"
 import SmallWithLogoLeft from "../../components/Footer"
@@ -34,6 +34,7 @@ const Home = ()=>{
                 if(user){
                 const idUser = await axios.post(POST_USER_EMAIL/*"http://localhost:3010/users/userEmail"*/, {email: user?.email});
                 dispatch(getIdEmailUser(idUser.data.idUser));
+                dispatch(getUserObject(idUser.data.user));
                 console.log(idUser.data.idUser)
                 }
 

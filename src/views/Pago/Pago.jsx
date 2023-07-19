@@ -81,7 +81,7 @@ export default function Payment (props) {
     console.log(finalOrder);
     const response = await axios.post(
       POST_PAYMENT,
-      { orderId: finalOrder.id }
+      { orderId: finalOrder.id, cart: detailCarrito }
     );
 
 

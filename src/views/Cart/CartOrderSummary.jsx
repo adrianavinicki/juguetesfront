@@ -89,7 +89,7 @@ const GET_USERS = import.meta.env.VITE_GET_USERS;
     const handleSubmit = async () => {
 
       if(!isAuthenticated) {
-        alert("please login first to order")
+        alert("please login first to order") // pasar a un condicional local
         return;
       }
       if(!idCliente){
@@ -120,7 +120,7 @@ const GET_USERS = import.meta.env.VITE_GET_USERS;
 
     return (
       <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
-        <Heading size="md">Order Summary</Heading>
+        <Heading size="md">Suma de los productos</Heading>
       {console.log(user)}
         <Stack spacing="6">
           <OrderSummaryItem label="Subtotal" value={formatPrice(totalPrice)} />
@@ -145,7 +145,7 @@ const GET_USERS = import.meta.env.VITE_GET_USERS;
         </Stack>
        <Link to='#'>
           <Button type='submit' onClick={handleSubmit} colorScheme="blue" size="lg" fontSize="md" rightIcon={<FaArrowRight />} >
-            Order
+            Orden
           </Button>
         </Link>
       </Stack>
