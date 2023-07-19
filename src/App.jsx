@@ -13,6 +13,9 @@ import UsersData from "./components/Users"
 import LoginAndSign from "./views/UserDataFormOverlay(temporary)/LoginAndSign";
 import MyShopping from "./views/Mis Compras/MyShopping";
 
+import ContactForm from "./views/Contact/Contact";
+import EmailWelcome from "./views/Contact/EmailWelcome"
+
 
 const router = createBrowserRouter([
     {
@@ -60,6 +63,14 @@ const router = createBrowserRouter([
     {
         path:"/login",
         element: <LoginAndSign/>
+    },
+    {
+        path:"/contact",
+        element: <ContactForm/>
+    },
+    {
+        path:"/welcome",
+        element: <EmailWelcome/>
     },
     {
         path:"/shopping",

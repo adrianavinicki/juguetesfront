@@ -63,10 +63,14 @@ export default function WithSubnavigation() {
         { label: "Cart", href: "/cart" },
         // { label: "Admin", href: "/admin" },
         { label: "Profile", href: "/Profile" },
+        { label: "Welcome", href: "/welcome" },
+        { label: "Contacto", href: "/contact" },
       ]
     : [
         { label: "Home", href: "/" },
         { label: "Cart", href: "/cart" },
+        { label: "Welcome", href: "/welcome" },
+        { label: "Contacto", href: "/contact" },
       ];
 
   return (
