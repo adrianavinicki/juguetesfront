@@ -87,7 +87,7 @@ const MyShopping = () => {
 		height="100vh"
 		>
 		<NavBar2></NavBar2>
-		<Heading ml={'10px'}>My Shopping</Heading>
+		<Heading ml={'10px'}>Mis Compras</Heading>
 		<SimpleGrid columns={5} bg={""} w={"100%"} h={"100%"}>
 			{user.purchase_history.map((product) => {
 			return (

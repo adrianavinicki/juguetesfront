@@ -154,7 +154,7 @@ const FilterAndOrder = () => {
                 });
               }}
             >
-              Reset All
+              Borrar Filtros
             </Button>
             <br />
             <Box>
@@ -175,11 +175,11 @@ const FilterAndOrder = () => {
                 value={searchInput}
                 name="name"
               >
-                Search
+                Buscar
               </Button>
             </Box>
             <br />
-            <FormLabel>Filter Age</FormLabel>
+            <FormLabel>Filtro Edad</FormLabel>
             <Select
               w={"130px"}
               id="ageSelect"
@@ -195,7 +195,7 @@ const FilterAndOrder = () => {
               ))}
             </Select>
 
-            <FormLabel>Filter Categories</FormLabel>
+            <FormLabel>Filtro Categoria</FormLabel>
             <Select
               w={"130px"}
               id="categorySelect"
@@ -211,7 +211,7 @@ const FilterAndOrder = () => {
               ))}
             </Select>
 
-            <FormLabel>Filter Brands</FormLabel>
+            <FormLabel>Filtro Marcas</FormLabel>
             <Select
               w={"130px"}
               id="brandSelect"
@@ -228,7 +228,7 @@ const FilterAndOrder = () => {
             </Select>
             <br />
             <div>
-              <FormLabel>Max Price: </FormLabel>
+              <FormLabel>Precio Maximo: </FormLabel>
               <Input
                 type="number"
                 name="price"
@@ -246,7 +246,7 @@ const FilterAndOrder = () => {
                 value={priceInput}
                 name="price"
               >
-                Go!
+                Ver
               </Button>
             </div>
             <br />
@@ -259,7 +259,7 @@ const FilterAndOrder = () => {
                 name="order"
                 onClick={handleFilters}
               >
-                Higher
+                Mayor
               </Button>
               <Button
                 _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
@@ -269,7 +269,7 @@ const FilterAndOrder = () => {
                 name="order"
                 onClick={handleFilters}
               >
-                Lower
+                Menor
               </Button>
             </Box>
           </Flex>
