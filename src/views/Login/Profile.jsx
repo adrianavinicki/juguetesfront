@@ -19,8 +19,10 @@ export const Profile = () => {
         </HStack>
       </MenuButton>
       <MenuList>
-        <MenuItem><Link to="/Profile"> Mi Perfil </Link></MenuItem>
-        <MenuItem>Mis Órdenes</MenuItem>
+        {/* <MenuItem>Mi Perfil</MenuItem> */}
+        <Link to='/shopping'>
+          <MenuItem>Mis Compras</MenuItem>
+        </Link>
         <MenuItem onClick={() => logout({ returnTo: window.location.origin })}>Cerrar Sesión</MenuItem>
       </MenuList>
     </Menu>
