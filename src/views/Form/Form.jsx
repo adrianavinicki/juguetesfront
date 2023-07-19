@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useState } from "react";
 import {useDispatch} from "react-redux";
 import { postProduct } from "../../redux/actions"
 import NavBar2 from "../../components/NavBar2";
+import { useToast } from '@chakra-ui/react'
 import {
     Button,
     Flex,
@@ -28,7 +29,10 @@ import {
 
 const Form = ()=>{
 
+    const toast = useToast()
+
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
 
     const [form, setForm] = useState({ //creo un estado del form.
@@ -180,7 +184,13 @@ const Form = ()=>{
            
             
             dispatch(postProduct(postData));
-            alert("toy created");
+            toast({
+                title: "Juguete Creado",
+                description: "El Juguete a sido creado con exito.",
+                status: "success",
+                duration: 5000,
+                isClosable: true,
+              });
 
             setImage(null);
             setForm({    
@@ -192,6 +202,8 @@ const Form = ()=>{
             quantity:"",
             price:"",
             product_status: true,})
+
+            navigate("/");
             
         } catch (error) {
             console.log(error)
@@ -255,7 +267,7 @@ const Form = ()=>{
                     </NumberInputStepper>
                 </NumberInput>
                 <FormLabel color={'white'}>Price</FormLabel>
-                <NumberInput max={10000} min={0} name="price" value={form.price} bg={'white'} w={'350px'} onChange={value => handleNumbersChange(value, "price")}>
+                <NumberInput max={300000} min={0} name="price" value={form.price} bg={'white'} w={'350px'} onChange={value => handleNumbersChange(value, "price")}>
                     <NumberInputField />
                     <NumberInputStepper>
                     <NumberIncrementStepper />

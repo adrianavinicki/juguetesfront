@@ -62,6 +62,7 @@ const DEL_PRODUCT= import.meta.env.VITE_DEL_PRODUCT
     }
 
 
+
     const deleteproduct = () => {
       //aqui borrar el producto del back, del array local aqui, y en el array en la store de redux, medio largo la function
     }
@@ -93,8 +94,8 @@ const DEL_PRODUCT= import.meta.env.VITE_DEL_PRODUCT
                     </Box>
                     <VStack align={'start'}>
                     <Text fontWeight={600}>{feature.name}</Text>
-                    <Text color={'gray.600'}>Quantity: {feature.quantity}</Text>
-                    <Text color={'gray.600'}>Status: {feature.product_status.toString()}</Text>
+                    <Text color={'gray.600'}>Stock: {feature.quantity}</Text>
+                    <Text color={'gray.600'}>Estado: {feature.product_status ? "Activo" : "Pausado"}</Text>
                     </VStack>
                     <Box>
                     <Center>
