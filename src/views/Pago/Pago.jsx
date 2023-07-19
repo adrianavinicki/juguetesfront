@@ -68,6 +68,8 @@ export default function Payment (props) {
 
     setFinalOrder(orderID.data.order);
     setActivateButton(true);
+
+
   };
 
   const handleClick = async () => {
@@ -155,12 +157,11 @@ export default function Payment (props) {
                     {/*que pasa si le doy a OK purchase y luego regreso?. que pasa si no estoy de acuerdo con la compra?*/}
                     <Button
                       onClick={handleOrder}
-                      leftIcon={<SiCashapp size="2em" />}
-                      bg="blue.900"
+                      colorScheme="blue"
                       color={'white'}
                       w={'120px'}
                     >
-                      Buy
+                      Place Order
                     </Button>
                     <br />
                     <br />
@@ -175,8 +176,10 @@ export default function Payment (props) {
                         Payment
                       </Button>
                     )}
+
                     <br />
                     <br />
+
                     <Link href="/cart">
                       <Button onClick={handleClick} bg="blue.900" color={"white"} _hover={'none'} w={'120px'}>
                         Go Back

@@ -34,7 +34,7 @@ import { useEffect, useState } from "react";
 import { emptyCart, getProduct } from "../../redux/actions";
 import { addProductToCart, emptyDetail } from "../../redux/actions";
 import React from "react";
-import Rating from "../../components/Rating";
+import RatingDisplay from "../../components/RatingDisplay";
 
 export default function Simple() {
   const params = useParams();
@@ -147,41 +147,12 @@ export default function Simple() {
               </Text>
             </Box>
             <Flex justifyContent="space-between" alignContent="center">
-              <Popover isOpen={isOpen} onClose={() => setIsOpen(false)}>
-                <PopoverTrigger>
-                  <div onClick={() => setIsOpen(true)}>
+                  <div>
                     {/* Contenido visible del PopoverTrigger */}
-                    <Rating
-                      ratingValue={ratingValue}
-                      handleRatingClick={handleRatingClick}
+                    <RatingDisplay
+                      productId={productDetail.id}
                     />
                   </div>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <PopoverHeader>Rate this product</PopoverHeader>
-                  <PopoverBody>
-                    <Flex justifyContent="center">
-                      <Rating
-                        ratingValue={ratingValue}
-                        handleRatingClick={handleRatingClick}
-                      />
-                    </Flex>
-                    <Input
-                      placeholder="Your comment"
-                      value={comment}
-                      onChange={handleCommentChange}
-                      mt={4}
-                    />
-                    <Button
-                      colorScheme="blue"
-                      mt={4}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      Submit
-                    </Button>
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
               {/* <Box fontSize="2xl" color="gray.800">
                     <Box as="span" color="gray.600" fontSize="lg">
                       $
