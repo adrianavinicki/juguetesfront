@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 
 const Rating = ({ ratingValue, numRatings, handleRatingClick }) => {
@@ -43,9 +43,9 @@ const Rating = ({ ratingValue, numRatings, handleRatingClick }) => {
   return (
     <Flex alignItems="center">
       {renderStars(ratingValue)}
-      {/* <Text ml={2} fontSize="sm" color="gray.500">
+      <Text ml={2} fontSize="sm" color="gray.500">
         ({numRatings} Ratings)
-      </Text> */}
+      </Text>
     </Flex>
   );
 };

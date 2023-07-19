@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import passwordValidator from "password-validator";
 import axios from "axios";
+import { Button } from "@chakra-ui/react";
 const POST_NEW_USER = import.meta.env.VITE_POST_NEW_USER;
 
 const schema = new passwordValidator();
@@ -41,17 +42,26 @@ export default function LoginAndSign(){
 
     });
 
+    const [invalidPassword, setInvalidPassword] = useState(false);
+    const [userCreated, setUserCreated] = useState(false);
+
     const handleChangeRegister = (event) => {
         const {name, value} = event.target;
+        if(name === "user_password"){
+            setInvalidPassword(false);
+        }
         setUserRegister(preValue => ({...preValue, [name]: value}));
     }
 
     const handleNewUser = async (event) => {
+
+        setInvalidPassword(false)
         event.preventDefault();
-        console.log(userRegister)
+        //console.log(userRegister)
         if (!schema.validate(userRegister.user_password)) {
             console.log("Invalid password");
-            alert("contraseña invalida, intente de nuevo");
+            setInvalidPassword(true)
+            //alert("contraseña invalida, intente de nuevo");
             // Handle the error or display a message to the user
             return;
           }
@@ -67,15 +77,16 @@ export default function LoginAndSign(){
             role_id:"Cliente",
     
         })
-            console.log(usuarioNuevo.data)
+            setUserCreated(true);
+            console.log(usuarioNuevo.data);
+            loginWithRedirect();
         } catch (error) {
             console.log("ocurrio un error", error)
         }
     }
     return (
         <div>
-            <h2>Login</h2>
-            <p>aqui va solo email y password</p>
+            
 
             <h2>Sign in</h2>
             <form onSubmit={handleNewUser}>
@@ -84,6 +95,7 @@ export default function LoginAndSign(){
 
                 <label htmlFor="user_password">password:</label>
                 <input type="password" name="user_password" value={newUser.user_password} onChange={handleChangeRegister}/>
+                {invalidPassword && <p>la contraseña tiene que contener al menos 1 mayuscula, 1 numero y una longitud de 9 caracteres</p>}
 
                 <label htmlFor="first_name">nombre:</label>
                 <input type="text" name="first_name" value={newUser.first_name} onChange={handleChangeRegister}/>
@@ -103,9 +115,10 @@ export default function LoginAndSign(){
                 <input type="text" name="delivery_address" value={newUser.delivery_address} onChange={handleChangeRegister}/>
 
 
-                <button type="submit"> registrarse</button>
+                <Button type="submit"> registrarse</Button>
+                {userCreated && <p>usuario creado con exito!</p>}
             </form>
-            <button style={{backgroundColor:"aquamarine"}}>boton para google con auth0</button>
+            
 
         </div>
     )
