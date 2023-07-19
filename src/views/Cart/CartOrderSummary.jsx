@@ -21,6 +21,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 
 const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
+const POST_USER_EMAIL = import.meta.env.VITE_POST_USER_EMAIL;
+const GET_USERS = import.meta.env.VITE_GET_USERS;
 
 const OrderSummaryItem = (props) => {
   const { label, value, children } = props;
@@ -43,28 +45,26 @@ export const CartOrderSummary = () => {
   const idCliente = useSelector((state) => state.idUser);
   const toast = useToast();
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        if (isAuthenticated && !idCliente) {
-          const idClient = await axios.post(
-            "http://localhost:3010/users/userEmail",
-            { email: user?.email }
-          );
-          dispatch(getIdEmailUser(idClient.data.idUser));
-          setUserData(idClient.data.user);
-        }
+    useEffect(() => {
+      const getUser = async() => {
 
-        if (!userData && idCliente) {
-          const dataUser = await axios.get(
-            `http://localhost:3010/users/${idCliente}`
-          );
-          setUserData(dataUser.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    };
+        try {
+          if(isAuthenticated && !idCliente){
+            const idClient = await axios.post(POST_USER_EMAIL, {email: user?.email});
+            dispatch(getIdEmailUser(idClient.data.idUser));
+            setUserData(idClient.data.user);
+          }; 
+
+          if(!userData && idCliente){
+            const dataUser = await axios.get(`${GET_USERS}/${idCliente}`);
+            setUserData(dataUser.data);
+          }
+        } catch (error) {
+          console.log(error);
+        };
+        
+        
+      };
 
     getUser();
   }, []);

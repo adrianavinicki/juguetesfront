@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import passwordValidator from "password-validator";
 import axios from "axios";
+const POST_NEW_USER = import.meta.env.VITE_POST_NEW_USER;
 
 const schema = new passwordValidator();
 schema
@@ -55,7 +56,7 @@ export default function LoginAndSign(){
             return;
           }
         try {
-            const usuarioNuevo = await axios.post("http://localhost:3010/users/create", userRegister);
+            const usuarioNuevo = await axios.post(POST_NEW_USER/*"http://localhost:3010/users/create"*/, userRegister);
             setUserRegister({
             email: "",
             user_password: "",
