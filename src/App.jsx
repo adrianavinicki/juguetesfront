@@ -11,6 +11,7 @@ import Payment from "./views/Pago/Pago"
 import UserProfile from "./views/UserDataFormOverlay(temporary)/UserProfile";
 import UsersData from "./components/Users"
 import LoginAndSign from "./views/UserDataFormOverlay(temporary)/LoginAndSign";
+import MyShopping from "./views/Mis Compras/MyShopping";
 
 
 const router = createBrowserRouter([
@@ -59,7 +60,12 @@ const router = createBrowserRouter([
     {
         path:"/login",
         element: <LoginAndSign/>
+    },
+    {
+        path:"/shopping",
+        element: <MyShopping/>
     }
+
 ]);
 
 function App() {
@@ -69,6 +75,5 @@ function App() {
         </div>
     );
 }
-
 
 export default App;
