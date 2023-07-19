@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import {
   Stack,
   Container,
@@ -6,7 +5,6 @@ import {
   Flex,
   Text,
   Heading,
-  SimpleGrid,
 } from '@chakra-ui/react';
 // import PureComponent from './Chart';
 import PieChart from './Chart';
@@ -32,7 +30,7 @@ export default function StatsGridWithImage() {
                 mb={3}
                 fontSize={'xl'}
                 color={'gray.500'}>
-                STATS
+                ESTADISTICAS
               </Text>
               <Heading
                 color={'white'}
@@ -51,43 +49,3 @@ export default function StatsGridWithImage() {
   );
 }
 
-const StatsText = ({ children }) => (
-  <Text as={'span'} fontWeight={700} color={'white'}>
-    {children}
-  </Text>
-);
-
-const stats = [
-  {
-    title: '12',
-    content: (
-      <>
-        <StatsText>Sales</StatsText> in the last 24hs
-      </>
-    ),
-  },
-  {
-    title: '40',
-    content: (
-      <>
-        <StatsText>Toys</StatsText> available for selling
-      </>
-    ),
-  },
-  {
-    title: '13%',
-    content: (
-      <>
-        <StatsText>Increase</StatsText> in sales in the last Month
-      </>
-    ),
-  },
-  {
-    title: '10.000+',
-    content: (
-      <>
-        <StatsText>Sales</StatsText> currently dispatched to clients
-      </>
-    ),
-  },
-];

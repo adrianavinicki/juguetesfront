@@ -29,14 +29,16 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 
 export default function WithSubnavigation() {
   const { isAuthenticated } = useAuth0();
+  const userAdmin = useSelector(state => state.userObject);
 
   const { isOpen, onToggle } = useDisclosure();
 
   const navigationItems = isAuthenticated
-    ? [
+    ? userAdmin.role_id === "Administrador" ?[
         //{ label: "My Orders", href: "#" },
         { label: "Home", href: "/" },
         {
@@ -64,7 +66,12 @@ export default function WithSubnavigation() {
         // { label: "Admin", href: "/admin" },
         { label: "Profile", href: "/Profile" },
       ]
+
     : [
+      { label: "Home", href: "/" },
+      { label: "Cart", href: "/cart" },
+      { label: "Profile", href: "/Profile" },
+    ] :[
         { label: "Home", href: "/" },
         { label: "Cart", href: "/cart" },
       ];

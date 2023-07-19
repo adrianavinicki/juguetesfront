@@ -11,6 +11,7 @@ import {
   Link,
   Button,
   Th,
+  Select,
   Td,
   TableCaption,
   TableContainer,
@@ -36,9 +37,9 @@ function OrdersData() {
   // const currentOrders = orders?.slice(indexOfFirstOrder, indexOfLastOrder);
 
   return (
-    <Box>
+    <Box bg={'blue.900'} h={'100vh'} pl={'1%'} pr={'1%'}>
       <NavBar2></NavBar2>
-      <TableContainer bg={""} overflowY="auto" maxHeight="800px">
+      <TableContainer bg={"gray.200"} overflowY="auto" maxHeight="780px">
         <Table
           overflowY="auto"
           maxHeight="230px"
@@ -90,7 +91,13 @@ function OrdersData() {
                     {order.quantity}
                   </Td>
                   <Td isNumeric>{order.totalprice}</Td>
-                  <Td>{order.order_status}</Td>
+                  {/* <Td>{order.order_status}</Td> */}
+                  <Td w={'15%'}>
+                    <Select placeholder='Estado de la Orden' bg={'blue.200'}>
+                    <option>Entregado</option>
+                    <option>En Proceso</option>
+                    </Select>
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
@@ -98,8 +105,8 @@ function OrdersData() {
         </Table>
       </TableContainer>
       <Link href={"/admin"}>
-        <Button bg={"blue.900"} color={"white"} ml={'48%'}>
-          Go Back
+        <Button  _hover={'none'} bg={"white"} color={"blue.900"} ml={'48%'} mt={'0.5%'}>
+          Volver
         </Button>
       </Link>
     </Box>

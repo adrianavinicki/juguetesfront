@@ -3,7 +3,7 @@ import CardsContainer from "../../components/CardsContainer";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getIdEmailUser, getProducts, emptyDetail } from "../../redux/actions";
+import { getIdEmailUser, getProducts, emptyDetail, getUserObject } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
 import CaptionCarousel from "../../components/Carousel"
 import SmallWithLogoLeft from "../../components/Footer"
@@ -28,12 +28,13 @@ const Home = ()=>{
         const getUserId = async() => {
             //if(isAuthenticated && !user?.given_name || !user?.family_name){
             //    alert("bienvenido a wonderToys, para proseguir con su experiencia, por favor llene los ultimos campos en su profile");
-            //    navigate("/Profile");
+            //    navigate("/Profile");l
             //} aqui tratart de crear al usuario, si el given name y el family name estan vacios (esto para los ratings!!!) (REDIRIGIR AL USUARIO AL PROFILE PARA QUE COMPLETE LOS DATOS QuE FALTAN, tanto para usar los ratings como para comprar en el carrito), redirigirlo al profile para que complete esos datos. Los campos gender y address pueden ser nulos, verificarlos en el cart
             try {
                 if(user){
                 const idUser = await axios.post(POST_USER_EMAIL/*"http://localhost:3010/users/userEmail"*/, {email: user?.email});
                 dispatch(getIdEmailUser(idUser.data.idUser));
+                dispatch(getUserObject(idUser.data.user));
                 console.log(idUser.data.idUser)
                 }
 

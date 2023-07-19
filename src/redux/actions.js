@@ -41,7 +41,7 @@ export const GET_DETAIL_ORDERS_USERS_ID = "GET_DETAIL_ORDERS_USERS_ID";
 export const GET_ID_USER = "GET_ID_USER";
 export const DELETE_CART = "DELETE_CART";
 export const REDUCE_STOCK_QUANTITY = "REDUCE_STOCK_QUANTITY";
-
+export const GET_ALL_USER_OBJECT = "GET_ALL_USER_OBJECT";
 
 const GET_PRODUCTS_ALL = import.meta.env.VITE_GET_ALL_PRODUCTS;
 const GET_PRODUCTS_ALL_DOS = import.meta.env.VITE_GET_ALL_PRODUCTS_DOS;
@@ -338,5 +338,12 @@ export const deleteCart = () => {
   return {
     type: DELETE_CART,
     
+  };
+};
+
+export const getUserObject = (userObject) => {
+  return {
+    type: GET_ALL_USER_OBJECT,
+    payload: userObject,
   };
 };

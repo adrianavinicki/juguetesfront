@@ -31,6 +31,7 @@ import {
   GET_ALL_PRODUCTS,
   EMPTY_CART,
   DELETE_CART,
+  GET_ALL_USER_OBJECT,
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
@@ -61,6 +62,7 @@ const initialState = {
   selectedDetailOrder: null,
   detailOrdersUsersID: [],
   idUser: null,
+  userObject: {}
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -265,6 +267,12 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         detailOrdersUsersID: [],
         cartItems: []
+      };
+
+    case GET_ALL_USER_OBJECT:
+      return {
+        ...state,
+        userObject: action.payload
       };
 
     default:
