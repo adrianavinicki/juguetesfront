@@ -31,8 +31,8 @@ import { LiaStarSolid } from "react-icons/lia"
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getProduct } from "../../redux/actions";
-import { addProductToCart } from "../../redux/actions";
+import { emptyCart, getProduct } from "../../redux/actions";
+import { addProductToCart, emptyDetail } from "../../redux/actions";
 import React from "react";
 import Rating from "../../components/Rating";
 
@@ -45,6 +45,13 @@ export default function Simple() {
   const [ratingValue, setRatingValue] = useState(0);
   const [comment, setComment] = useState("");
 
+  // const getReviews = () => {
+  //   return async function () {
+  //     const response = await axios.get(GET_PRODUCT_BY_NAME_VALUE);
+  //     const responseData = response.data;;
+  //   };
+  // };
+
   const handleRatingSubmit = (productId, userId, rate) => {
     // Aquí puedes hacer la llamada a la API para enviar la calificación y actualizar el estado según sea necesario
     console.log(
@@ -55,8 +62,11 @@ export default function Simple() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProduct(params.id));
+     dispatch(getProduct(params.id));
+    dispatch(emptyCart())
   }, [dispatch, params.id]);
+
+  dispatch(emptyCart())
 
   const addProductCarrito = (product) => {
     dispatch(addProductToCart(product));
@@ -118,7 +128,7 @@ export default function Simple() {
               maxH={"350px"}
             />
           </Flex>
-          <Stack spacing={{ base: 6, md: 10 }}>
+          <Stack spacing={{ base: 6, md: 8 }}>
             <Box as={"header"} bg={""}>
               <Heading
                 lineHeight={1.1}
@@ -252,7 +262,7 @@ export default function Simple() {
                   </Box>
                   <Box bg={''} w={'70%'}>
                     <Text color={'white'} fontWeight={'bold'} fontSize={'30px'}>Reviews</Text>
-                    <Box mt={'15px'} bg={"gray.800"} h={'200px'} overflowY="auto" maxH={'200'} maxW={'370px'}>
+                    <Box mt={'15px'} bg={"gray.800"} h={'100%'} overflowY="auto" maxH={'250'} maxW={'370px'}>
                       {falsasReviews.map((review) => (
                         <HStack  key={review.id} align={'center'} w={'330px'} h={'100px'} bg={'white'}  m={'10px'} rounded={'5px'}>
                         <VStack ml={'10px'} align={'start'}>
@@ -274,6 +284,7 @@ export default function Simple() {
             </Stack>
 
             <Button
+              onClick={() => addProductCarrito(productDetail)}
               rounded={"none"}
               w={"full"}
               size={"lg"}
@@ -285,18 +296,20 @@ export default function Simple() {
                 transform: "translateY(2px)",
                 boxShadow: "lg",
               }}
-              onClick={addProductCarrito(productDetail)}
             >
               Add to cart
             </Button>
-            <Stack
+            <Link href="/">
+            <Button ml={'42%'}>Go Back</Button>
+            </Link>
+            {/* <Stack
               direction="row"
               alignItems="center"
               justifyContent={"center"}
             >
               <MdLocalShipping color="white" />
               <Text color={"white"}>2-3 business days delivery</Text>
-            </Stack>
+            </Stack> */}
           </Stack>
         </SimpleGrid>
       </Container>

@@ -14,7 +14,8 @@ import {
   Center,
   Text,
 } from "@chakra-ui/react";
-import { SiMercadopago } from "react-icons/si";
+
+import { SiMercadopago, SiCashapp } from "react-icons/si";
 import NavBar2 from "../../components/NavBar2";
 import { CheckIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
@@ -23,7 +24,7 @@ import { EditIcon } from "@chakra-ui/icons";
 import { useSelector } from "react-redux";
 import { initMercadoPago, Wallet } from "@mercadopago/sdk-react";
 import { useNavigate } from "react-router-dom";
-import { deleteCart, getDetailOrdersIDArray } from "../../redux/actions";
+import { deleteCart, getDetailOrdersIDArray, emptyDetailOrdersId } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 const apiUrl = import.meta.env.VITE_MERCADO_PAGO_PUBLIC_KEY;
 const POST_NEW_ORDER = import.meta.env.VITE_POST_NEW_ORDER;
@@ -39,6 +40,8 @@ export default function Payment (props) {
     const dispatch = useDispatch();
     const detailOrderIdsArray = useSelector(state => state.detailOrdersUsersID);
     const detailCarrito = useSelector(state => state.cartItems);
+    const users = useSelector(state => state.users)
+    const idUser = useSelector(state => state.idUser)
 
    
 
@@ -50,17 +53,25 @@ export default function Payment (props) {
   const [preferenceId, setPreferenceId] = useState(null);
   const [activateButton, setActivateButton] = useState(false);
 
+  // console.log(detailOrderIdsArray[0].userId, "hola")
+
   const handleOrder = async () => {
+    
     //esto se podria hacer con un useEffect
     const orderArray = detailOrderIdsArray[0];
-    const userId = 1; // ojo recordar arreglar con lo de user de kervys
+    const userId = idUser; // ojo recordar arreglar con lo de user de kervys
     const orderID = await axios.post(
       POST_NEW_ORDER,
-      { detailIds: orderArray, userId }
+      { detailIds: orderArray, userId: userId }
     );
+    console.log(orderArray)
 
     setFinalOrder(orderID.data.order);
     setActivateButton(true);
+  };
+
+  const handleClick = async () => {
+    dispatch(emptyDetailOrdersId())
   };
 
   const handlePayment = async () => {
@@ -72,9 +83,12 @@ export default function Payment (props) {
       POST_PAYMENT,
       { orderId: finalOrder.id }
     );
+
+
     console.log(response.data.init_point);
     setPreferenceId(response.data.init_point);
     window.location.href = response.data.init_point;
+    dispatch(deleteCart())
     //navigate(response.data.init_point)
   };
 
@@ -141,8 +155,9 @@ export default function Payment (props) {
                     {/*que pasa si le doy a OK purchase y luego regreso?. que pasa si no estoy de acuerdo con la compra?*/}
                     <Button
                       onClick={handleOrder}
-                      leftIcon={<SiMercadopago size="2.5em" />}
-                      colorScheme="blue"
+                      leftIcon={<SiCashapp size="2em" />}
+                      bg="blue.900"
+                      color={'white'}
                       w={'120px'}
                     >
                       Buy
@@ -163,7 +178,7 @@ export default function Payment (props) {
                     <br />
                     <br />
                     <Link href="/cart">
-                      <Button bg="blue.900" color={"white"} _hover={'none'} w={'120px'}>
+                      <Button onClick={handleClick} bg="blue.900" color={"white"} _hover={'none'} w={'120px'}>
                         Go Back
                       </Button>
                     </Link>

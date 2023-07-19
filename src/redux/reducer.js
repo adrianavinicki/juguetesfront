@@ -8,6 +8,7 @@ import {
   FILTER_BY_CATEGORY,
   FILTER_BY_BRAND,
   ORDER_BY_PRICE,
+  EMPTY_DETAIL,
   ADD_TO_CART,
   GET_PRODUCTS_FILTERED,
   COMBINED_FILTERS,
@@ -23,6 +24,7 @@ import {
   ACTUALIZAR_FILTRO_PARA_PAGINADO,
   CREATE_REVIEW,
   FETCH_REVIEWS,
+  EMPTY_DETAIL_ORDERS_ID,
   GET_ALL_USERS,
   GET_DETAIL_ORDERS_USERS_ID,
   GET_ID_USER,
@@ -152,6 +154,16 @@ const rootReducer = (state = initialState, action) => {
       return{
         ...state,
         cartItems:[],
+      }
+    case EMPTY_DETAIL_ORDERS_ID:
+      return{
+        ...state,
+        detailOrdersUsersID:[],
+      }
+    case EMPTY_DETAIL:
+      return{
+        ...state,
+        productDetail:[],
       }
 
     case DECREASE_PRODUCT_QUANTITY:

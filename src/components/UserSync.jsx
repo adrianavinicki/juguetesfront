@@ -47,13 +47,15 @@ const UserSync = ({ onUserData }) => {
           }
     };
     fetchData();
-  }, [isAuthenticated, isLoading, onUserData]);
+  }, [isAuthenticated, onUserData]);
+// }, [isAuthenticated, isLoading, onUserData]);
 
   const createUser = async (userData) => {
     try {
-	//AQUI AGREGAR UN IF QUE VERIFIQUE SI FALTA DATA EN USER, SI ES ASI, QUE SE EJECUTE LO DE ABAJO
+      if(!user){
       const response = await axios.post(POST_NEW_USER, userData);
       console.log("Usuario creado correctamente:", response.data);
+      }
       // Realiza las acciones adicionales según tus necesidades
     } catch (error) {
       console.error("Validar Datos, usuario ya existente:");
