@@ -84,28 +84,28 @@ import {
           py={1}
           fontWeight={'bold'}
           color={'white'}>
-          Wonder Toys Statistics
+          Estadisticas Wonder Toys
         </chakra.h1>
         <br />
         <br />
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
           <Link to= "/admin/users">
           <StatsCard
-            title={'Users'}
+            title={'Usuarios'}
             stat={users.length}
             icon={<BsPerson size={'3em'} />}
           />
           </Link>
           <Link to= "/admin/orders">
             <StatsCard
-            title={'Sales'}
+            title={'Ventas'}
             stat={orders.length}
             icon={<BsCartCheck size={'3em'} />}
             />
           </Link>
           
           <StatsCard
-            title={'Total Income'}
+            title={'Ingresos Totales'}
             stat={formatPrice(totalPrice)}
             icon={<BsCashCoin size={'3em'} />}
           />
