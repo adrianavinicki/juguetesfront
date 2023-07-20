@@ -7,6 +7,7 @@ const GET_RATING_PRODUCT_BY_ID = import.meta.env.VITE_GET_RATING_PRODUCT_BY_ID;
 
 const RatingDisplay = ({ productId }) => {
   const [ratingsAverage, setRatingsAverage] = useState('');
+  //console.log(props);
 
   useEffect(() => {
     const getProductRatings = async (productId) => {

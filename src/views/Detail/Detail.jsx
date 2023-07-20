@@ -39,25 +39,7 @@ import RatingDisplay from "../../components/RatingDisplay";
 export default function Simple() {
   const params = useParams();
 
-  const productDetail = useSelector((state) => state.productDetail);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [ratingValue, setRatingValue] = useState(0);
-  const [comment, setComment] = useState("");
-
-  // const getReviews = () => {
-  //   return async function () {
-  //     const response = await axios.get(GET_PRODUCT_BY_NAME_VALUE);
-  //     const responseData = response.data;;
-  //   };
-  // };
-
-  const handleRatingSubmit = (productId, userId, rate) => {
-    // Aquí puedes hacer la llamada a la API para enviar la calificación y actualizar el estado según sea necesario
-    console.log(
-      `Producto: ${productId}, Usuario: ${userId}, Calificación: ${rate}`
-    );
-  };
+  const productDetail = useSelector(state => state.productDetail);
 
   const dispatch = useDispatch();
 
@@ -72,16 +54,6 @@ export default function Simple() {
     dispatch(addProductToCart(product));
   };
 
-  // Manejador para el clic en una estrella de calificación
-  const handleRatingClick = (value) => {
-    setRatingValue(value);
-    setIsOpen(false); // Cerrar el popover después de hacer clic en una estrella
-  };
-
-  // Manejador para el cambio de comentario
-  const handleCommentChange = (event) => {
-    setComment(event.target.value);
-  };
 
   const falsasReviews = [{
     id:1,
@@ -148,17 +120,10 @@ export default function Simple() {
             </Box>
             <Flex justifyContent="space-between" alignContent="center">
                   <div>
-                    {/* Contenido visible del PopoverTrigger */}
-                    <RatingDisplay
+                    {productDetail?.id && <RatingDisplay
                       productId={productDetail.id}
-                    />
+                    />}
                   </div>
-              {/* <Box fontSize="2xl" color="gray.800">
-                    <Box as="span" color="gray.600" fontSize="lg">
-                      $
-                    </Box>
-                    {price.toFixed(2)}
-                  </Box> */}
             </Flex>
 
             <Stack
