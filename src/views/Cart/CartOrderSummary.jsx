@@ -132,8 +132,6 @@ export const CartOrderSummary = () => {
 
   console.log(totalPrice);
 
-    console.log(totalPrice)
-
     return (
       <Stack spacing="8" borderWidth="1px" rounded="lg" padding="8" width="full">
         <Heading size="md">Suma de los productos</Heading>
@@ -168,7 +166,7 @@ export const CartOrderSummary = () => {
           fontSize="md"
           rightIcon={<FaArrowRight />}
         >
-          Order
+          Orden
         </Button>
       </Link>
     </Stack>
