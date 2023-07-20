@@ -14,12 +14,14 @@ export const LoginAuth = () => {
 
   }
   return (
-    <Button
+    <div>
+          <Button
       onClick={login/*() => loginWithRedirect()*/}
       colorScheme="gray"
       variant="solid"
     >
       Login 
     </Button>
+    </div>
   );
 };
