@@ -42,8 +42,8 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
   const [ratingValue, setRatingValue] = useState(0);
   const [comment, setComment] = useState("");
 
-  //estodo user Hardcodeado
-  let user = 5;
+  //suscripcion al estado idUser
+  let user = useSelector(state=>state.idUser);
 
   // Manejador para el clic en una estrella de calificación
   const handleRatingClick = (value) => {
@@ -67,6 +67,7 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
         status: 'success',
         duration: 9000,
         isClosable: true,
+        onClose: ()=> {window.location.reload()},
       })
     } catch (error) {
         toast({

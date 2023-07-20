@@ -40,7 +40,7 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
   const [ratingValue, setRatingValue] = useState(0);
   const [comment, setComment] = useState("");
   //estodo user Hardcodeado
-  let user = 1;
+  let user = useSelector(state=>state.idUser);
 
   // Manejador para agregar productos al carrito
   const addProductToCartHandler = (product) => {
