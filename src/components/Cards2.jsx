@@ -27,6 +27,7 @@ import { addProductToCart } from "../redux/actions";
 import Rating from "./Rating";
 import RatingDisplay from "./RatingDisplay";
 import axios from "axios";
+const POST_RATING = import.meta.env.VITE_POST_RATING;
 
 
 const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
@@ -69,7 +70,8 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
   const toast = useToast();
   const createRating = async (data) => {
     try {
-      await axios.post("http://localhost:3010/rating/create",data)
+      //await axios.post("http://localhost:3010/rating/create",data)
+      await axios.post(POST_RATING,data)
         console.log('Maaaaaaaande un ratinggggggg!')
     } catch (error) {
        console.log('entro al catch')

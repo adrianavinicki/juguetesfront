@@ -28,6 +28,9 @@ import Rating from "./Rating";
 import RatingDisplay from "./RatingDisplay";
 import axios from "axios";
 
+const GET_USER_RATINGS = import.meta.env.VITE_GET_USER_RATINGS;
+const POST_RATING = import.meta.env.VITE_POST_RATING;
+
 
 const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
   // Dispatch para agregar productos al carrito
@@ -56,7 +59,8 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
   const toast = useToast();
   const createRating = async (data) => {
     try {
-      await axios.post("http://localhost:3010/rating/create",data)
+      //await axios.post(`http://localhost:3010/rating/create`,data)//viteAlert
+      await axios.post(POST_RATING,data)
       toast({
         title: 'Success',
         description: 'You rated this product',
@@ -102,7 +106,8 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
       productId: id,
       userId: user,
     }
-    const ratings = await axios.get(`http://localhost:3010/rating/user/${user}`);
+    //const ratings = await axios.get(`http://localhost:3010/rating/user/${user}`);
+    const ratings = await axios.get(`${GET_USER_RATINGS}/${user}`);
     const alreadyRated = ratings.data.filter(el=>el.productId===id);
     Boolean(alreadyRated.length)
     ?clearStates()

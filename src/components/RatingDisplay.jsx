@@ -3,12 +3,15 @@ import { Box, Flex } from "@chakra-ui/react";
 import { BsStarFill, BsStarHalf, BsStar } from "react-icons/bs";
 import axios from 'axios';
 
+const GET_RATING_PRODUCT_BY_ID = import.meta.env.VITE_GET_RATING_PRODUCT_BY_ID;
+
 const RatingDisplay = ({ productId }) => {
   const [ratingsAverage, setRatingsAverage] = useState('');
 
   useEffect(() => {
     const getProductRatings = async (productId) => {
-      const response = await axios.get(`http://localhost:3010/rating/product/${productId}`);
+      //const response = await axios.get(`http://localhost:3010/rating/product/${productId}`);
+      const response = await axios.get(`${GET_RATING_PRODUCT_BY_ID}/${productId}`);
       const ratings = response.data;
 
       const totalCantidad = ratings.reduce((acumulador, product) => {
