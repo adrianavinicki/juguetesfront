@@ -2,21 +2,52 @@ import {Button, Flex, Heading, Image, Box, Center} from "@chakra-ui/react"
 import CardsContainer from "../../components/CardsContainer";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getIdEmailUser, getProducts, emptyDetail, getUserObject } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getIdEmailUser, getProducts, emptyDetail, getUserObject, purchaseHistoryState } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
 import CaptionCarousel from "../../components/Carousel"
 import SmallWithLogoLeft from "../../components/Footer"
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 const POST_USER_EMAIL = import.meta.env.VITE_POST_USER_EMAIL;
+const GET_ALL_PRODUCTS = import.meta.env.VITE_GET_ALL_PRODUCTS;
 
 const Home = ()=>{
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { isAuthenticated, user, isLoading } = useAuth0();
+
+    ///ratings////
+    const purHistoryRaw = useSelector(state=>state.userObject.purchase_history);
+    //console.log(purHistoryRaw);
+    const eliminarRepetidos = (arrayDeProductos) => {
+        const idsUnicos = new Set();
+        const productosUnicos = [];
+
+        for(const producto of arrayDeProductos) {
+            if(!idsUnicos.has(producto.productId)) {
+                idsUnicos.add(producto.productId);
+                productosUnicos.push(producto);
+            };
+        };
+
+        return productosUnicos;
+    };
   
+    const getPurchaseHistory = (dispatch) => {
+      const purchaseHistory = [];
+      const productosUnicos = eliminarRepetidos(purHistoryRaw);
+      productosUnicos.forEach(async (el) => {
+        const response = await axios.get(
+          //`http://localhost:3010/products/${el.productId}`//alertaVite
+          `${GET_ALL_PRODUCTS}/${el.productId}`
+        );
+        const data = response.data;
+        purchaseHistory.push(data);
+      });
+      dispatch(purchaseHistoryState(purchaseHistory));
+    };
 
     useEffect(()=>{
         //aqui se puedde poner un if que verifique si el array de products no es cero para no llamar tanto al back
@@ -44,6 +75,9 @@ const Home = ()=>{
         }
 
         getUserId();
+        if(Boolean(purHistoryRaw.length)) {
+            getPurchaseHistory(dispatch);
+        };
 
   }, [user])
 

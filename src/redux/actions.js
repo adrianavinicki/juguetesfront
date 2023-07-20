@@ -42,6 +42,7 @@ export const GET_ID_USER = "GET_ID_USER";
 export const DELETE_CART = "DELETE_CART";
 export const REDUCE_STOCK_QUANTITY = "REDUCE_STOCK_QUANTITY";
 export const GET_ALL_USER_OBJECT = "GET_ALL_USER_OBJECT";
+export const PURCHASE_HISTORY_STATE = "PURCHASE_HISTORY_STATE"
 
 const GET_PRODUCTS_ALL = import.meta.env.VITE_GET_ALL_PRODUCTS;
 const GET_PRODUCTS_ALL_DOS = import.meta.env.VITE_GET_ALL_PRODUCTS_DOS;
@@ -346,4 +347,11 @@ export const getUserObject = (userObject) => {
     type: GET_ALL_USER_OBJECT,
     payload: userObject,
   };
+};
+
+export const purchaseHistoryState = (purchaseHistory) => {
+  return {
+    type: PURCHASE_HISTORY_STATE,
+    payload: purchaseHistory
+  }
 };

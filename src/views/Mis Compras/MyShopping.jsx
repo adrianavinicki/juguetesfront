@@ -5,7 +5,13 @@ import {
   Flex,
   Heading,
   SimpleGrid,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
 } from "@chakra-ui/react";
+import { Search2Icon } from '@chakra-ui/icons'
+import { useSelector } from "react-redux";
 
 const user = {
     name: 'Juan Carlos',
@@ -75,9 +81,14 @@ const user = {
 
 
 
+
 const MyShopping = () => {
-  return (
-	<Flex direction={"column"} paddingTop={""} align={"center"}>
+
+	const userPurchaseHistory = useSelector(state=>state.userPurchaseHistory);
+	//const userPurchaseHistory = [];
+
+	return (
+		<Flex direction={"column"} paddingTop={""} align={"center"}>
 		<Box
 		backgroundImage="url('/BG3.jpg')"
 		backgroundPosition="center"
@@ -87,21 +98,51 @@ const MyShopping = () => {
 		height="100vh"
 		>
 		<NavBar2></NavBar2>
-		<Heading ml={'10px'}>My Shopping</Heading>
+		<Heading ml={'10px'}>Mis Compras</Heading>
 		<SimpleGrid columns={5} bg={""} w={"100%"} h={"100%"}>
-			{user.purchase_history.map((product) => {
-			return (
-				// <p>{product.name}</p>
-				<ShoppingCard
-				key={product.id}
-				id={product.id}
-				name={product.name}
-				price={product.price}
-				image={product.image}
-				description={product.description}
-				/>
-			);
-			})}
+			{userPurchaseHistory?.length
+				?(userPurchaseHistory.map((product) => {
+				return (
+					// <p>{product.name}</p>
+					<ShoppingCard
+					key={product.id}
+					id={product.id}
+					name={product.name}
+					price={product.price}
+					image={product.image}
+					description={product.description}
+					/>
+				);
+				}))
+				: 
+				(
+					<Box
+                          display='flex'
+                          gridColumn={3}
+                          gridRow={2}
+                          
+                        >
+                          <Alert
+                            status="success"
+                            variant="subtle"
+                            flexDirection="column"
+                            alignItems="center"
+                            justifyContent="center"
+                            textAlign="center"
+                            height="200px"
+                            borderRadius='10px'
+                          >
+                            <Search2Icon boxSize="40px" mr={0} />
+                            <AlertTitle mt={4} mb={1} fontSize="lg">
+                              Sin resultados!
+                            </AlertTitle>
+                            <AlertDescription maxWidth="sm">
+                              Lo siento aun no has comprado ningun producto.
+                            </AlertDescription>
+                          </Alert>
+                        </Box>
+				)
+			}
 		</SimpleGrid>
 		</Box>
 	</Flex>
