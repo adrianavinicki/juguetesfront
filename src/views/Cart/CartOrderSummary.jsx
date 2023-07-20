@@ -122,7 +122,7 @@ export const CartOrderSummary = () => {
       navigate("/payment");
     } catch (error) {
       console.log(error);
-    }
+    } 
   };
 
   const totalPrice = productsToBuy.reduce(

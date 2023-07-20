@@ -5,10 +5,11 @@ import {
   HStack,
   Text,
   Button,
-  Link,
+  /*Link,*/
   Stack,
   useColorModeValue as mode,
 } from "@chakra-ui/react";
+import {Link} from "react-router-dom"
 import {
   removeProductFromCart,
   decreaseProductQuantity,
@@ -124,7 +125,7 @@ export default function Cart2() {
             <CartOrderSummary />
             <HStack mt="6" fontWeight="semibold">
               <p>or</p>
-              <Link href="/" color={mode("blue.500", "blue.200")}>
+              <Link to="/" color={mode("blue.500", "blue.200")}>
                 Continue shopping
               </Link>
             </HStack>
