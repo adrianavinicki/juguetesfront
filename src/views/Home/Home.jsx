@@ -75,7 +75,7 @@ const Home = ()=>{
         }
 
         getUserId();
-        if(Boolean(purHistoryRaw.length)) {
+        if(Boolean(purHistoryRaw?.length)) {
             getPurchaseHistory(dispatch);
         };
 
