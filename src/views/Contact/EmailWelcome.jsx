@@ -1,45 +1,39 @@
 import React from 'react';
 import './Contact.module.css';
-import emailjs from 'emailjs-com';
 import { useAuth0 } from '@auth0/auth0-react';
-
-emailjs.init('JmeVH_Lw8dQIAp8xD');
+import axios from 'axios';
+import NavBar2 from '../../components/NavBar2';
 
 function EmailWelcome() {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const templateParams = {
-      to_name: user.name,
-      from_name: 'Nombre del remitente',
-      message: 'Bienvenido a este mundo de Juguetes!!',
-      user_email: user.email, // Utiliza la dirección de correo electrónico del usuario autenticado
-    };
+    if (isAuthenticated && user.email) {
+      const toEmail = user.email;
 
-    emailjs
-      .send('service_wondertoys', 'EmailWelcome', templateParams)
-      .then((response) => {
-        console.log('Correo electrónico enviado correctamente', response);
-        // Aquí puedes realizar acciones adicionales después de enviar el correo
-      })
-      .catch((error) => {
-        console.error('Error al enviar el correo electrónico', error);
-        // Aquí puedes manejar los errores de envío del correo
-      });
-
-    // Restablecer los campos del formulario después de enviar el correo
-    e.target.reset();
+      // Enviar el correo electrónico mediante un POST al servidor
+      axios
+        .post('http://localhost:3010/sendwelcome', { toEmail })
+        .then((response) => {
+          console.log('Correo electrónico enviado:', response.data.message);
+          // Aquí puedes realizar acciones adicionales después de enviar el correo
+        })
+        .catch((error) => {
+          console.error('Error al enviar el correo electrónico', error);
+          // Aquí puedes manejar los errores de envío del correo
+        });
+    }
   };
 
   return (
     <div>
+      <NavBar2 />
       <h1>Contact Form</h1>
       <form className='cf' onSubmit={handleSubmit}>
         <div className='half left cf'>
-          <input type='text' placeholder='Name' name='user_name' required />
-          {/* No es necesario el campo de correo electrónico */}
+          {/* No es necesario el campo de nombre, ya que utilizaremos el correo del usuario autenticado */}
         </div>
         <div className='half right cf'>
           <textarea name='message' type='text' placeholder='Message' required></textarea>

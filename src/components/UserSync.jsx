@@ -22,7 +22,7 @@ const UserSync = ({ onUserData }) => {
           user_password: "12345678",
         };
 
-        console.log("pasando por useEffect de userSync:", userData);
+        // console.log("pasando por useEffect de userSync:", userData);
         console.log("correo a consultar", userData.email, "tipo de dato:", typeof userData.email);
 
         // try {
@@ -42,7 +42,7 @@ const UserSync = ({ onUserData }) => {
         //     }
         //   } else {
             // El usuario no existe, crearlo en el backend
-            console.log("Va a crear", userData);
+            // console.log("Datos para crear", userData);
             await createUser(userData);
           }
     };
