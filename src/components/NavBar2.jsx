@@ -5,6 +5,7 @@ import { LogoutButton } from "../views/Login/Logout";
 import { Profile } from "../views/Login/Profile";
 import MenuUser from "./MenuUser";
 import CartIcon from "./icons/cartIcon";
+import {Link} from "react-router-dom";
 import {
   Box,
   Flex,
@@ -14,7 +15,6 @@ import {
   Stack,
   Collapse,
   Icon,
-  Link,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -146,8 +146,8 @@ const DesktopNav = (props) => {
         <Box key={navItem.label}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
-              <Link
-                p={2}
+              <Link to={navItem.href ?? "#"} 
+                 p={2}
                 href={navItem.href ?? "#"}
                 fontSize={"sm"}
                 fontWeight={500}
@@ -155,8 +155,9 @@ const DesktopNav = (props) => {
                 _hover={{
                   textDecoration: "none",
                   color: linkHoverColor,
-                }}
+                }}            
               >
+                {/* */}
                 {navItem.label}
               </Link>
             </PopoverTrigger>
@@ -186,14 +187,15 @@ const DesktopNav = (props) => {
 
 const DesktopSubNav = ({ label, href, subLabel } /*: NavItem*/) => {
   return (
-    <Link
+    <Link to={href}
       href={href}
       role={"group"}
       display={"block"}
       p={2}
       rounded={"md"}
-      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+     _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
     >
+      {/* */}
       <Stack direction={"row"} align={"center"}>
         <Box>
           <Text
@@ -278,7 +280,8 @@ const MobileNavItem = ({ label, children, href } /*: NavItem*/) => {
         >
           {children &&
             children.map((child) => (
-              <Link key={child.label} py={2} href={child.href}>
+              <Link key={child.label} to={child.href} py={2}>
+                {/*key={child.label}  href={child.href}*/}
                 {child.label}
               </Link>
             ))}
