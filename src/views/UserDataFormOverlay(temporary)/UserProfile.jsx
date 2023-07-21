@@ -19,21 +19,21 @@ export default function UserProfile() {
     //const [userDB, setUserDB] = useState(null);
   console.log(user)
 
-    // useEffect(() => {
-    //     const getUser = async() => {
-    //         if(usuario){
-    //           try {
-    //             const user = await axios.get(`${GET_USERS}/${usuario}`);
-    //             setUserDB(user.data);
-    //             } catch (error) {
-    //                 console.error(error);
-    //             }  
-    //         }
+    useEffect(() => {
+        const getUser = async() => {
+            if(usuario){
+              try {
+                const user = await axios.get(`${GET_USERS}/${usuario}`);
+                setUserDB(user.data);
+                } catch (error) {
+                    console.error(error);
+                }  
+            }
             
-    //     }
+        }
 
-    //     getUser();
-    // }, [usuario])
+        getUser();
+    }, [usuario])
 
     const [userCreate, setUserCreate] = useState({
         first_name: user?.first_name,
@@ -67,6 +67,8 @@ export default function UserProfile() {
         }
         
     };
+
+    console.log(userCreate);
     return (
         <Box 
         backgroundImage="url('/BG3.jpg')"
