@@ -21,6 +21,7 @@ const handleUserData = (userData) => {
 
 ReactDOM.render(
   <Auth0Provider
+  // authorizationParams={{audience:"https:wondertoysworyfinal.us.auth0.com", scope:"openid" }}
     domain="wondertoysworyfinal.us.auth0.com"
     clientId="FelhvdgmUF99LiuQCHgzaDiCIgIXTbPH"
     // domain="wondertoyshenry.us.auth0.com"

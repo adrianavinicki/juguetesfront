@@ -53,8 +53,9 @@ const UserSync = ({ onUserData }) => {
 
   const createUser = async (userData) => {
     try {
-      if(!user){
-      const response = await axios.post(POST_NEW_USER_AUTH0, userData);
+      if(user){
+      const token = await getAccessTokenSilently()
+      const response = await axios.post(`${POST_NEW_USER}?token=${token}`, userData);
       console.log("Usuario creado correctamente:", response.data);
       }
       // Realiza las acciones adicionales según tus necesidades
