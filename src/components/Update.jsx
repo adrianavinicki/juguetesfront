@@ -128,7 +128,7 @@ import {
   };
 
     useEffect(()=>{
-      dispatch(getProduct(params.id))   
+      dispatch(getProduct(params.id))
   },[dispatch, params.id])
 
     return (

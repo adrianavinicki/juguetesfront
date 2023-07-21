@@ -22,7 +22,7 @@ import {
     Flex,
     Button,
   } from '@chakra-ui/react';
-  import { CheckIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
+  import { EditIcon } from '@chakra-ui/icons';
 const DEL_PRODUCT= import.meta.env.VITE_DEL_PRODUCT
   
 
@@ -43,29 +43,6 @@ const DEL_PRODUCT= import.meta.env.VITE_DEL_PRODUCT
       dispatch(getAllProducts());
   },[dispatch])
   
-  
-    const handleDelete = async (id) => {
-      const confirmed = window.confirm('¿Estás seguro de que deseas eliminar este producto?');
-      if(confirmed) {
-        try {
-          await axios.delete(`${DEL_PRODUCT}/${id}`);
-        } catch (error) {
-          console.error(error);
-        } 
-      }
-    }
-
-
-    const handlePageState = (pageNumber) => {
-      dispatch(getProductsFilteredPage({pageNumber:pageNumber}))
-      // currentPageData = pageNumber
-    }
-
-
-
-    const deleteproduct = () => {
-      //aqui borrar el producto del back, del array local aqui, y en el array en la store de redux, medio largo la function
-    }
 
     return (
       

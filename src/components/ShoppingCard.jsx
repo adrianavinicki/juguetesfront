@@ -67,7 +67,7 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
         status: 'success',
         duration: 9000,
         isClosable: true,
-        onClose: ()=> {window.location.reload()},
+        // onClose: ()=> {window.location.reload()},
       })
     } catch (error) {
         toast({
@@ -119,12 +119,12 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
     <Box
       bg="white"
       w="250px"
-      h="310px"
+      h="300px"
       borderWidth="3px"
       rounded="lg"
       shadow="lg"
       position="relative"
-      margin="10px"
+      margin="5px"
       gridAutoRows="1"
     >
       <Flex direction="column">
@@ -170,7 +170,7 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
                     </PopoverTrigger>
                     <PopoverContent>
                       <PopoverCloseButton/>
-                      <PopoverHeader>Rate this product</PopoverHeader>
+                      <PopoverHeader>Puntua este producto</PopoverHeader>
                       <PopoverBody>
                         <Flex justifyContent="center">
                           <Rating ratingValue={ratingValue} handleRatingClick={handleRatingClick} />
