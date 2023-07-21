@@ -72,25 +72,25 @@ export default function Simple() {
   },[productDetail.id]);
 
 
-  const falsasReviews = [{
-    id:1,
-    name: "Juan Sapo",
-    stars: 3,
-    text: "Un adorable peluche de osito marrón con una bufanda roja.",
-  },
-  {
-    id:2,
-    name: "Martin Fenix",
-    stars: 4,
-    text: "Cumplio las espectativas.",
-  },
-  {
-    id:3,
-    name: "Carlos SinTac",
-    stars: 5,
-    text: "Le encanto al nene.",
-  },
-]
+//   const falsasReviews = [{
+//     id:1,
+//     name: "Juan Sapo",
+//     stars: 3,
+//     text: "Un adorable peluche de osito marrón con una bufanda roja.",
+//   },
+//   {
+//     id:2,
+//     name: "Martin Fenix",
+//     stars: 4,
+//     text: "Cumplio las espectativas.",
+//   },
+//   {
+//     id:3,
+//     name: "Carlos SinTac",
+//     stars: 5,
+//     text: "Le encanto al nene.",
+//   },
+// ]
 
   return (
     <Box
