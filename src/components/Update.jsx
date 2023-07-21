@@ -15,9 +15,9 @@ import {
     IconButton,
     Center,
     Box,
-    Link,
   } from '@chakra-ui/react';
   import { SmallCloseIcon } from '@chakra-ui/icons';
+  import {Link} from "react-router-dom";
   import { useParams } from "react-router-dom";
   import { useDispatch, useSelector } from "react-redux";
   import { useEffect, useState } from "react";
@@ -255,7 +255,7 @@ import {
           </Select>
           </FormControl>
           <Stack spacing={6} direction={['column', 'row']}>
-            <Link href={'/edit'}>
+            <Link to={'/edit'} href={'/edit'}>
               <Button
                 bg={'red.400'}
                 color={'white'}
