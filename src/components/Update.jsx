@@ -98,7 +98,7 @@ import {
 
           dispatch(putProduct(params.id, update));
 
-          preventDefault()
+          e.preventDefault()
 
           toast({
             title: "Juguete Actualizado",
