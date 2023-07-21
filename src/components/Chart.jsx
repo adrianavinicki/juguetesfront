@@ -98,20 +98,20 @@ export default function PieChart() {
       },
     ],
   };
-  const lineData = {
-    labels: ["January", "February", "March"],
-    datasets: [
-      {
-        label: "Sales per Month",
-        data: [3, 6, 5],
-        backgroundColor: ["black", "white"],
-        fill: true,
-        tension: 0.4,
-        pointBorderColor: "white",
-        borderColor: ["white", "red"],
-      },
-    ],
-  };
+  // const lineData = {
+  //   labels: ["January", "February", "March"],
+  //   datasets: [
+  //     {
+  //       label: "Sales per Month",
+  //       data: [3, 6, 5],
+  //       backgroundColor: ["black", "white"],
+  //       fill: true,
+  //       tension: 0.4,
+  //       pointBorderColor: "white",
+  //       borderColor: ["white", "red"],
+  //     },
+  //   ],
+  // };
 
   const options = {};
 
@@ -134,9 +134,9 @@ export default function PieChart() {
           <Box boxSize={"400px"}>
             <Bar data={barData} option={options}></Bar>
           </Box>
-          <Box boxSize={"400px"}>
+          {/* <Box boxSize={"400px"}>
             <Line data={lineData} options={optionsLine}></Line>
-          </Box>
+          </Box> */}
         </Flex>
       </Box>
     </div>
