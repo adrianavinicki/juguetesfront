@@ -199,9 +199,11 @@ export default function UserProfile() {
         )}
       </Box>
       {/*aqui incluir la data de las compras de cada user*/}
+      <Box ml={'45%'}>
       <Link to="/">
         <Button>seguir comprando</Button>
       </Link>
+      </Box>
     </Box>
   );
 }

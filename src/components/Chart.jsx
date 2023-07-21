@@ -128,10 +128,10 @@ export default function PieChart() {
     <div>
       <Box>
         <Flex>
-          <Box boxSize={"200px"}>
+          <Box boxSize={"240px"}>
             <Doughnut data={pieData} options={options}></Doughnut>
           </Box>
-          <Box boxSize={"400px"}>
+          <Box boxSize={"500px"}>
             <Bar data={barData} option={options}></Bar>
           </Box>
           {/* <Box boxSize={"400px"}>

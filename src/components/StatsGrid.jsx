@@ -11,7 +11,7 @@ import PieChart from './Chart';
 
 export default function StatsGridWithImage() {
   return (
-    <Box bg={'blue.900'} h={'400px'} w={'1050px'} marginTop={'45px'} marginLeft={'100px'} border={'4px solid'}
+    <Box bg={'blue.900'} h={'400px'} w={'800px'} marginTop={'45px'} marginLeft={'17%'} border={'4px solid'}
     borderColor={'white'}
     rounded={'lg'}>
       <Container maxW={'7xl'} maxH={'500px'} zIndex={10} position={'relative'}>
