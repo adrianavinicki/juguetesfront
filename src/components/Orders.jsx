@@ -92,12 +92,13 @@ function OrdersData() {
                   </Td>
                   <Td isNumeric>{order.totalprice}</Td>
                   {/* <Td>{order.order_status}</Td> */}
-                  <Td w={'15%'}>
+                  {/* <Td w={'15%'}>
                     <Select placeholder='Estado de la Orden' bg={'blue.200'}>
                     <option>Entregado</option>
                     <option>En Proceso</option>
                     </Select>
-                  </Td>
+                  </Td> */}
+                  <Td>{order.order_status}</Td>
                 </Tr>
               ))}
             </Tbody>

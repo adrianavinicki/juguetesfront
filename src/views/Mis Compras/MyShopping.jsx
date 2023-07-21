@@ -80,8 +80,6 @@ const user = {
 };
 
 
-
-
 const MyShopping = () => {
 
 	const userPurchaseHistory = useSelector(state=>state.userPurchaseHistory);
@@ -96,10 +94,11 @@ const MyShopping = () => {
 		backgroundSize="cover"
 		width="100vw"
 		height="100vh"
+		overflow={'hidden'}
 		>
 		<NavBar2></NavBar2>
-		<Heading ml={'10px'}>Mis Compras</Heading>
-		<SimpleGrid columns={5} bg={""} w={"100%"} h={"100%"}>
+		<Heading color={'white'} ml={'10px'}>Mis Compras</Heading>
+		<SimpleGrid columns={5} bg={""} w={"100%"} h={"100%"} overflowY="auto" maxHeight="700px">
 			{userPurchaseHistory?.length
 				?(userPurchaseHistory.map((product) => {
 				return (

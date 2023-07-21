@@ -17,7 +17,7 @@ import {
     Box,
   } from '@chakra-ui/react';
   import { SmallCloseIcon } from '@chakra-ui/icons';
-  import {Link} from "react-router-dom";
+  import {Link, useNavigate} from "react-router-dom";
   import { useParams } from "react-router-dom";
   import { useDispatch, useSelector } from "react-redux";
   import { useEffect, useState } from "react";
@@ -33,6 +33,8 @@ import {
     const toast = useToast()
 
     const [image, setImage] = useState(null);
+
+    const navigate = useNavigate();
     
 
     const [update, setUpdate] = useState({ //creo un estado del form.
@@ -98,7 +100,7 @@ import {
 
           dispatch(putProduct(params.id, update));
 
-          e.preventDefault()
+          // e.preventDefault()
 
           toast({
             title: "Juguete Actualizado",
@@ -117,6 +119,8 @@ import {
           quantity:"",
           price:"",
           product_status:"",})
+
+          navigate("/edit");
           
       } catch (error) {
           console.log(error)

@@ -137,8 +137,8 @@ export default function WithSubnavigation() {
 
 const DesktopNav = (props) => {
   const linkColor = useColorModeValue("white", "gray.200");
-  const linkHoverColor = useColorModeValue("red.600", "white");
-  const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const linkHoverColor = useColorModeValue("red.600", "black");
+  const popoverContentBgColor = useColorModeValue("black", "gray.800");
 
   return (
     <Stack direction={"row"} spacing={4} align={"center"}>

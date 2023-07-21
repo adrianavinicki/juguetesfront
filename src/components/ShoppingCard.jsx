@@ -119,7 +119,7 @@ const ShoppingCard = ({ id, image, name, price, rating, numReviews }) => {
     <Box
       bg="white"
       w="250px"
-      h="340px"
+      h="310px"
       borderWidth="3px"
       rounded="lg"
       shadow="lg"
