@@ -167,7 +167,7 @@ const ProductAddToCart = ({ id, image, name, price, rating, numReviews }) => {
                     }
                   >
                     <Icon as={FiShoppingCart} />
-                    Add to Cart
+                    Agregar al Carrito
                   </Button>
 
                   <Collapse in={cartIconVisible}>
