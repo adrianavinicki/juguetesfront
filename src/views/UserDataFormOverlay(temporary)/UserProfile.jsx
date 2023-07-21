@@ -16,28 +16,28 @@ export default function UserProfile() {
     const {user} = useAuth0(); // si no esta el nombre y el apellido, que el formulario muestre llenar esos campos
   //
   //ACOMODAR USUARIO, AHORA ES EL USER ENTERO
-    const [userDB, setUserDB] = useState(null);
+    //const [userDB, setUserDB] = useState(null);
   console.log(user)
 
-    useEffect(() => {
-        const getUser = async() => {
-            if(usuario){
-              try {
-                const user = await axios.get(`${GET_USERS}/${usuario}`);
-                setUserDB(user.data);
-                } catch (error) {
-                    console.error(error);
-                }  
-            }
+    // useEffect(() => {
+    //     const getUser = async() => {
+    //         if(usuario){
+    //           try {
+    //             const user = await axios.get(`${GET_USERS}/${usuario}`);
+    //             setUserDB(user.data);
+    //             } catch (error) {
+    //                 console.error(error);
+    //             }  
+    //         }
             
-        }
+    //     }
 
-        getUser();
-    }, [usuario])
+    //     getUser();
+    // }, [usuario])
 
     const [userCreate, setUserCreate] = useState({
-        first_name: userDB?.first_name,
-        last_name: userDB?.last_name,
+        first_name: user?.first_name,
+        last_name: user?.last_name,
         email: user?.email,
         gender: "",
         delivery_address: "",
@@ -92,16 +92,16 @@ export default function UserProfile() {
                 <Text fontSize="xl" fontWeight="bold" mb={4}>
                     Datos Del Usuario
                 </Text>
-                <Text fontWeight="bold">Nombre: {userDB?.first_name}</Text>
-                <Text fontWeight="bold">Apellido: {userDB?.last_name}</Text>
-                <Text fontWeight="bold">Email: {userDB?.email}</Text>
-                <Text fontWeight="bold">Direccion: {userDB?.delivery_address}</Text>
+                <Text fontWeight="bold">Nombre: {user?.given_name}</Text>
+                <Text fontWeight="bold">Apellido: {user?.family_name}</Text>
+                <Text fontWeight="bold">Email: {user?.email}</Text>
+                <Text fontWeight="bold">Direccion: {user?.delivery_address}</Text>
             </Box>)}
-              {console.log(userDB)}
+              {console.log(user)}
             {user && (
                 <>
                 
-               { !userDB?.first_name || !userDB?.last_name /*|| !user?.given_name || !user?.family_name*/ ? (<><Text fontWeight="bold" mt={4}>
+               { !user?.given_name || !user?.family_name /*|| !user?.given_name || !user?.family_name*/ ? (<><Text fontWeight="bold" mt={4}>
                 <h3>por favor ingrese sus datos</h3>
               Formulario
             </Text>
