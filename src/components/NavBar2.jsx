@@ -107,7 +107,7 @@ export default function WithSubnavigation() {
               // justifyContent="flex-start"
               // justify={'space-around'}
               >
-                <Box marginRight={"800px"} marginTop={"10px"}>
+                <Box marginRight={"850px"} marginTop={"10px"}>
                   <DesktopNav navigationItems={navigationItems} />
                 </Box>
 
@@ -141,7 +141,7 @@ const DesktopNav = (props) => {
   const popoverContentBgColor = useColorModeValue("black", "gray.800");
 
   return (
-    <Stack direction={"row"} spacing={4} align={"center"}>
+    <Stack  direction={"row"} spacing={4} align={"center"}>
       {props.navigationItems.map((navItem) => (
         <Box key={navItem.label} color={'white'}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
