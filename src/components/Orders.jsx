@@ -49,12 +49,12 @@ function OrdersData() {
           <TableCaption></TableCaption>
           <Thead>
             <Tr>
-              <Th>User Id</Th>
-              <Th>Order Id</Th>
-              <Th>Product Id</Th>
-              <Th isNumeric>Quantity</Th>
-              <Th isNumeric>Total Amount</Th>
-              <Th>Status</Th>
+              <Th>Id Usuario</Th>
+              <Th>Id Orden</Th>
+              <Th>Id Producto</Th>
+              <Th isNumeric>Cantidad</Th>
+              <Th isNumeric>Cantidad Total</Th>
+              <Th>Estado</Th>
             </Tr>
           </Thead>
           {orders !== undefined && orders.length > 0 && (

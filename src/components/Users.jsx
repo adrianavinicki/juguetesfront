@@ -7,7 +7,6 @@ import {
   Tbody,
   Tfoot,
   Tr,
-  Link,
   Button,
   Th,
   Td,
@@ -15,6 +14,7 @@ import {
   TableContainer,
   Box,
 } from "@chakra-ui/react";
+import {Link} from "react-router-dom";
 
 function UsersData() {
   const users = useSelector((state) => state.users);
@@ -31,13 +31,13 @@ function UsersData() {
       >
         <Thead>
           <Tr>
-            <Th>User Id</Th>
-            <Th>First Name</Th>
-            <Th>Last Name</Th>
-            <Th>Gender</Th>
+            <Th>Id Usuario</Th>
+            <Th>Nombre</Th>
+            <Th>Apellido</Th>
+            <Th>Genero</Th>
             <Th>Email</Th>
             <Th>Rol</Th>
-            <Th isNumeric>Mobile</Th>
+            <Th isNumeric>Celular</Th>
           </Tr>
         </Thead>
         {users !== undefined && users.length > 0 && (
@@ -57,9 +57,9 @@ function UsersData() {
         )}
       </Table>
     </TableContainer>
-    <Link href={"/admin"}>
+    <Link to={"/admin"} href={"/admin"}>
             <Button _hover={'none'} bg={"white"} color={"blue.900"} ml={'48%'} mt={'0.5%'}>
-              Go Back
+              Volver
             </Button>
           </Link>
     </Box>

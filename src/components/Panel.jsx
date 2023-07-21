@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
 import { GET_PRODUCTS_FILTERED_PAGE, getProducts, getProductsFilteredPage, getProduct, getAllProducts } from "../redux/actions";
 import CardsContainer from "./CardsContainer";
+import {Link} from "react-router-dom";
 import {
     Box,
     Container,
@@ -19,7 +20,6 @@ import {
     Avatar,
     VStack,
     Flex,
-    Link,
     Button,
   } from '@chakra-ui/react';
   import { CheckIcon, DeleteIcon, EditIcon } from '@chakra-ui/icons';
@@ -71,9 +71,9 @@ const DEL_PRODUCT= import.meta.env.VITE_DEL_PRODUCT
       
       <Box>
         <Stack spacing={4} as={Container} maxW={'3x3'} textAlign={'center'}>
-          <Heading color={'white'} fontSize={'3xl'}>Product Edit</Heading>
+          <Heading color={'white'} fontSize={'3xl'}>Modificar Producto</Heading>
           <Text color={'white'} fontSize={'xl'}>
-            Panel for editing products. Here you can delete, update and modify all the products.
+            Panel para modificar productos
           </Text>
         </Stack>
         <Flex justify={'center'}
@@ -88,7 +88,7 @@ const DEL_PRODUCT= import.meta.env.VITE_DEL_PRODUCT
                 {allProducts.map((feature) => (
                 <HStack  key={feature.id} align={'center'} w={'330px'} h={'140px'} bg={'gray.300'} >
                     <Box color={'blue.500'} px={8}>
-                    <Link key={feature.id} href={`/edit/${feature.id}`}>
+                    <Link key={feature.id} to={`/edit/${feature.id}`} href={`/edit/${feature.id}`}>
                     <Icon as={EditIcon} />
                     </Link>
                     </Box>
