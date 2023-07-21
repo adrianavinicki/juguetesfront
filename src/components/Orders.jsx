@@ -8,7 +8,6 @@ import {
   Tbody,
   Tfoot,
   Tr,
-  Link,
   Button,
   Th,
   Select,
@@ -18,6 +17,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { getAllOrders } from "../redux/actions";
+import {Link} from "react-router-dom";
 
 function OrdersData() {
   const dispatch = useDispatch();
@@ -104,7 +104,7 @@ function OrdersData() {
           )}
         </Table>
       </TableContainer>
-      <Link href={"/admin"}>
+      <Link to={"/admin"} href={"/admin"}>
         <Button  _hover={'none'} bg={"white"} color={"blue.900"} ml={'48%'} mt={'0.5%'}>
           Volver
         </Button>
