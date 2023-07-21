@@ -65,7 +65,7 @@ import {
   export default function SmallWithLogoLeft() {
     return (
       <Box
-        bg={useColorModeValue('0e1a40', 'gray.900')}
+        bg={useColorModeValue('blue.900', 'gray.900')}
         color={useColorModeValue('gray.700', 'gray.200')}
         h={'100%'}
         w={'100%'}>
