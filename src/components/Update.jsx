@@ -65,6 +65,7 @@ import {
 
     const handleSubmit = event => {
 
+
       try {
 
           if(update.name === "") {
@@ -96,6 +97,8 @@ import {
           }
 
           dispatch(putProduct(params.id, update));
+
+          preventDefault()
 
           toast({
             title: "Juguete Actualizado",
