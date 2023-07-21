@@ -21,10 +21,10 @@ const handleUserData = (userData) => {
 
 ReactDOM.render(
   <Auth0Provider
-    // domain="wondertoysworyfinal.us.auth0.com"
-    // clientId="FelhvdgmUF99LiuQCHgzaDiCIgIXTbPH"
-    domain="wondertoyshenry.us.auth0.com"
-    clientId="pmqIpRA46YXGq9RBHCY0BG7calWTBYWG" 
+    domain="wondertoysworyfinal.us.auth0.com"
+    clientId="FelhvdgmUF99LiuQCHgzaDiCIgIXTbPH"
+    // domain="wondertoyshenry.us.auth0.com"
+    // clientId="pmqIpRA46YXGq9RBHCY0BG7calWTBYWG"
     redirectUri={window.location.origin} //authorizationParams.redirect_uri
     cacheLocation="localstorage" // Guarda el estado de la sesión en el almacenamiento local
   >
