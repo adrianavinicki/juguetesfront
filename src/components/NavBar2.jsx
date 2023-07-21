@@ -80,7 +80,7 @@ export default function WithSubnavigation() {
     <Box w={"100%"}>
       <Flex
         bg={useColorModeValue("blue.900", "gray.800")}
-        color={useColorModeValue("white", "white")}
+        // color={useColorModeValue("black", "white")}
         minH={"60px"}
         py={{ base: 2 }}
         px={{ base: 4 }}
@@ -137,13 +137,13 @@ export default function WithSubnavigation() {
 
 const DesktopNav = (props) => {
   const linkColor = useColorModeValue("white", "gray.200");
-  const linkHoverColor = useColorModeValue("red.600", "white");
-  const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const linkHoverColor = useColorModeValue("red.600", "black");
+  const popoverContentBgColor = useColorModeValue("black", "gray.800");
 
   return (
     <Stack direction={"row"} spacing={4} align={"center"}>
       {props.navigationItems.map((navItem) => (
-        <Box key={navItem.label}>
+        <Box key={navItem.label} color={'white'}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
               <Link to={navItem.href ?? "#"} 
@@ -151,7 +151,7 @@ const DesktopNav = (props) => {
                 href={navItem.href ?? "#"}
                 fontSize={"sm"}
                 fontWeight={500}
-                color={'linkColor'}
+                color={linkColor}
                 _hover={{
                   textDecoration: "none",
                   color: linkHoverColor,
@@ -254,7 +254,7 @@ const MobileNavItem = ({ label, children, href } /*: NavItem*/) => {
       >
         <Text
           fontWeight={600}
-          color={useColorModeValue("white", "gray.200")}
+          color={useColorModeValue("gray.600", "gray.200")}
         >
           {label}
         </Text>

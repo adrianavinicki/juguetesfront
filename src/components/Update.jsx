@@ -15,9 +15,9 @@ import {
     IconButton,
     Center,
     Box,
-    Link,
   } from '@chakra-ui/react';
   import { SmallCloseIcon } from '@chakra-ui/icons';
+  import {Link, useNavigate} from "react-router-dom";
   import { useParams } from "react-router-dom";
   import { useDispatch, useSelector } from "react-redux";
   import { useEffect, useState } from "react";
@@ -33,6 +33,8 @@ import {
     const toast = useToast()
 
     const [image, setImage] = useState(null);
+
+    const navigate = useNavigate();
     
 
     const [update, setUpdate] = useState({ //creo un estado del form.
@@ -98,7 +100,7 @@ import {
 
           dispatch(putProduct(params.id, update));
 
-          e.preventDefault()
+          // e.preventDefault()
 
           toast({
             title: "Juguete Actualizado",
@@ -117,6 +119,8 @@ import {
           quantity:"",
           price:"",
           product_status:"",})
+
+          navigate("/edit");
           
       } catch (error) {
           console.log(error)
@@ -124,7 +128,7 @@ import {
   };
 
     useEffect(()=>{
-      dispatch(getProduct(params.id))   
+      dispatch(getProduct(params.id))
   },[dispatch, params.id])
 
     return (
@@ -255,7 +259,7 @@ import {
           </Select>
           </FormControl>
           <Stack spacing={6} direction={['column', 'row']}>
-            <Link href={'/edit'}>
+            <Link to={'/edit'} href={'/edit'}>
               <Button
                 bg={'red.400'}
                 color={'white'}
