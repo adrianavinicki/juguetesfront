@@ -35,6 +35,9 @@ import { emptyCart, getProduct } from "../../redux/actions";
 import { addProductToCart, emptyDetail } from "../../redux/actions";
 import React from "react";
 import RatingDisplay from "../../components/RatingDisplay";
+import axios from 'axios';
+
+const GET_PRODUCT_RATINGS = import.meta.env.VITE_GET_PRODUCT_RATINGS;
 
 export default function Simple() {
   const params = useParams();
@@ -53,6 +56,20 @@ export default function Simple() {
   const addProductCarrito = (product) => {
     dispatch(addProductToCart(product));
   };
+
+  const [productReviews, setProductReviews] = useState([]);
+
+  useEffect(()=>{
+    const getProductReviews = async (id) => {
+      //const response = await axios.get(`http://localhost:3010/rating/product/${id}`)
+      const response = await axios.get(`${GET_PRODUCT_RATINGS}/${id}`)
+      const reviews = response.data;
+      console.log(reviews);
+      setProductReviews(reviews);
+    };
+
+    getProductReviews(productDetail.id);
+  },[productDetail.id]);
 
 
   const falsasReviews = [{
@@ -119,11 +136,11 @@ export default function Simple() {
               </Text>
             </Box>
             <Flex justifyContent="space-between" alignContent="center">
-                  <div>
-                    {productDetail?.id && <RatingDisplay
-                      productId={productDetail.id}
-                    />}
-                  </div>
+              <div>
+                {productDetail?.id && (
+                  <RatingDisplay productId={productDetail.id} />
+                )}
+              </div>
             </Flex>
 
             <Stack
@@ -136,13 +153,13 @@ export default function Simple() {
               }
             >
               <VStack spacing={{ base: 4, sm: 6 }}>
-                <Text fontWeight={'bold'} fontSize={"lg"} color={"white"}>
+                <Text fontWeight={"bold"} fontSize={"lg"} color={"white"}>
                   {productDetail.description}
                 </Text>
               </VStack>
               <Box>
                 <Flex>
-                  <Box bg={""} w={'40%'} mt={'9%'}>
+                  <Box bg={""} w={"40%"} mt={"9%"}>
                     <Text
                       fontSize={{ base: "30px", lg: "30px" }}
                       color={useColorModeValue("white", "yellow.300")}
@@ -196,23 +213,65 @@ export default function Simple() {
                       </ListItem>
                     </List>
                   </Box>
-                  <Box bg={''} w={'70%'}>
-                    <Text color={'white'} fontWeight={'bold'} fontSize={'30px'}>Reviews</Text>
-                    <Box mt={'15px'} bg={"gray.800"} h={'100%'} overflowY="auto" maxH={'250'} maxW={'370px'}>
-                      {falsasReviews.map((review) => (
-                        <HStack  key={review.id} align={'center'} w={'330px'} h={'100px'} bg={'white'}  m={'10px'} rounded={'5px'}>
-                        <VStack ml={'10px'} align={'start'}>
-                        <Text fontWeight={600}>{review.name}</Text>
-                        <Box>
-                          <Flex>
-                          <Text color={'gray.600'}>Ratings: {review.stars}</Text>
-                          <LiaStarSolid size="1.4em"/>
-                          </Flex>
-                        </Box>
-                        <Text color={'gray.600'}>Reviews: {review.text}</Text>
-                        </VStack>
-                    </HStack>
-                      ))}
+                  <Box bg={""} w={"70%"}>
+                    <Text color={"white"} fontWeight={"bold"} fontSize={"30px"}>
+                      Reviews
+                    </Text>
+                    <Box
+                      mt={"15px"}
+                      bg={"gray.800"}
+                      h={"100%"}
+                      overflowY="auto"
+                      maxH={"250"}
+                      maxW={"370px"}
+                    >
+                      {!productReviews?.length ? (
+                        <HStack
+                          align={"center"}
+                          w={"330px"}
+                          h={"100px"}
+                          bg={"white"}
+                          m={"10px"}
+                          rounded={"5px"}
+                        >
+                          <Box>
+                            <Flex>
+                              <Text color={"gray.600"} align={"center"} ml={'10px'} >
+                                 Lo siento, este producto aun no tiene reviews.
+                              </Text>
+                            </Flex>
+                          </Box>
+                        </HStack>
+                      ) : (
+                        productReviews?.map((review) => (
+                          <HStack
+                            key={review.product.id}
+                            align={"center"}
+                            w={"330px"}
+                            h={"100px"}
+                            bg={"white"}
+                            m={"10px"}
+                            rounded={"5px"}
+                          >
+                            <VStack ml={"10px"} align={"start"}>
+                              <Text fontWeight={600}>
+                                {review.user.first_name}
+                              </Text>
+                              <Box>
+                                <Flex>
+                                  <Text color={"gray.600"}>
+                                    Ratings: {review.rate}
+                                  </Text>
+                                  <LiaStarSolid size="1.4em" />
+                                </Flex>
+                              </Box>
+                              <Text color={"gray.600"}>
+                                Reviews: {review.review}
+                              </Text>
+                            </VStack>
+                          </HStack>
+                        ))
+                      )}
                     </Box>
                   </Box>
                 </Flex>
@@ -236,7 +295,7 @@ export default function Simple() {
               Agregar al Carrito
             </Button>
             <Link to={"/"} href={"/"}>
-            <Button ml={'42%'}>Volver</Button>
+              <Button ml={"42%"}>Volver</Button>
             </Link>
             {/* <Stack
               direction="row"
