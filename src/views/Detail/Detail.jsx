@@ -9,7 +9,6 @@ import {
   VStack,
   Button,
   HStack,
-  Link,
   Heading,
   SimpleGrid,
   StackDivider,
@@ -24,6 +23,7 @@ import {
   PopoverBody,
   Input,
 } from "@chakra-ui/react";
+import {Link} from "react-router-dom";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { MdLocalShipping } from "react-icons/md";
 import NavBar2 from "../../components/NavBar2";
@@ -161,10 +161,10 @@ export default function Simple() {
                           as={"span"}
                           fontWeight={"500"}
                         >
-                          Minimum Age: {productDetail.minimun_age}
+                          Edad Minima: {productDetail.minimun_age}
                         </Text>
                       </ListItem>
-                      <ListItem>
+                      {/* <ListItem>
                         <Text
                           fontSize={"20px"}
                           color={"white"}
@@ -173,7 +173,7 @@ export default function Simple() {
                         >
                           Quantity: {productDetail.quantity}
                         </Text>{" "}
-                      </ListItem>
+                      </ListItem> */}
                       <ListItem>
                         <Text
                           fontSize={"20px"}
@@ -181,7 +181,7 @@ export default function Simple() {
                           as={"span"}
                           fontWeight={"500"}
                         >
-                          Brand: {productDetail.brand}
+                          Marca: {productDetail.brand}
                         </Text>{" "}
                       </ListItem>
                       <ListItem>
@@ -191,7 +191,7 @@ export default function Simple() {
                           as={"span"}
                           fontWeight={"500"}
                         >
-                          Category: {productDetail.category}
+                          Categoria: {productDetail.category}
                         </Text>{" "}
                       </ListItem>
                     </List>
@@ -205,11 +205,11 @@ export default function Simple() {
                         <Text fontWeight={600}>{review.name}</Text>
                         <Box>
                           <Flex>
-                          <Text color={'gray.600'}>Rating: {review.stars}</Text>
+                          <Text color={'gray.600'}>Ratings: {review.stars}</Text>
                           <LiaStarSolid size="1.4em"/>
                           </Flex>
                         </Box>
-                        <Text color={'gray.600'}>Comment: {review.text}</Text>
+                        <Text color={'gray.600'}>Reviews: {review.text}</Text>
                         </VStack>
                     </HStack>
                       ))}
@@ -233,10 +233,10 @@ export default function Simple() {
                 boxShadow: "lg",
               }}
             >
-              Add to cart
+              Agregar al Carrito
             </Button>
-            <Link href="/">
-            <Button ml={'42%'}>Go Back</Button>
+            <Link to={"/"} href={"/"}>
+            <Button ml={'42%'}>Volver</Button>
             </Link>
             {/* <Stack
               direction="row"
