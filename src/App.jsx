@@ -12,6 +12,7 @@ import UserProfile from "./views/UserDataFormOverlay(temporary)/UserProfile";
 import UsersData from "./components/Users"
 import LoginAndSign from "./views/UserDataFormOverlay(temporary)/LoginAndSign";
 import MyShopping from "./views/Mis Compras/MyShopping";
+import { LoginAuth0 } from "./views/UserDataFormOverlay(temporary)/LoginAuth0";
 
 
 const router = createBrowserRouter([
@@ -58,8 +59,12 @@ const router = createBrowserRouter([
         element: <UserProfile/>
     },
     {
-        path:"/login",
+        path:"/signup",
         element: <LoginAndSign/>
+    },
+    {
+        path:"/login",
+        element: <LoginAuth0/>
     },
     {
         path:"/shopping",
