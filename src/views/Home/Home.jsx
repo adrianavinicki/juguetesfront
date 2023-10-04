@@ -8,6 +8,7 @@ import {
   getProducts,
   emptyDetail,
   getUserObject,
+  getUser,
   purchaseHistoryState,
 } from "../../redux/actions";
 import NavBar2 from "../../components/NavBar2";
@@ -60,34 +61,39 @@ const Home = () => {
     //aqui se puedde poner un if que verifique si el array de products no es cero para no llamar tanto al back
     dispatch(getProducts());
     dispatch(emptyDetail());
+    console.log(user?.email)
+    dispatch(getUser(user?.email));
+    // if (!isAuthenticated && !isLoading) {
+    //   dispatch(emptyActualUser());
+    // }
   }, [dispatch]);
 
-  useEffect(() => {
-    const getUserId = async () => {
-      //if(isAuthenticated && !user?.given_name || !user?.family_name){
-      //    alert("bienvenido a wonderToys, para proseguir con su experiencia, por favor llene los ultimos campos en su profile");
-      //    navigate("/Profile");l
-      //} aqui tratart de crear al usuario, si el given name y el family name estan vacios (esto para los ratings!!!) (REDIRIGIR AL USUARIO AL PROFILE PARA QUE COMPLETE LOS DATOS QuE FALTAN, tanto para usar los ratings como para comprar en el carrito), redirigirlo al profile para que complete esos datos. Los campos gender y address pueden ser nulos, verificarlos en el cart
-      try {
-        if (user) {
-          const idUser = await axios.post(
-            POST_USER_EMAIL /*"http://localhost:3010/users/userEmail"*/,
-            { email: user?.email }
-          );
-          dispatch(getIdEmailUser(idUser.data.idUser));
-          dispatch(getUserObject(idUser.data.user));
-          console.log(idUser.data.idUser);
-        }
-      } catch (error) {
-        console.log("cargando el id del user");
-      }
-    };
+  // useEffect(() => {
+  //   const getUserId = async () => {
+  //     //if(isAuthenticated && !user?.given_name || !user?.family_name){
+  //     //    alert("bienvenido a wonderToys, para proseguir con su experiencia, por favor llene los ultimos campos en su profile");
+  //     //    navigate("/Profile");l
+  //     //} aqui tratart de crear al usuario, si el given name y el family name estan vacios (esto para los ratings!!!) (REDIRIGIR AL USUARIO AL PROFILE PARA QUE COMPLETE LOS DATOS QuE FALTAN, tanto para usar los ratings como para comprar en el carrito), redirigirlo al profile para que complete esos datos. Los campos gender y address pueden ser nulos, verificarlos en el cart
+  //     try {
+  //       if (user) {
+  //         const idUser = await axios.post(
+  //           POST_USER_EMAIL /*"http://localhost:3010/users/userEmail"*/,
+  //           { email: user?.email }
+  //         );
+  //         dispatch(getIdEmailUser(idUser.data.idUser));
+  //         dispatch(getUserObject(idUser.data.user));
+  //         console.log(idUser.data.idUser);
+  //       }
+  //     } catch (error) {
+  //       console.log("cargando el id del user");
+  //     }
+  //   };
 
-    getUserId();
-    if (Boolean(purHistoryRaw?.length)) {
-      getPurchaseHistory(dispatch);
-    }
-  }, [user]);
+  //   getUserId();
+  //   if (Boolean(purHistoryRaw?.length)) {
+  //     getPurchaseHistory(dispatch);
+  //   }
+  // }, [user]);
 
   return (
     <Box

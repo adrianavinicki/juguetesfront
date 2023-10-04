@@ -43,6 +43,8 @@ export const DELETE_CART = "DELETE_CART";
 export const REDUCE_STOCK_QUANTITY = "REDUCE_STOCK_QUANTITY";
 export const GET_ALL_USER_OBJECT = "GET_ALL_USER_OBJECT";
 export const PURCHASE_HISTORY_STATE = "PURCHASE_HISTORY_STATE"
+export const GET_USER = "GET_USER";
+export const EMPTY_ACTUAL_USER = "EMPTY_ACTUAL_USER"
 
 const GET_PRODUCTS_ALL = import.meta.env.VITE_GET_ALL_PRODUCTS;
 const GET_PRODUCTS_ALL_DOS = import.meta.env.VITE_GET_ALL_PRODUCTS_DOS;
@@ -58,12 +60,33 @@ const GET_DETAIL_ORDERS = import.meta.env.VITE_GET_DETAIL_ORDERS;
 const POST_NEW_DETAIL_ORDER = import.meta.env.VITE_POST_NEW_DETAIL_ORDER;
 const POST_RATING = import.meta.env.VITE_POST_RATING;
 const GET_RATINGS = import.meta.env.VITE_GET_RATINGS;
+const POST_NEW_USER = import.meta.env.VITE_POST_NEW_USER;
 
 export const getProducts = () => {
   return async function (dispatch) {
     const dbData = await axios.get(GET_PRODUCTS_ALL);
     const products = dbData.data;
     dispatch({ type: GET_PRODUCTS, payload: products });
+  };
+};
+
+export const getUser = (email) => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post('http://localhost:3010/users/mail', {email});
+      return dispatch({
+        type: GET_USER,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.log("Error al obtener el usuario por mail");
+    }
+  }
+}
+
+export const emptyActualUser = () => {
+  return {
+    type: EMPTY_ACTUAL_USER,
   };
 };
 
@@ -320,6 +343,13 @@ export const fetchReviews = () => {
     }
   };
 };
+
+export const PostUser = (payload) => {
+  return async function(dispatch) {
+    const response = await axios.post(`${POST_NEW_USER}`, payload);
+    return response;
+  }
+}
 
 export const getDetailOrdersIDArray = (idDetailOrder) => {
   return {

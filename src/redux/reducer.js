@@ -16,7 +16,9 @@ import {
   DECREASE_PRODUCT_QUANTITY,
   INCREASE_PRODUCT_QUANTITY,
   GET_ALL_ORDERS,
+  GET_USER,
   GET_ORDER_BY_ID,
+  EMPTY_ACTUAL_USER,
   GET_ALL_DETAIL_ORDERS,
   GET_DETAIL_ORDER_BY_ID,
   GET_PRODUCTS_FILTERED_PAGE,
@@ -32,7 +34,7 @@ import {
   EMPTY_CART,
   DELETE_CART,
   GET_ALL_USER_OBJECT,
-  PURCHASE_HISTORY_STATE
+  PURCHASE_HISTORY_STATE,
 } from "./actions";
 
 import { persistReducer } from "redux-persist";
@@ -55,6 +57,7 @@ const initialState = {
   // brandFilter: [],
   // categoryFilter: [],
   // ageFilter: [],
+  actualUser: [],
   reviews: [],
   orders: [],
   users: [],
@@ -75,6 +78,22 @@ const rootReducer = (state = initialState, action) => {
         products: action.payload,
         filteredProducts: action.payload,
       };
+    case GET_USER:
+      if (!action.payload) {
+        return {
+          ...state,
+          actualUser: ["vacio"],
+        };
+      } else
+        return {
+          ...state,
+          actualUser: action.payload,
+        };
+    case EMPTY_ACTUAL_USER:
+      return {
+        ...state,
+        actualUser: [],
+      };
     case GET_ALL_PRODUCTS:
       return {
         ...state,
@@ -87,7 +106,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
       };
     case GET_PRODUCTS_NAME:
-      return { ...state, filteredProducts: {data:action.payload} };
+      return { ...state, filteredProducts: { data: action.payload } };
     // case COMBINED_FILTERS:
     //   return {...state, filteredProducts: action.payload}
     case ORDER_BY_PRICE:
@@ -155,20 +174,20 @@ const rootReducer = (state = initialState, action) => {
         cartItems: updatedCartItems,
       };
     case EMPTY_CART:
-      return{
+      return {
         ...state,
-        cartItems:[],
-      }
+        cartItems: [],
+      };
     case EMPTY_DETAIL_ORDERS_ID:
-      return{
+      return {
         ...state,
-        detailOrdersUsersID:[],
-      }
+        detailOrdersUsersID: [],
+      };
     case EMPTY_DETAIL:
-      return{
+      return {
         ...state,
-        productDetail:[],
-      }
+        productDetail: [],
+      };
 
     case DECREASE_PRODUCT_QUANTITY:
       const updatedItems = state.cartItems.map((item) => {
@@ -227,61 +246,59 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredProducts: action.payload,
-      }
+      };
     case PRODUCTS_FILTER:
       return {
         ...state,
-        filteredProducts: action.payload
-      }
+        filteredProducts: action.payload,
+      };
 
     case "ACTUALIZAR_FILTRO_PARA_PAGINADO":
       return {
         ...state,
-        filtroParaPaginado: action.payload
-      }  
-      
-      
-    case CREATE_REVIEW:
-            return {
-              ...state,
-              reviews: [...state.reviews, action.payload],
-            };
-    case FETCH_REVIEWS:
-            return {
-              ...state,
-              reviews: action.payload,
-            };
-    
-    case GET_DETAIL_ORDERS_USERS_ID:
+        filtroParaPaginado: action.payload,
+      };
 
-            return {
-              ...state,
-              detailOrdersUsersID: [...state.detailOrdersUsersID, action.payload]
-            };
+    case CREATE_REVIEW:
+      return {
+        ...state,
+        reviews: [...state.reviews, action.payload],
+      };
+    case FETCH_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
+
+    case GET_DETAIL_ORDERS_USERS_ID:
+      return {
+        ...state,
+        detailOrdersUsersID: [...state.detailOrdersUsersID, action.payload],
+      };
     case GET_ID_USER:
       return {
         ...state,
-        idUser: action.payload
+        idUser: action.payload,
       };
-            
+
     case DELETE_CART:
-     return {
+      return {
         ...state,
         detailOrdersUsersID: [],
-        cartItems: []
+        cartItems: [],
       };
 
     case GET_ALL_USER_OBJECT:
       return {
         ...state,
-        userObject: action.payload
+        userObject: action.payload,
       };
 
     case PURCHASE_HISTORY_STATE:
       return {
         ...state,
-        userPurchaseHistory: action.payload
-      }  
+        userPurchaseHistory: action.payload,
+      };
 
     default:
       return { ...state };

@@ -5,7 +5,7 @@ import { LogoutButton } from "../views/Login/Logout";
 import { Profile } from "../views/Login/Profile";
 import MenuUser from "./MenuUser";
 import CartIcon from "./icons/cartIcon";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -33,45 +33,44 @@ import { useSelector } from "react-redux";
 
 export default function WithSubnavigation() {
   const { isAuthenticated } = useAuth0();
-  const userAdmin = useSelector(state => state.userObject);
+  const userAdmin = useSelector((state) => state.userObject);
 
   const { isOpen, onToggle } = useDisclosure();
 
   const navigationItems = isAuthenticated
-    ? userAdmin.role_id === "Administrador" ?[
-        //{ label: "My Orders", href: "#" },
-        { label: "Home", href: "/" },
-        {
-          label: "Admin",
-          children: [
-            {
-              label: "Create Toy",
-              subLabel: "Create a New Toy",
-              href: "/form",
-            },
-            {
-              label: "Stats",
-              subLabel: "Sales, Orders, Users",
-              href: "/admin",
-            },
-            {
-              label: "Edit Product",
-              subLabel: "Update or Delete Product",
-              href: "/edit",
-            },
-          ],
-        },
-        // { label: "Create Toy", href: "/form" },
-        { label: "Cart", href: "/cart" },
-        // { label: "Admin", href: "/admin" },
-        { label: "Profile", href: "/Profile" },
-      ]
-
+    ? userAdmin.role_id === "Administrador"
+      ? [
+          //{ label: "My Orders", href: "#" },
+          { label: "Home", href: "/" },
+          {
+            label: "Admin",
+            children: [
+              {
+                label: "Create Toy",
+                subLabel: "Create a New Toy",
+                href: "/form",
+              },
+              {
+                label: "Stats",
+                subLabel: "Sales, Orders, Users",
+                href: "/admin",
+              },
+              {
+                label: "Edit Product",
+                subLabel: "Update or Delete Product",
+                href: "/edit",
+              },
+            ],
+          },
+          // { label: "Create Toy", href: "/form" },
+          { label: "Cart", href: "/cart" },
+          // { label: "Admin", href: "/admin" },
+        ]
+      : [
+          { label: "Home", href: "/" },
+          { label: "Cart", href: "/cart" },
+        ]
     : [
-      { label: "Home", href: "/" },
-      { label: "Cart", href: "/cart" },
-      { label: "Profile", href: "/Profile" },
-    ] :[
         { label: "Home", href: "/" },
         { label: "Cart", href: "/cart" },
       ];
@@ -91,32 +90,19 @@ export default function WithSubnavigation() {
         paddingLeft={"200px"}
       >
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <div>
-            <Image src="/LOGO PNG.png" w={"70px"} alt="Wonder Toys" />
-          </div>
-        </Flex>
-        <Flex ml="auto" paddingRight={"100px"}>
+          <Image src="/LOGO PNG.png" w={"70px"} alt="Wonder Toys" />
           {isAuthenticated ? (
-            <Box>
-              {/* <Flex display={{ base: "none", md: "flex" }} ml={10}>
-                <DesktopNav navigationItems={navigationItems} />
-              </Flex> */}
-              <Flex
-              // display={{ base: "none", md: "flex" }}
-              // ml={10}
-              // justifyContent="flex-start"
-              // justify={'space-around'}
-              >
+            <Box ml={'5vh'}>
+              <Flex>
                 <Box marginRight={"850px"} marginTop={"10px"}>
                   <DesktopNav navigationItems={navigationItems} />
                 </Box>
 
                 <Profile />
-                {/* <LogoutButton /> */}
               </Flex>
             </Box>
           ) : (
-            <Box>
+            <Box ml={'5vh'}>
               <Flex>
                 <Box marginRight={"1000px"} marginTop={"10px"}>
                   <DesktopNav navigationItems={navigationItems} />
@@ -141,13 +127,14 @@ const DesktopNav = (props) => {
   const popoverContentBgColor = useColorModeValue("black", "gray.800");
 
   return (
-    <Stack  direction={"row"} spacing={4} align={"center"}>
+    <Stack direction={"row"} spacing={4} align={"center"}>
       {props.navigationItems.map((navItem) => (
-        <Box key={navItem.label} color={'white'}>
+        <Box key={navItem.label} color={"white"}>
           <Popover trigger={"hover"} placement={"bottom-start"}>
             <PopoverTrigger>
-              <Link to={navItem.href ?? "#"} 
-                 p={2}
+              <Link
+                to={navItem.href ?? "#"}
+                p={2}
                 href={navItem.href ?? "#"}
                 fontSize={"sm"}
                 fontWeight={500}
@@ -155,7 +142,7 @@ const DesktopNav = (props) => {
                 _hover={{
                   textDecoration: "none",
                   color: linkHoverColor,
-                }}            
+                }}
               >
                 {/* */}
                 {navItem.label}
@@ -187,13 +174,14 @@ const DesktopNav = (props) => {
 
 const DesktopSubNav = ({ label, href, subLabel } /*: NavItem*/) => {
   return (
-    <Link to={href}
+    <Link
+      to={href}
       href={href}
       role={"group"}
       display={"block"}
       p={2}
       rounded={"md"}
-     _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
     >
       {/* */}
       <Stack direction={"row"} align={"center"}>
