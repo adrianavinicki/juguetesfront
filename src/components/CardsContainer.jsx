@@ -112,7 +112,7 @@ const CardsContainer = (props) => {
                   marginLeft={""}
                   rounded={"20px"}
                   w={"250px"}
-                  h={"530px"}
+                  h={"550px"}
                 >
                   <Flex direction={"column"} align={"center"}>
                     <FilterAndOrder />

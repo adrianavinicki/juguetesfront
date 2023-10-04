@@ -19,7 +19,7 @@ export const Profile = () => {
         </HStack>
       </MenuButton>
       <MenuList>
-        {/* <MenuItem>Mi Perfil</MenuItem> */}
+        <MenuItem>Mi Perfil</MenuItem>
         <Link to='/shopping'>
           <MenuItem>Mis Compras</MenuItem>
         </Link>
