@@ -8,9 +8,8 @@ import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-d
 import Cart2 from "./views/Cart/Cart2";
 import OrdersData from "./components/Orders";
 import Payment from "./views/Pago/Pago"
-import UserProfile from "./views/UserDataFormOverlay(temporary)/UserProfile";
+import UserProfile from "./views/UserProfile/UserProfile";
 import UsersData from "./components/Users"
-import LoginAndSign from "./views/UserDataFormOverlay(temporary)/LoginAndSign";
 import MyShopping from "./views/Mis Compras/MyShopping";
 
 
@@ -56,10 +55,6 @@ const router = createBrowserRouter([
     {
         path:"/Profile",
         element: <UserProfile/>
-    },
-    {
-        path:"/login",
-        element: <LoginAndSign/>
     },
     {
         path:"/shopping",

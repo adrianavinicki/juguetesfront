@@ -9,7 +9,7 @@ import App from './App';
 import store from './redux/store';
 import { LoginAuth } from './views/Login/LoginAuth';
 import Rating from './components/Rating';
-import UserSync from './components/UserSync';
+//import UserSync from './components/UserSync';
 
 const persistor = persistStore(store);
 
@@ -33,7 +33,7 @@ ReactDOM.render(
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <App />
-          <UserSync onUserDataW={handleUserData} />
+          {/* <UserSync onUserDataW={handleUserData} /> */}
         </PersistGate>
       </Provider>
     </ChakraProvider>
