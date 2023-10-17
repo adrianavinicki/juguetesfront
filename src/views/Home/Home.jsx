@@ -8,6 +8,7 @@ import {
   getProducts,
   emptyDetail,
   getUserObject,
+  setMail,
   getUser,
   purchaseHistoryState,
 } from "../../redux/actions";
@@ -57,12 +58,17 @@ const Home = () => {
     dispatch(purchaseHistoryState(purchaseHistory));
   };
 
+  useEffect(()=>{
+    dispatch(setMail(user?.email));
+    dispatch(getUser(user?.email));
+  })
+
   useEffect(() => {
     //aqui se puedde poner un if que verifique si el array de products no es cero para no llamar tanto al back
     dispatch(getProducts());
     dispatch(emptyDetail());
-    console.log(user?.email)
-    dispatch(getUser(user?.email));
+    //console.log(user?.email)
+    //dispatch(getUser(user?.email));
     // if (!isAuthenticated && !isLoading) {
     //   dispatch(emptyActualUser());
     // }
@@ -104,7 +110,6 @@ const Home = () => {
       width="100%"
       h={{ base: "1500px", md: "1500px", lg: "1650px" }}
     >
-      {console.log(user)}
       <Box bg={""} width="100%" height="100%">
         <Flex direction={"row"} align={"center"} justify={"space-evenly"}>
           <NavBar2 />

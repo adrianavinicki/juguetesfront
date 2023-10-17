@@ -33,7 +33,7 @@ import { useSelector } from "react-redux";
 
 export default function WithSubnavigation() {
   const { isAuthenticated } = useAuth0();
-  const userAdmin = useSelector((state) => state.userObject);
+  const userAdmin = useSelector((state) => state.actualUser);
 
   const { isOpen, onToggle } = useDisclosure();
 
@@ -89,12 +89,12 @@ export default function WithSubnavigation() {
         align={"center"}
         paddingLeft={"200px"}
       >
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }} align={'center'} bg={''}>
           <Image src="/LOGO PNG.png" w={"70px"} alt="Wonder Toys" />
           {isAuthenticated ? (
             <Box ml={'5vh'}>
-              <Flex>
-                <Box marginRight={"850px"} marginTop={"10px"}>
+              <Flex align={'center'}>
+                <Box marginRight={"850px"}>
                   <DesktopNav navigationItems={navigationItems} />
                 </Box>
 
@@ -103,8 +103,8 @@ export default function WithSubnavigation() {
             </Box>
           ) : (
             <Box ml={'5vh'}>
-              <Flex>
-                <Box marginRight={"1000px"} marginTop={"10px"}>
+              <Flex align={'center'}>
+                <Box marginRight={"1000px"}>
                   <DesktopNav navigationItems={navigationItems} />
                 </Box>
                 <LoginAuth />
