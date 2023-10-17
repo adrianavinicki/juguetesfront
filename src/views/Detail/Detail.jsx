@@ -117,12 +117,12 @@ export default function Simple() {
               maxH={"350px"}
             />
           </Flex>
-          <Stack spacing={{ base: 6, md: 8 }}>
+          <Stack spacing={'1vh'}>
             <Box as={"header"} bg={""}>
               <Heading
                 lineHeight={1.1}
                 fontWeight={600}
-                fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+                fontSize={'4vh'}
                 color={"white"}
               >
                 {productDetail.name}
@@ -130,7 +130,7 @@ export default function Simple() {
               <Text
                 color={useColorModeValue("white", "gray.400")}
                 fontWeight={"bold"}
-                fontSize={"2xl"}
+                fontSize={"3vh"}
               >
                 ${productDetail.price}
               </Text>
@@ -144,7 +144,7 @@ export default function Simple() {
             </Flex>
 
             <Stack
-              spacing={{ base: 4, sm: 6 }}
+              spacing={'2vh'}
               direction={"column"}
               divider={
                 <StackDivider
@@ -161,7 +161,7 @@ export default function Simple() {
                 <Flex>
                   <Box bg={""} w={"40%"} mt={"9%"}>
                     <Text
-                      fontSize={{ base: "30px", lg: "30px" }}
+                      fontSize={'3vh'}
                       color={useColorModeValue("white", "yellow.300")}
                       fontWeight={"bold"}
                       textTransform={"uppercase"}
@@ -220,11 +220,12 @@ export default function Simple() {
                     <Box
                       mt={"15px"}
                       bg={"gray.800"}
-                      h={"100%"}
+                      h={"90%"}
                       overflowY="auto"
                       maxH={"250"}
                       maxW={"370px"}
                     >
+                      <Flex justify={'center'}>
                       {!productReviews?.length ? (
                         <HStack
                           align={"center"}
@@ -272,6 +273,7 @@ export default function Simple() {
                           </HStack>
                         ))
                       )}
+                      </Flex>
                     </Box>
                   </Box>
                 </Flex>
@@ -280,10 +282,10 @@ export default function Simple() {
 
             <Button
               onClick={() => addProductCarrito(productDetail)}
-              rounded={"none"}
+              rounded={"5px"}
               w={"full"}
               size={"lg"}
-              py={"7"}
+              mt={'5vh'}
               bg={useColorModeValue("gray.900", "gray.50")}
               color={useColorModeValue("white", "gray.900")}
               textTransform={"uppercase"}

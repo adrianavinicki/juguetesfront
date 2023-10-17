@@ -65,7 +65,7 @@ import {
     const detailOrders = useSelector((state) => state.detailOrders);
 
     useEffect(() => {
-      dispatch(getAllUsers());
+      //dispatch(getAllUsers());
       dispatch(getAllDetailOrders());
       dispatch(getAllOrders());
     }, []);

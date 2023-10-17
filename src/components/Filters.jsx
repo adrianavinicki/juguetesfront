@@ -47,7 +47,6 @@ const FilterAndOrder = () => {
             params[key] = filters[key]
         }
         }
-        console.log(params);
         dispatch(actualizarFiltroPaginado(params));
 
        axios.get(GET_PRODUCTS_ALL,{params})

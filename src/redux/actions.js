@@ -21,6 +21,7 @@ export const ACTUALIZAR_FILTRO_PARA_PAGINADO =
 export const CREATE_REVIEW = "CREATE_REVIEW";
 export const FETCH_REVIEWS = "FETCH_REVIEWS";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export const SET_MAIL = "SET_MAIL";
 
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
 export const GET_ALL_USERS = "GET_ALL_USERS";
@@ -130,6 +131,13 @@ export const putProduct = (id, payload) => {
   };
 };
 
+export const putUser = (payload) => {
+  return async function (dispatch) {
+    const response = await axios.put('http://localhost:3010/users/update', payload);
+    return response;
+  };
+};
+
 export const getProductsFiltered = (name, value) => {
   return async function (dispatch) {
     const response = await axios.get(GET_PRODUCT_BY_NAME_VALUE);
@@ -226,6 +234,13 @@ export const increaseProductQuantity = (productID) => {
   return {
     type: INCREASE_PRODUCT_QUANTITY,
     payload: productID,
+  };
+};
+
+export const setMail = (mail) => {
+  return {
+    type: SET_MAIL,
+    payload: mail,
   };
 };
 

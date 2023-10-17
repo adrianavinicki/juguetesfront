@@ -27,6 +27,7 @@ import {
   CREATE_REVIEW,
   FETCH_REVIEWS,
   EMPTY_DETAIL_ORDERS_ID,
+  SET_MAIL,
   GET_ALL_USERS,
   GET_DETAIL_ORDERS_USERS_ID,
   GET_ID_USER,
@@ -58,6 +59,7 @@ const initialState = {
   // categoryFilter: [],
   // ageFilter: [],
   actualUser: [],
+  userEmail: [],
   reviews: [],
   orders: [],
   users: [],
@@ -65,13 +67,18 @@ const initialState = {
   detailOrders: [],
   selectedDetailOrder: null,
   detailOrdersUsersID: [],
-  idUser: null,
-  userObject: {},
+  //idUser: null,
+  //userObject: {},
   userPurchaseHistory: [],
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_MAIL:
+      return {
+        ...state,
+        userEmail: action.payload,
+      };
     case GET_PRODUCTS:
       return {
         ...state,
@@ -288,11 +295,11 @@ const rootReducer = (state = initialState, action) => {
         cartItems: [],
       };
 
-    case GET_ALL_USER_OBJECT:
-      return {
-        ...state,
-        userObject: action.payload,
-      };
+    // case GET_ALL_USER_OBJECT:
+    //   return {
+    //     ...state,
+    //     userObject: action.payload,
+    //   };
 
     case PURCHASE_HISTORY_STATE:
       return {
