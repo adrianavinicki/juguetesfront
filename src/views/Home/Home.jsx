@@ -26,9 +26,9 @@ const Home = () => {
   const { isAuthenticated, user, isLoading } = useAuth0();
 
   ///ratings////
-  const purHistoryRaw = useSelector(
-    (state) => state.userObject.purchase_history
-  );
+  // const purHistoryRaw = useSelector(
+  //   (state) => state.userObject.purchase_history
+  // );
   //console.log(purHistoryRaw);
   const eliminarRepetidos = (arrayDeProductos) => {
     const idsUnicos = new Set();
@@ -44,19 +44,19 @@ const Home = () => {
     return productosUnicos;
   };
 
-  const getPurchaseHistory = (dispatch) => {
-    const purchaseHistory = [];
-    const productosUnicos = eliminarRepetidos(purHistoryRaw);
-    productosUnicos.forEach(async (el) => {
-      const response = await axios.get(
-        //`http://localhost:3010/products/${el.productId}`//alertaVite
-        `${GET_ALL_PRODUCTS}/${el.productId}`
-      );
-      const data = response.data;
-      purchaseHistory.push(data);
-    });
-    dispatch(purchaseHistoryState(purchaseHistory));
-  };
+  // const getPurchaseHistory = (dispatch) => {
+  //   const purchaseHistory = [];
+  //   const productosUnicos = eliminarRepetidos(purHistoryRaw);
+  //   productosUnicos.forEach(async (el) => {
+  //     const response = await axios.get(
+  //       //`http://localhost:3010/products/${el.productId}`//alertaVite
+  //       `${GET_ALL_PRODUCTS}/${el.productId}`
+  //     );
+  //     const data = response.data;
+  //     purchaseHistory.push(data);
+  //   });
+  //   dispatch(purchaseHistoryState(purchaseHistory));
+  // };
 
   useEffect(()=>{
     dispatch(setMail(user?.email));
